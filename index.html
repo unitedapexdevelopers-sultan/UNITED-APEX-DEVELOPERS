@@ -1,0 +1,1526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>United Transport Services (UTS Pakistan) | Premium Transport & Mobility Solutions</title>
+<meta name="description" content="Pakistan's trusted transport partner since 1970. Premium corporate mobility, tourism, fleet management, chauffeur drive, rent a car and nationwide transport solutions across 9 cities." />
+<meta name="keywords" content="UTS Pakistan, transport company Pakistan, corporate transport, rent a car Islamabad, fleet management, chauffeur drive, NUST pick and drop, airport transfer Pakistan" />
+<meta name="author" content="United Transport Services" />
+<meta name="theme-color" content="#0B1F3A" />
+
+<!-- OpenGraph -->
+<meta property="og:type" content="website" />
+<meta property="og:title" content="United Transport Services (UTS Pakistan)" />
+<meta property="og:description" content="Pakistan's trusted transport partner since 1970. Premium transport solutions, corporate mobility, tourism and nationwide fleet management." />
+<meta property="og:site_name" content="UTS Pakistan" />
+<meta property="og:locale" content="en_PK" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="United Transport Services (UTS Pakistan)" />
+<meta name="twitter:description" content="Premium transport solutions, corporate mobility and nationwide fleet management since 1970." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+<style>
+:root{
+  --white:#FFFFFF;
+  --dark:#0B1F3A;
+  --dark-2:#0E2A4F;
+  --blue:#3FA9F5;
+  --orange:#FF7A00;
+  --ink:#1a2433;
+  --muted:#5b6b80;
+  --line:#e6ecf3;
+  --bg-soft:#f5f8fc;
+  --shadow:0 18px 50px -20px rgba(11,31,58,.25);
+  --shadow-sm:0 8px 24px -12px rgba(11,31,58,.22);
+  --radius:18px;
+  --maxw:1240px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:auto}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--white);
+  color:var(--ink);
+  line-height:1.65;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4,h5,.font-head{font-family:'Syne',sans-serif;line-height:1.1;letter-spacing:-.02em}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+.container{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+section{position:relative}
+
+/* ============ BUTTONS ============ */
+.btn{
+  display:inline-flex;align-items:center;gap:10px;
+  font-weight:600;font-size:.95rem;
+  padding:15px 30px;border-radius:50px;border:none;cursor:pointer;
+  transition:all .35s cubic-bezier(.2,.8,.2,1);
+  position:relative;overflow:hidden;white-space:nowrap;
+}
+.btn-primary{background:var(--dark);color:#fff;box-shadow:0 14px 30px -12px rgba(11,31,58,.55)}
+.btn-primary:hover{background:var(--dark-2);transform:translateY(-3px);box-shadow:0 22px 40px -14px rgba(11,31,58,.6)}
+.btn-orange{background:var(--orange);color:#fff;box-shadow:0 14px 30px -12px rgba(255,122,0,.6)}
+.btn-orange:hover{transform:translateY(-3px);box-shadow:0 22px 44px -14px rgba(255,122,0,.7);filter:brightness(1.05)}
+.btn-outline{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.55)}
+.btn-outline:hover{background:rgba(255,255,255,.12);border-color:#fff;transform:translateY(-3px)}
+.btn-outline-dark{background:transparent;color:var(--dark);border:1.5px solid var(--line)}
+.btn-outline-dark:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-3px)}
+.btn-sm{padding:11px 22px;font-size:.85rem}
+
+/* ============ HEADER ============ */
+header{
+  position:fixed;top:0;left:0;right:0;z-index:1000;
+  transition:all .4s ease;
+  padding:18px 0;
+}
+header.solid{background:rgba(255,255,255,.85);backdrop-filter:blur(18px);box-shadow:0 6px 28px -18px rgba(11,31,58,.4);padding:12px 0;border-bottom:1px solid rgba(230,236,243,.7)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:30px}
+.logo{display:flex;align-items:center;gap:11px;cursor:pointer}
+.logo-mark{
+  width:46px;height:46px;border-radius:13px;
+  background:linear-gradient(135deg,var(--dark),var(--dark-2));
+  display:grid;place-items:center;position:relative;overflow:hidden;
+  box-shadow:0 10px 22px -10px rgba(11,31,58,.6)
+}
+.logo-mark::after{content:"";position:absolute;width:14px;height:14px;border-radius:50%;background:var(--orange);bottom:-5px;right:-5px;box-shadow:0 0 14px var(--orange)}
+.logo-mark svg{width:26px;height:26px}
+.logo-text{display:flex;flex-direction:column;line-height:1}
+.logo-text b{font-family:'Syne';font-weight:800;font-size:1.45rem;color:var(--dark);letter-spacing:.04em}
+header:not(.solid) .logo-text b{color:#fff}
+.logo-text span{font-size:.62rem;letter-spacing:.28em;text-transform:uppercase;color:var(--muted);font-weight:600;margin-top:2px}
+header:not(.solid) .logo-text span{color:rgba(255,255,255,.75)}
+nav ul{display:flex;list-style:none;gap:6px;align-items:center}
+nav a{
+  font-size:.9rem;font-weight:500;padding:9px 14px;border-radius:9px;
+  color:var(--ink);transition:.25s;position:relative
+}
+header:not(.solid) nav a{color:rgba(255,255,255,.9)}
+nav a:hover{color:var(--blue)}
+nav a.active{color:var(--blue);font-weight:600}
+nav a.active::after{content:"";position:absolute;bottom:2px;left:14px;right:14px;height:2px;background:var(--orange);border-radius:2px}
+.nav-cta{display:flex;align-items:center;gap:12px}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:8px;background:none;border:none}
+.hamburger span{width:26px;height:2.5px;background:var(--dark);border-radius:2px;transition:.3s}
+header:not(.solid) .hamburger span{background:#fff}
+.hamburger.open span:nth-child(1){transform:translateY(7.5px) rotate(45deg)}
+.hamburger.open span:nth-child(2){opacity:0}
+.hamburger.open span:nth-child(3){transform:translateY(-7.5px) rotate(-45deg)}
+
+/* mobile drawer */
+.mobile-menu{
+  position:fixed;top:0;right:-100%;width:min(82vw,360px);height:100vh;
+  background:var(--white);z-index:1100;padding:90px 30px 30px;
+  transition:right .45s cubic-bezier(.2,.8,.2,1);box-shadow:-20px 0 60px -20px rgba(11,31,58,.4);
+  display:flex;flex-direction:column;gap:6px;overflow-y:auto
+}
+.mobile-menu.open{right:0}
+.mobile-menu a{padding:15px 16px;border-radius:12px;font-weight:600;font-size:1.05rem;color:var(--dark);transition:.2s}
+.mobile-menu a:hover,.mobile-menu a.active{background:var(--bg-soft);color:var(--blue)}
+.mobile-menu .btn{margin-top:16px;justify-content:center}
+.overlay{position:fixed;inset:0;background:rgba(11,31,58,.45);backdrop-filter:blur(3px);z-index:1050;opacity:0;visibility:hidden;transition:.4s}
+.overlay.show{opacity:1;visibility:visible}
+
+/* ============ PAGE / SECTION ROUTING ============ */
+.page{display:none;animation:fadePage .6s ease}
+.page.active{display:block}
+@keyframes fadePage{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;min-height:100vh;display:flex;align-items:center;
+  background:linear-gradient(135deg,#06122a,#0B1F3A 55%,#0E2A4F);
+  overflow:hidden;padding-top:120px
+}
+#hero-canvas{position:absolute;inset:0;z-index:1}
+.hero::after{content:"";position:absolute;inset:0;z-index:2;background:linear-gradient(90deg,rgba(6,18,42,.92) 0%,rgba(6,18,42,.55) 55%,rgba(6,18,42,.25) 100%)}
+.hero-content{position:relative;z-index:5;max-width:760px;padding-bottom:60px}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:9px;
+  background:rgba(63,169,245,.14);border:1px solid rgba(63,169,245,.35);
+  color:#bfe2ff;font-size:.78rem;font-weight:600;letter-spacing:.08em;
+  padding:8px 16px;border-radius:50px;text-transform:uppercase;margin-bottom:26px
+}
+.hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--orange);box-shadow:0 0 12px var(--orange)}
+.hero h1{font-size:clamp(2.5rem,5.4vw,4.6rem);color:#fff;font-weight:800;margin-bottom:22px}
+.hero h1 .grad{background:linear-gradient(100deg,var(--blue),var(--orange));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.hero p.sub{font-size:clamp(1.05rem,1.6vw,1.3rem);color:rgba(255,255,255,.82);max-width:600px;margin-bottom:38px;font-weight:300}
+.hero-actions{display:flex;gap:16px;flex-wrap:wrap}
+
+/* stats */
+.hero-stats{
+  position:relative;z-index:5;margin-top:60px;
+  display:grid;grid-template-columns:repeat(4,1fr);gap:24px;max-width:880px
+}
+.stat{border-left:2px solid rgba(63,169,245,.4);padding-left:18px}
+.stat .num{font-family:'Syne';font-weight:800;font-size:clamp(1.8rem,3vw,2.7rem);color:#fff;line-height:1}
+.stat .num .suf{color:var(--orange)}
+.stat .lbl{color:rgba(255,255,255,.7);font-size:.85rem;margin-top:6px;font-weight:400}
+
+/* ============ GENERIC SECTION HEADERS ============ */
+.section{padding:110px 0}
+.section.soft{background:var(--bg-soft)}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:8px;color:var(--orange);
+  font-weight:700;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:16px
+}
+.eyebrow::before{content:"";width:26px;height:2px;background:var(--orange)}
+.sec-head{max-width:680px;margin-bottom:60px}
+.sec-head.center{margin-left:auto;margin-right:auto;text-align:center}
+.sec-head.center .eyebrow{justify-content:center}
+.sec-head h2{font-size:clamp(2rem,3.6vw,3.1rem);font-weight:700;color:var(--dark);margin-bottom:18px}
+.sec-head p{color:var(--muted);font-size:1.08rem}
+
+/* ============ SERVICE OVERVIEW CARDS ============ */
+.grid-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px}
+.card{
+  background:#fff;border:1px solid var(--line);border-radius:var(--radius);
+  padding:34px;transition:all .4s cubic-bezier(.2,.8,.2,1);position:relative;overflow:hidden
+}
+.card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--blue),var(--orange));transform:scaleX(0);transform-origin:left;transition:transform .45s}
+.card:hover{transform:translateY(-8px);box-shadow:0 30px 60px -28px rgba(11,31,58,.35);border-color:transparent}
+.card:hover::before{transform:scaleX(1)}
+.card .ico{
+  width:62px;height:62px;border-radius:16px;display:grid;place-items:center;margin-bottom:22px;
+  background:linear-gradient(135deg,rgba(63,169,245,.14),rgba(255,122,0,.12));
+  color:var(--dark);transition:.4s
+}
+.card:hover .ico{background:linear-gradient(135deg,var(--dark),var(--dark-2));color:#fff}
+.card .ico svg{width:30px;height:30px}
+.card h3{font-size:1.25rem;color:var(--dark);margin-bottom:10px}
+.card p{color:var(--muted);font-size:.95rem}
+.card .more{margin-top:18px;color:var(--blue);font-weight:600;font-size:.88rem;display:inline-flex;align-items:center;gap:6px}
+
+/* ============ FLEET HORIZONTAL SCROLL ============ */
+.fleet-scroll-wrap{overflow:hidden;background:var(--dark);padding:100px 0;position:relative}
+.fleet-scroll-wrap .container{position:relative;z-index:2}
+.fleet-scroll-wrap .sec-head h2{color:#fff}
+.fleet-scroll-wrap .sec-head p{color:rgba(255,255,255,.7)}
+.h-track{display:flex;gap:26px;padding:10px 28px;will-change:transform}
+.fleet-card{
+  min-width:340px;max-width:340px;background:rgba(255,255,255,.05);
+  border:1px solid rgba(255,255,255,.12);border-radius:20px;overflow:hidden;
+  backdrop-filter:blur(8px);transition:.4s
+}
+.fleet-card:hover{border-color:var(--blue);transform:translateY(-6px)}
+.fleet-img{
+  height:180px;display:grid;place-items:center;position:relative;
+  background:linear-gradient(135deg,#13294d,#1c3b6b)
+}
+.fleet-img svg{width:130px;color:rgba(255,255,255,.9)}
+.fleet-badge{position:absolute;top:14px;left:14px;background:var(--orange);color:#fff;font-size:.7rem;font-weight:700;padding:5px 12px;border-radius:50px;letter-spacing:.05em;text-transform:uppercase}
+.fleet-body{padding:24px}
+.fleet-body h3{color:#fff;font-size:1.2rem;margin-bottom:14px}
+.fleet-specs{display:flex;gap:18px;flex-wrap:wrap;color:rgba(255,255,255,.65);font-size:.82rem}
+.fleet-specs span{display:flex;align-items:center;gap:6px}
+
+/* ============ FLEET PAGE GRID ============ */
+.subhero{
+  background:linear-gradient(135deg,#06122a,#0B1F3A 60%,#13294d);
+  padding:170px 0 90px;color:#fff;position:relative;overflow:hidden
+}
+.subhero::before{content:"";position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(63,169,245,.25),transparent 70%);top:-150px;right:-100px}
+.subhero::after{content:"";position:absolute;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,rgba(255,122,0,.18),transparent 70%);bottom:-180px;left:-80px}
+.subhero .container{position:relative;z-index:2}
+.subhero h1{font-size:clamp(2.3rem,4.5vw,3.6rem);margin-bottom:16px}
+.subhero .grad{background:linear-gradient(100deg,var(--blue),var(--orange));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
+.subhero p{color:rgba(255,255,255,.78);max-width:600px;font-size:1.1rem;font-weight:300}
+.breadcrumb{font-size:.82rem;color:rgba(255,255,255,.55);margin-bottom:22px;letter-spacing:.05em}
+.breadcrumb a:hover{color:var(--blue)}
+
+.filters{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-bottom:50px}
+.filter-btn{
+  padding:11px 24px;border-radius:50px;border:1.5px solid var(--line);
+  background:#fff;color:var(--ink);font-weight:600;font-size:.88rem;cursor:pointer;transition:.3s
+}
+.filter-btn:hover{border-color:var(--blue);color:var(--blue)}
+.filter-btn.active{background:var(--dark);color:#fff;border-color:var(--dark)}
+
+.fleet-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:28px}
+.vcard{
+  background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;
+  transition:.45s cubic-bezier(.2,.8,.2,1);position:relative
+}
+.vcard:hover{transform:translateY(-10px);box-shadow:0 36px 70px -30px rgba(11,31,58,.4);border-color:transparent}
+.vcard-img{height:200px;display:grid;place-items:center;position:relative;overflow:hidden;background:linear-gradient(135deg,#eef4fb,#dbe8f7)}
+.vcard:hover .vcard-img{background:linear-gradient(135deg,#0B1F3A,#1c3b6b)}
+.vcard-img svg{width:160px;color:var(--dark);transition:.45s;z-index:2}
+.vcard:hover .vcard-img svg{color:#fff;transform:scale(1.06)}
+.vcard-img .glow{position:absolute;width:200px;height:200px;background:radial-gradient(circle,rgba(63,169,245,.3),transparent 70%);opacity:0;transition:.45s}
+.vcard:hover .vcard-img .glow{opacity:1}
+.cat-badge{position:absolute;top:14px;right:14px;background:rgba(11,31,58,.9);color:#fff;font-size:.68rem;font-weight:700;padding:6px 13px;border-radius:50px;text-transform:uppercase;letter-spacing:.05em;z-index:3}
+.vcard:hover .cat-badge{background:var(--orange)}
+.vcard-body{padding:26px}
+.vcard-body h3{font-size:1.25rem;color:var(--dark);margin-bottom:6px}
+.vcard-body .cls{color:var(--blue);font-weight:600;font-size:.82rem;text-transform:uppercase;letter-spacing:.06em;margin-bottom:16px}
+.specs-row{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:20px}
+.spec-pill{display:flex;align-items:center;gap:6px;background:var(--bg-soft);padding:7px 13px;border-radius:50px;font-size:.78rem;color:var(--muted);font-weight:500}
+.spec-pill svg{width:15px;height:15px;color:var(--blue)}
+.vcard-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:16px;border-top:1px solid var(--line)}
+
+/* ============ WHY CHOOSE ============ */
+.why-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:24px}
+.why-item{display:flex;gap:18px;padding:28px;border-radius:16px;background:#fff;border:1px solid var(--line);transition:.35s}
+.why-item:hover{box-shadow:var(--shadow-sm);transform:translateY(-5px)}
+.why-item .ic{width:54px;height:54px;flex-shrink:0;border-radius:14px;background:linear-gradient(135deg,var(--dark),var(--dark-2));display:grid;place-items:center;color:#fff}
+.why-item .ic svg{width:26px;height:26px}
+.why-item h4{color:var(--dark);font-size:1.1rem;margin-bottom:6px}
+.why-item p{color:var(--muted);font-size:.9rem}
+
+/* ============ CITY NETWORK STRIP ============ */
+.city-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px}
+.city-chip{
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:24px 20px;text-align:center;transition:.35s;cursor:default
+}
+.city-chip:hover{border-color:var(--blue);transform:translateY(-5px);box-shadow:var(--shadow-sm)}
+.city-chip .pin{width:42px;height:42px;margin:0 auto 12px;border-radius:50%;background:rgba(63,169,245,.12);display:grid;place-items:center;color:var(--blue)}
+.city-chip:hover .pin{background:var(--orange);color:#fff}
+.city-chip h4{color:var(--dark);font-size:1rem}
+.city-chip span{color:var(--muted);font-size:.78rem}
+
+/* ============ TESTIMONIALS ============ */
+.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:26px}
+.test-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:34px;position:relative;transition:.4s}
+.test-card:hover{box-shadow:var(--shadow);transform:translateY(-6px)}
+.test-card .quote{font-size:3.5rem;font-family:Syne;color:var(--blue);opacity:.18;line-height:.6;height:30px}
+.test-card p{color:var(--ink);font-size:1rem;margin:14px 0 24px;font-style:italic}
+.test-meta{display:flex;align-items:center;gap:14px}
+.avatar{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--dark),var(--blue));color:#fff;display:grid;place-items:center;font-weight:700;font-family:Syne}
+.test-meta b{display:block;color:var(--dark);font-size:.95rem}
+.test-meta span{color:var(--muted);font-size:.8rem}
+.stars{color:var(--orange);font-size:.9rem;margin-top:2px}
+
+/* ============ CTA BANNER ============ */
+.cta-banner{
+  background:linear-gradient(120deg,#0B1F3A,#13294d 60%,#1c3b6b);
+  border-radius:28px;padding:70px;text-align:center;position:relative;overflow:hidden
+}
+.cta-banner::before{content:"";position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(255,122,0,.25),transparent 70%);top:-150px;right:-100px}
+.cta-banner::after{content:"";position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(63,169,245,.25),transparent 70%);bottom:-150px;left:-100px}
+.cta-banner *{position:relative;z-index:2}
+.cta-banner h2{color:#fff;font-size:clamp(1.8rem,3.4vw,2.8rem);margin-bottom:16px}
+.cta-banner p{color:rgba(255,255,255,.8);max-width:560px;margin:0 auto 32px;font-size:1.1rem}
+.cta-banner .hero-actions{justify-content:center}
+
+/* ============ TIMELINE ============ */
+.timeline{position:relative;max-width:860px;margin:0 auto;padding-left:30px}
+.timeline::before{content:"";position:absolute;left:0;top:0;bottom:0;width:2px;background:linear-gradient(var(--blue),var(--orange))}
+.tl-item{position:relative;padding:0 0 50px 44px}
+.tl-item::before{content:"";position:absolute;left:-9px;top:4px;width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--orange);box-shadow:0 0 0 5px rgba(255,122,0,.12)}
+.tl-year{font-family:Syne;font-weight:800;font-size:1.6rem;color:var(--blue);margin-bottom:6px}
+.tl-item h4{color:var(--dark);font-size:1.2rem;margin-bottom:8px}
+.tl-item p{color:var(--muted);font-size:.95rem}
+
+/* ============ MISSION VISION ============ */
+.mv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:26px}
+.mv-card{background:#fff;border:1px solid var(--line);border-radius:20px;padding:38px;transition:.4s}
+.mv-card:hover{box-shadow:var(--shadow);transform:translateY(-6px)}
+.mv-card .ic{width:60px;height:60px;border-radius:16px;background:linear-gradient(135deg,var(--blue),var(--dark));display:grid;place-items:center;color:#fff;margin-bottom:22px}
+.mv-card .ic svg{width:28px;height:28px}
+.mv-card h3{color:var(--dark);font-size:1.4rem;margin-bottom:12px}
+.mv-card p{color:var(--muted)}
+
+/* leadership */
+.team-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:26px}
+.team-card{background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden;text-align:center;transition:.4s}
+.team-card:hover{box-shadow:var(--shadow);transform:translateY(-6px)}
+.team-photo{height:230px;background:linear-gradient(135deg,#13294d,#1c3b6b);display:grid;place-items:center;color:#fff;font-family:Syne;font-weight:800;font-size:3rem}
+.team-card .info{padding:24px}
+.team-card h4{color:var(--dark);font-size:1.15rem}
+.team-card .role{color:var(--blue);font-weight:600;font-size:.85rem;margin:4px 0 10px}
+.team-card .bio{color:var(--muted);font-size:.85rem}
+
+/* awards */
+.award-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
+.award{background:#fff;border:1px solid var(--line);border-radius:16px;padding:30px;text-align:center;transition:.35s}
+.award:hover{border-color:var(--orange);transform:translateY(-5px)}
+.award .ic{color:var(--orange);margin-bottom:14px}
+.award .ic svg{width:42px;height:42px}
+.award h4{color:var(--dark);font-size:1.05rem;margin-bottom:6px}
+.award p{color:var(--muted);font-size:.82rem}
+
+/* ============ NETWORK MAP ============ */
+.map-layout{display:grid;grid-template-columns:1.3fr 1fr;gap:50px;align-items:center}
+.pak-map{position:relative;background:linear-gradient(135deg,#06122a,#0B1F3A);border-radius:24px;padding:30px;box-shadow:var(--shadow)}
+.pak-map svg{width:100%;height:auto;display:block}
+.marker{cursor:pointer}
+.marker circle.pulse{fill:var(--orange);opacity:.5;animation:pulse 2s infinite}
+@keyframes pulse{0%{r:6;opacity:.6}100%{r:22;opacity:0}}
+.marker circle.core{fill:var(--blue);stroke:#fff;stroke-width:2}
+.marker:hover circle.core{fill:var(--orange)}
+.marker text{fill:#fff;font-size:11px;font-weight:600;font-family:Inter;opacity:0;transition:.3s;text-anchor:middle}
+.marker:hover text{opacity:1}
+.office-list{display:flex;flex-direction:column;gap:14px}
+.office-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px 22px;display:flex;align-items:center;gap:16px;transition:.3s}
+.office-card:hover{border-color:var(--blue);box-shadow:var(--shadow-sm);transform:translateX(6px)}
+.office-card .ic{width:44px;height:44px;flex-shrink:0;border-radius:50%;background:rgba(63,169,245,.12);display:grid;place-items:center;color:var(--blue)}
+.office-card h4{color:var(--dark);font-size:1rem}
+.office-card p{color:var(--muted);font-size:.82rem}
+.net-stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;margin-top:70px}
+.net-stat{text-align:center;padding:30px;background:#fff;border:1px solid var(--line);border-radius:18px}
+.net-stat .num{font-family:Syne;font-weight:800;font-size:2.6rem;color:var(--dark)}
+.net-stat .num .suf{color:var(--orange)}
+.net-stat .lbl{color:var(--muted);font-size:.9rem;margin-top:4px}
+
+/* ============ NUST ============ */
+.plan-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:26px}
+.plan{background:#fff;border:1px solid var(--line);border-radius:20px;padding:38px 32px;position:relative;transition:.4s}
+.plan.featured{border-color:var(--orange);box-shadow:0 30px 60px -30px rgba(255,122,0,.35)}
+.plan:hover{transform:translateY(-8px);box-shadow:var(--shadow)}
+.plan .tag{position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--orange);color:#fff;font-size:.72rem;font-weight:700;padding:6px 18px;border-radius:50px;text-transform:uppercase}
+.plan h3{color:var(--dark);font-size:1.3rem;margin-bottom:8px}
+.plan .price{font-family:Syne;font-weight:800;font-size:2.6rem;color:var(--dark);margin:14px 0}
+.plan .price small{font-size:.95rem;color:var(--muted);font-weight:400;font-family:Inter}
+.plan ul{list-style:none;margin:20px 0;display:flex;flex-direction:column;gap:12px}
+.plan ul li{display:flex;align-items:center;gap:10px;color:var(--ink);font-size:.92rem}
+.plan ul li svg{width:18px;height:18px;color:var(--blue);flex-shrink:0}
+.plan .btn{width:100%;justify-content:center}
+
+/* ============ FORMS ============ */
+.form-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:44px;box-shadow:var(--shadow-sm)}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.field{margin-bottom:20px}
+.field label{display:block;font-weight:600;font-size:.85rem;color:var(--dark);margin-bottom:8px}
+.field input,.field select,.field textarea{
+  width:100%;padding:14px 16px;border:1.5px solid var(--line);border-radius:12px;
+  font-family:Inter;font-size:.95rem;color:var(--ink);transition:.25s;background:#fff
+}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 4px rgba(63,169,245,.12)}
+.field textarea{resize:vertical;min-height:120px}
+.form-note{font-size:.8rem;color:var(--muted);margin-top:10px}
+
+/* ============ FAQ ============ */
+.faq{max-width:780px;margin:0 auto}
+.faq-item{background:#fff;border:1px solid var(--line);border-radius:14px;margin-bottom:14px;overflow:hidden;transition:.3s}
+.faq-item.open{border-color:var(--blue);box-shadow:var(--shadow-sm)}
+.faq-q{padding:22px 26px;font-weight:600;color:var(--dark);cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;font-size:1.02rem}
+.faq-q .pm{width:26px;height:26px;flex-shrink:0;border-radius:50%;background:var(--bg-soft);display:grid;place-items:center;color:var(--blue);transition:.3s;font-size:1.2rem}
+.faq-item.open .pm{background:var(--orange);color:#fff;transform:rotate(45deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease;color:var(--muted)}
+.faq-a p{padding:0 26px 24px}
+
+/* ============ CONTACT ============ */
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:start}
+.contact-info-cards{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:24px}
+.ci-card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;transition:.3s}
+.ci-card:hover{border-color:var(--blue);box-shadow:var(--shadow-sm)}
+.ci-card .ic{width:42px;height:42px;border-radius:11px;background:linear-gradient(135deg,var(--dark),var(--dark-2));display:grid;place-items:center;color:#fff;margin-bottom:14px}
+.ci-card .ic svg{width:20px;height:20px}
+.ci-card h4{color:var(--dark);font-size:.95rem;margin-bottom:6px}
+.ci-card p,.ci-card a{color:var(--muted);font-size:.85rem;display:block;line-height:1.7}
+.ci-card a:hover{color:var(--blue)}
+.map-embed{border-radius:20px;overflow:hidden;border:1px solid var(--line);margin-top:30px;height:320px}
+.map-embed iframe{width:100%;height:100%;border:0;filter:grayscale(.2)}
+
+/* careers */
+.benefits-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:20px}
+.benefit{background:#fff;border:1px solid var(--line);border-radius:16px;padding:28px;transition:.35s}
+.benefit:hover{transform:translateY(-5px);box-shadow:var(--shadow-sm)}
+.benefit .ic{color:var(--orange);margin-bottom:14px}
+.benefit .ic svg{width:32px;height:32px}
+.benefit h4{color:var(--dark);font-size:1.05rem;margin-bottom:6px}
+.benefit p{color:var(--muted);font-size:.85rem}
+.job-list{display:flex;flex-direction:column;gap:16px}
+.job{background:#fff;border:1px solid var(--line);border-radius:16px;padding:26px 30px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap;transition:.3s}
+.job:hover{border-color:var(--blue);box-shadow:var(--shadow-sm)}
+.job h4{color:var(--dark);font-size:1.15rem;margin-bottom:6px}
+.job .meta{display:flex;gap:14px;flex-wrap:wrap;color:var(--muted);font-size:.82rem}
+.job .meta span{display:flex;align-items:center;gap:5px}
+.job-tag{background:var(--bg-soft);padding:4px 12px;border-radius:50px;font-size:.75rem;font-weight:600;color:var(--dark)}
+
+/* process steps */
+.process{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px;counter-reset:step}
+.pstep{background:#fff;border:1px solid var(--line);border-radius:18px;padding:32px;position:relative;transition:.35s}
+.pstep:hover{transform:translateY(-6px);box-shadow:var(--shadow-sm)}
+.pstep .n{font-family:Syne;font-weight:800;font-size:2.4rem;background:linear-gradient(135deg,var(--blue),var(--orange));-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:10px}
+.pstep h4{color:var(--dark);font-size:1.1rem;margin-bottom:8px}
+.pstep p{color:var(--muted);font-size:.88rem}
+
+/* ============ FOOTER ============ */
+footer{background:var(--dark);color:rgba(255,255,255,.7);padding:80px 0 30px;margin-top:0}
+.foot-grid{display:grid;grid-template-columns:1.6fr 1fr 1fr 1.4fr;gap:44px;padding-bottom:50px;border-bottom:1px solid rgba(255,255,255,.1)}
+.foot-col h5{color:#fff;font-family:Syne;font-size:1.05rem;margin-bottom:22px;font-weight:600}
+.foot-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+.foot-col ul li a,.foot-col ul li{font-size:.9rem;color:rgba(255,255,255,.65);transition:.25s;cursor:pointer}
+.foot-col ul li a:hover{color:var(--blue);padding-left:4px}
+.foot-about p{font-size:.92rem;margin:18px 0 24px;color:rgba(255,255,255,.6)}
+.foot-logo .logo-text b{color:#fff}
+.foot-logo .logo-text span{color:rgba(255,255,255,.6)}
+.newsletter{display:flex;gap:8px;margin-top:14px}
+.newsletter input{flex:1;padding:13px 16px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.06);color:#fff;font-size:.88rem}
+.newsletter input::placeholder{color:rgba(255,255,255,.5)}
+.newsletter input:focus{outline:none;border-color:var(--blue)}
+.newsletter button{padding:13px 18px;border-radius:12px;border:none;background:var(--orange);color:#fff;font-weight:700;cursor:pointer;transition:.3s}
+.newsletter button:hover{filter:brightness(1.08)}
+.socials{display:flex;gap:12px;margin-top:24px}
+.socials a{width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.08);display:grid;place-items:center;color:rgba(255,255,255,.8);transition:.3s}
+.socials a:hover{background:var(--orange);color:#fff;transform:translateY(-3px)}
+.socials a svg{width:18px;height:18px}
+.foot-bottom{padding-top:28px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;font-size:.82rem;color:rgba(255,255,255,.5)}
+
+/* whatsapp float */
+.wa-float{
+  position:fixed;bottom:26px;right:26px;width:60px;height:60px;border-radius:50%;
+  background:#25D366;display:grid;place-items:center;z-index:900;cursor:pointer;
+  box-shadow:0 14px 34px -10px rgba(37,211,102,.6);transition:.3s;animation:waPulse 2.5s infinite
+}
+.wa-float:hover{transform:scale(1.08)}
+.wa-float svg{width:32px;height:32px;color:#fff}
+@keyframes waPulse{0%{box-shadow:0 0 0 0 rgba(37,211,102,.5)}70%{box-shadow:0 0 0 18px rgba(37,211,102,0)}100%{box-shadow:0 0 0 0 rgba(37,211,102,0)}}
+
+/* toast */
+.toast{position:fixed;bottom:30px;left:50%;transform:translateX(-50%) translateY(120px);background:var(--dark);color:#fff;padding:16px 28px;border-radius:14px;font-weight:600;font-size:.92rem;z-index:2000;box-shadow:var(--shadow);transition:.4s;display:flex;align-items:center;gap:12px}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast svg{width:22px;height:22px;color:var(--blue)}
+
+.reveal{opacity:0;transform:translateY(40px)}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:1024px){
+  nav ul{display:none}
+  .hamburger{display:flex}
+  .nav-cta .btn{display:none}
+  .hero-stats{grid-template-columns:repeat(2,1fr);gap:32px}
+  .map-layout{grid-template-columns:1fr}
+  .contact-grid{grid-template-columns:1fr}
+}
+@media(max-width:680px){
+  .container{padding:0 20px}
+  .section{padding:70px 0}
+  .form-row{grid-template-columns:1fr}
+  .contact-info-cards{grid-template-columns:1fr}
+  .hero-stats{grid-template-columns:1fr 1fr}
+  .cta-banner{padding:44px 26px}
+  .foot-grid{grid-template-columns:1fr 1fr;gap:30px}
+  .foot-about{grid-column:1/-1}
+  .hero-actions{flex-direction:column}
+  .hero-actions .btn{width:100%;justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER ============ -->
+<header id="header">
+  <div class="container nav-inner">
+    <div class="logo" onclick="go('home')" aria-label="UTS Pakistan Home">
+      <div class="logo-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none"><path d="M3 13l2-5a2 2 0 012-1.5h10A2 2 0 0119 8l2 5v5h-2a2 2 0 11-4 0H9a2 2 0 11-4 0H3v-5z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><circle cx="7.5" cy="18" r="1.6" fill="#3FA9F5"/><circle cx="16.5" cy="18" r="1.6" fill="#FF7A00"/></svg>
+      </div>
+      <div class="logo-text"><b>UTS</b><span>United Transport</span></div>
+    </div>
+    <nav aria-label="Primary">
+      <ul>
+        <li><a href="#" class="nav-link active" data-page="home" onclick="go('home',event)">Home</a></li>
+        <li><a href="#" class="nav-link" data-page="fleet" onclick="go('fleet',event)">Fleet</a></li>
+        <li><a href="#" class="nav-link" data-page="services" onclick="go('services',event)">Services</a></li>
+        <li><a href="#" class="nav-link" data-page="about" onclick="go('about',event)">About</a></li>
+        <li><a href="#" class="nav-link" data-page="network" onclick="go('network',event)">Network</a></li>
+        <li><a href="#" class="nav-link" data-page="nust" onclick="go('nust',event)">NUST Service</a></li>
+        <li><a href="#" class="nav-link" data-page="contact" onclick="go('contact',event)">Contact</a></li>
+        <li><a href="#" class="nav-link" data-page="careers" onclick="go('careers',event)">Careers</a></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <button class="btn btn-orange btn-sm" onclick="go('contact')">Book Now</button>
+      <button class="hamburger" id="hamburger" aria-label="Open menu" onclick="toggleMenu()"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<!-- mobile menu -->
+<div class="overlay" id="overlay" onclick="toggleMenu()"></div>
+<div class="mobile-menu" id="mobileMenu">
+  <a href="#" data-page="home" onclick="go('home',event)">Home</a>
+  <a href="#" data-page="fleet" onclick="go('fleet',event)">Fleet</a>
+  <a href="#" data-page="services" onclick="go('services',event)">Services</a>
+  <a href="#" data-page="about" onclick="go('about',event)">About</a>
+  <a href="#" data-page="network" onclick="go('network',event)">Network</a>
+  <a href="#" data-page="nust" onclick="go('nust',event)">NUST Service</a>
+  <a href="#" data-page="contact" onclick="go('contact',event)">Contact</a>
+  <a href="#" data-page="careers" onclick="go('careers',event)">Careers</a>
+  <button class="btn btn-orange" onclick="go('contact')">Book Now</button>
+</div>
+
+<main>
+
+<!-- ============================================================= -->
+<!-- HOME -->
+<!-- ============================================================= -->
+<div class="page active" id="page-home">
+  <section class="hero">
+    <canvas id="hero-canvas"></canvas>
+    <div class="container hero-content">
+      <span class="hero-badge"><span class="dot"></span> Trusted Since 1970 &middot; ISO Certified</span>
+      <h1>Pakistan's Trusted <span class="grad">Transport Partner</span> Since 1970</h1>
+      <p class="sub">Premium transport solutions, corporate mobility, tourism services, and nationwide fleet management — delivered with precision, safety and five decades of trust.</p>
+      <div class="hero-actions">
+        <button class="btn btn-orange" onclick="go('contact')">Book Now
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M5 12h14M13 6l6 6-6 6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <button class="btn btn-outline" onclick="go('fleet')">View Fleet</button>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><div class="num"><span class="count" data-target="55">0</span><span class="suf">+</span></div><div class="lbl">Years Experience</div></div>
+        <div class="stat"><div class="num"><span class="count" data-target="500">0</span><span class="suf">+</span></div><div class="lbl">Fleet Vehicles</div></div>
+        <div class="stat"><div class="num"><span class="count" data-target="9">0</span></div><div class="lbl">Cities Network</div></div>
+        <div class="stat"><div class="num"><span class="count" data-target="25000">0</span><span class="suf">+</span></div><div class="lbl">Satisfied Clients</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- services overview -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">What We Do</span>
+        <h2>Comprehensive Mobility Solutions</h2>
+        <p>From boardroom executives to nationwide group transfers, UTS delivers a full spectrum of transport services engineered for reliability and comfort.</p>
+      </div>
+      <div class="grid-cards">
+        <div class="card reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M3 21h18M5 21V7l8-4 8 4v14M9 9h2M9 13h2M9 17h2M15 9h0M15 13h0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Corporate Transportation</h3>
+          <p>Dedicated executive fleets, employee shuttles and managed mobility programs for organisations of every size.</p>
+          <span class="more" onclick="go('services')">Explore &rarr;</span>
+        </div>
+        <div class="card reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M3 17l4-8 6 2 4-6 4 4M2 21h20" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Tourism & Group Travel</h3>
+          <p>Comfortable coasters, hiace vans and SUVs for tours across the breathtaking landscapes of Pakistan.</p>
+          <span class="more" onclick="go('services')">Explore &rarr;</span>
+        </div>
+        <div class="card reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M2 16l3-9h14l3 9M5 16h14M7 20h2m6 0h2M4 16v3m16-3v3" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Rent A Car & Chauffeur</h3>
+          <p>Self-drive freedom or professional chauffeur drive — luxury sedans, SUVs and premium vehicles on demand.</p>
+          <span class="more" onclick="go('services')">Explore &rarr;</span>
+        </div>
+        <div class="card reveal">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M2 12h4l2-3 3 9 3-12 2 6h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+          <h3>Ambulance & Special Purpose</h3>
+          <p>Emergency ambulance support and bulletproof security vehicles for mission-critical mobility needs.</p>
+          <span class="more" onclick="go('services')">Explore &rarr;</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- fleet horizontal scroll -->
+  <section class="fleet-scroll-wrap" id="fleetScrollSection">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Our Fleet</span>
+        <h2>A Fleet Built for Every Journey</h2>
+        <p>Meticulously maintained vehicles spanning SUVs, luxury sedans, vans and commercial transport.</p>
+      </div>
+    </div>
+    <div class="h-track" id="hTrack"></div>
+    <div class="container" style="margin-top:36px">
+      <button class="btn btn-orange" onclick="go('fleet')">View Complete Fleet</button>
+    </div>
+  </section>
+
+  <!-- why choose -->
+  <section class="section soft">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">Why Choose UTS</span>
+        <h2>Five Decades of Trusted Excellence</h2>
+        <p>We combine deep experience with modern fleet management to deliver consistently safe and premium journeys.</p>
+      </div>
+      <div class="why-grid" id="whyGrid"></div>
+    </div>
+  </section>
+
+  <!-- city network -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">Nationwide Presence</span>
+        <h2>Operating Across 9 Strategic Locations</h2>
+        <p>A connected network ensuring seamless transport coverage wherever your journey begins.</p>
+      </div>
+      <div class="city-grid" id="cityGrid"></div>
+    </div>
+  </section>
+
+  <!-- testimonials -->
+  <section class="section soft">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">Client Voices</span>
+        <h2>Trusted by Thousands of Clients</h2>
+        <p>From multinational corporations to families, our service speaks through the people we move.</p>
+      </div>
+      <div class="test-grid" id="testGrid"></div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="container">
+      <div class="cta-banner reveal">
+        <h2>Ready to Move with Confidence?</h2>
+        <p>Get a tailored transport quote within 24 hours. Corporate contracts, single bookings and nationwide fleet solutions.</p>
+        <div class="hero-actions">
+          <button class="btn btn-orange" onclick="go('contact')">Request a Quote</button>
+          <button class="btn btn-outline-dark" onclick="go('services')">Our Services</button>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================= -->
+<!-- FLEET -->
+<!-- ============================================================= -->
+<div class="page" id="page-fleet">
+  <section class="subhero">
+    <div class="container">
+      <div class="breadcrumb"><a href="#" onclick="go('home',event)">Home</a> / Fleet</div>
+      <h1>Our <span class="grad">Premium Fleet</span></h1>
+      <p>Over 500 meticulously maintained vehicles across six categories — choose the perfect ride for your purpose.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="filters" id="filters"></div>
+      <div class="fleet-grid" id="fleetGrid"></div>
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="container">
+      <div class="cta-banner reveal">
+        <h2>Need a Custom Fleet Solution?</h2>
+        <p>We design bespoke fleet packages for corporates, events and long-term contracts.</p>
+        <div class="hero-actions"><button class="btn btn-orange" onclick="go('contact')">Talk to Our Team</button></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================= -->
+<!-- SERVICES -->
+<!-- ============================================================= -->
+<div class="page" id="page-services">
+  <section class="subhero">
+    <div class="container">
+      <div class="breadcrumb"><a href="#" onclick="go('home',event)">Home</a> / Services</div>
+      <h1>Our <span class="grad">Services</span></h1>
+      <p>A complete portfolio of mobility services engineered around safety, punctuality and premium comfort.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="grid-cards" id="servicesGrid"></div>
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">How It Works</span>
+        <h2>A Seamless Booking Process</h2>
+        <p>From enquiry to journey, we keep every step effortless and transparent.</p>
+      </div>
+      <div class="process">
+        <div class="pstep reveal"><div class="n">01</div><h4>Request</h4><p>Share your route, dates and vehicle preference through our team or online form.</p></div>
+        <div class="pstep reveal"><div class="n">02</div><h4>Quote</h4><p>Receive a transparent, tailored quotation within 24 hours.</p></div>
+        <div class="pstep reveal"><div class="n">03</div><h4>Confirm</h4><p>Approve your booking and assign drivers, schedules and special requirements.</p></div>
+        <div class="pstep reveal"><div class="n">04</div><h4>Travel</h4><p>Enjoy a punctual, comfortable and professionally managed journey.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container"><div class="cta-banner reveal">
+      <h2>Let's Plan Your Next Journey</h2>
+      <p>Whether a single transfer or a corporate contract, our specialists are ready to assist.</p>
+      <div class="hero-actions"><button class="btn btn-orange" onclick="go('contact')">Get Started</button></div>
+    </div></div>
+  </section>
+</div>
+
+<!-- ============================================================= -->
+<!-- ABOUT -->
+<!-- ============================================================= -->
+<div class="page" id="page-about">
+  <section class="subhero">
+    <div class="container">
+      <div class="breadcrumb"><a href="#" onclick="go('home',event)">Home</a> / About</div>
+      <h1>About <span class="grad">United Transport Services</span></h1>
+      <p>A legacy of trust built over five decades — moving Pakistan forward since 1970.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="sec-head reveal">
+        <span class="eyebrow">Our Story</span>
+        <h2>Established 1970 — Moving Pakistan for Over 55 Years</h2>
+      </div>
+      <div style="max-width:840px;color:var(--muted);font-size:1.08rem" class="reveal">
+        <p style="margin-bottom:18px">United Transport Services began in 1970 with a single vision: to provide Pakistan with a transport service defined by reliability, safety and uncompromising professionalism. What started as a modest operation has grown into one of the nation's most respected transport companies, with a fleet exceeding 500 vehicles and a presence across 9 strategic locations including Saudi Arabia.</p>
+        <p style="margin-bottom:18px">Over five decades, we have moved corporate executives, international delegations, tourists, students and families — earning the trust of multinational organisations, government bodies and private clients alike. Our commitment to maintenance excellence, trained chauffeurs and 24/7 support has made UTS the partner of choice for mission-critical mobility.</p>
+        <p>Today, UTS continues to innovate — integrating modern fleet management, GPS tracking and dedicated service programs while never losing sight of the values that built our reputation.</p>
+      </div>
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="container">
+      <div class="mv-grid">
+        <div class="mv-card reveal">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="1" fill="#fff"/></svg></div>
+          <h3>Our Mission</h3>
+          <p>To deliver safe, punctual and premium transport solutions that exceed expectations, while setting the benchmark for professionalism in Pakistan's mobility sector.</p>
+        </div>
+        <div class="mv-card reveal">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M2 12s4-7 10-7 10 7 10 7-4 7-10 7S2 12 2 12z" stroke="#fff" stroke-width="1.6"/><circle cx="12" cy="12" r="3" stroke="#fff" stroke-width="1.6"/></svg></div>
+          <h3>Our Vision</h3>
+          <p>To be the most trusted and technologically advanced transport company in the region, connecting people and businesses with seamless mobility.</p>
+        </div>
+        <div class="mv-card reveal">
+          <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M12 2l2.5 6.5L21 9l-5 4.5L17.5 21 12 17l-5.5 4L8 13.5 3 9l6.5-.5z" stroke="#fff" stroke-width="1.4" stroke-linejoin="round"/></svg></div>
+          <h3>Core Values</h3>
+          <p>Safety first, integrity always, relentless reliability, customer obsession and continuous improvement — the principles guiding every journey.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">Our Journey</span>
+        <h2>Milestones Through the Decades</h2>
+      </div>
+      <div class="timeline" id="timeline"></div>
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">Leadership</span>
+        <h2>The People Driving UTS Forward</h2>
+      </div>
+      <div class="team-grid" id="teamGrid"></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">Recognition</span>
+        <h2>Awards & Achievements</h2>
+      </div>
+      <div class="award-grid" id="awardGrid"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================= -->
+<!-- NETWORK -->
+<!-- ============================================================= -->
+<div class="page" id="page-network">
+  <section class="subhero">
+    <div class="container">
+      <div class="breadcrumb"><a href="#" onclick="go('home',event)">Home</a> / Network</div>
+      <h1>Our <span class="grad">National Network</span></h1>
+      <p>Strategically positioned across Pakistan and Saudi Arabia to serve you wherever you are.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="map-layout">
+        <div class="pak-map reveal">
+          <svg viewBox="0 0 500 480" role="img" aria-label="Pakistan network map">
+            <!-- stylised Pakistan outline -->
+            <path d="M120 70 L200 50 L260 80 L310 70 L350 110 L420 140 L400 200 L430 250 L390 300 L420 360 L350 410 L280 440 L210 420 L180 360 L120 350 L90 290 L130 240 L100 180 L120 70 Z"
+              fill="rgba(63,169,245,0.08)" stroke="rgba(63,169,245,0.4)" stroke-width="2"/>
+            <!-- connection lines -->
+            <g stroke="rgba(255,122,0,0.35)" stroke-width="1.5" stroke-dasharray="4 4">
+              <line x1="300" y1="120" x2="240" y2="200"/>
+              <line x1="240" y1="200" x2="200" y2="380"/>
+              <line x1="240" y1="200" x2="320" y2="260"/>
+              <line x1="300" y1="120" x2="190" y2="100"/>
+              <line x1="240" y1="200" x2="160" y2="300"/>
+              <line x1="320" y1="260" x2="290" y2="350"/>
+            </g>
+            <!-- markers -->
+            <g class="marker"><circle class="pulse" cx="300" cy="120" r="6"/><circle class="core" cx="300" cy="120" r="6"/><text x="300" y="105">Islamabad</text></g>
+            <g class="marker"><circle class="pulse" cx="200" cy="380" r="6"/><circle class="core" cx="200" cy="380" r="6"/><text x="200" y="400">Karachi</text></g>
+            <g class="marker"><circle class="pulse" cx="320" cy="170" r="6"/><circle class="core" cx="320" cy="170" r="6"/><text x="320" y="155">Lahore</text></g>
+            <g class="marker"><circle class="pulse" cx="120" cy="300" r="6"/><circle class="core" cx="120" cy="300" r="6"/><text x="120" y="320">Quetta</text></g>
+            <g class="marker"><circle class="pulse" cx="280" cy="210" r="6"/><circle class="core" cx="280" cy="210" r="6"/><text x="280" y="230">Faisalabad</text></g>
+            <g class="marker"><circle class="pulse" cx="260" cy="280" r="6"/><circle class="core" cx="260" cy="280" r="6"/><text x="260" y="300">Multan</text></g>
+            <g class="marker"><circle class="pulse" cx="230" cy="330" r="6"/><circle class="core" cx="230" cy="330" r="6"/><text x="230" y="350">Sukkur</text></g>
+            <g class="marker"><circle class="pulse" cx="270" cy="90" r="6"/><circle class="core" cx="270" cy="90" r="6"/><text x="270" y="75">Peshawar</text></g>
+            <g class="marker"><circle class="pulse" cx="420" cy="420" r="6"/><circle class="core" cx="420" cy="420" r="6"/><text x="420" y="440">Saudi Arabia</text></g>
+          </svg>
+        </div>
+        <div>
+          <div class="sec-head reveal" style="margin-bottom:30px">
+            <span class="eyebrow">Regional Offices</span>
+            <h2>9 Locations, One Standard</h2>
+            <p>Every office upholds the same uncompromising service quality.</p>
+          </div>
+          <div class="office-list" id="officeList"></div>
+        </div>
+      </div>
+      <div class="net-stats">
+        <div class="net-stat reveal"><div class="num"><span class="count" data-target="9">0</span></div><div class="lbl">Office Locations</div></div>
+        <div class="net-stat reveal"><div class="num"><span class="count" data-target="500">0</span><span class="suf">+</span></div><div class="lbl">Fleet Vehicles</div></div>
+        <div class="net-stat reveal"><div class="num"><span class="count" data-target="120">0</span><span class="suf">+</span></div><div class="lbl">Daily Routes</div></div>
+        <div class="net-stat reveal"><div class="num"><span class="count" data-target="24">0</span>/7</div><div class="lbl">Support Coverage</div></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================= -->
+<!-- NUST -->
+<!-- ============================================================= -->
+<div class="page" id="page-nust">
+  <section class="subhero">
+    <div class="container">
+      <div class="breadcrumb"><a href="#" onclick="go('home',event)">Home</a> / NUST Pick &amp; Drop</div>
+      <h1>NUST <span class="grad">Pick & Drop</span> Service</h1>
+      <p>Safe, reliable and affordable daily transportation designed exclusively for NUST university students.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="sec-head center reveal">
+        <span class="eyebrow">Monthly Plans</span>
+        <h2>Choose the Plan That Fits You</h2>
+        <p>Transparent monthly pricing with no hidden charges. Verified drivers and air-conditioned vehicles.</p>
+      </div>
+      <div class="plan-grid">
+        <div class="plan reveal">
+          <h3>Standard Route</h3>
+          <div class="price">Rs 9,500<small>/month</small></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> One-way pick &amp; drop</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> AC Hiace van</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Verified driver</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Fixed schedule</li>
+          </ul>
+          <button class="btn btn-outline-dark" onclick="scrollToId('nustForm')">Register</button>
+        </div>
+        <div class="plan featured reveal">
+          <span class="tag">Most Popular</span>
+          <h3>Round Trip</h3>
+          <div class="price">Rs 16,000<small>/month</small></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Pick &amp; drop both ways</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> AC vehicle, GPS tracked</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Priority seating</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> 24/7 helpline</li>
+          </ul>
+          <button class="btn btn-orange" onclick="scrollToId('nustForm')">Register Now</button>
+        </div>
+        <div class="plan reveal">
+          <h3>Premium Private</h3>
+          <div class="price">Rs 28,000<small>/month</small></div>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Dedicated sedan/SUV</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Door-to-door service</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Flexible timings</li>
+            <li><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Parent live updates</li>
+          </ul>
+          <button class="btn btn-outline-dark" onclick="scrollToId('nustForm')">Register</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <div class="sec-head center reveal"><span class="eyebrow">Coverage</span><h2>Route Coverage Across Islamabad & Rawalpindi</h2></div>
+      <div class="city-grid" id="nustRoutes"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width:760px">
+      <div class="sec-head center reveal"><span class="eyebrow">Get Started</span><h2 id="nustForm">Student Registration</h2></div>
+      <div class="form-card reveal">
+        <form onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="field"><label>Student Name</label><input type="text" required placeholder="Full name"/></div>
+            <div class="field"><label>Registration No.</label><input type="text" required placeholder="NUST Reg #"/></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label>Phone</label><input type="tel" required placeholder="03XX-XXXXXXX"/></div>
+            <div class="field"><label>Email</label><input type="email" required placeholder="you@example.com"/></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label>Pickup Area</label><input type="text" required placeholder="e.g. G-9, Bahria Town"/></div>
+            <div class="field"><label>Plan</label><select required><option value="">Select plan</option><option>Standard Route</option><option>Round Trip</option><option>Premium Private</option></select></div>
+          </div>
+          <div class="field"><label>Additional Notes</label><textarea placeholder="Timings, special requirements..."></textarea></div>
+          <button class="btn btn-orange" type="submit" style="width:100%;justify-content:center">Submit Registration</button>
+          <p class="form-note">Our team will confirm your route and seat availability within 24 hours.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="section soft">
+    <div class="container">
+      <div class="sec-head center reveal"><span class="eyebrow">FAQ</span><h2>Frequently Asked Questions</h2></div>
+      <div class="faq" id="nustFaq"></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-head center reveal"><span class="eyebrow">Student Voices</span><h2>What NUST Students Say</h2></div>
+      <div class="test-grid" id="nustTest"></div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================= -->
+<!-- CONTACT -->
+<!-- ============================================================= -->
+<div class="page" id="page-contact">
+  <section class="subhero">
+    <div class="container">
+      <div class="breadcrumb"><a href="#" onclick="go('home',event)">Home</a> / Contact</div>
+      <h1>Get in <span class="grad">Touch</span></h1>
+      <p>Our team is available around the clock to design the perfect transport solution for you.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="contact-grid">
+        <div>
+          <div class="sec-head reveal" style="margin-bottom:26px">
+            <span class="eyebrow">Reach Us</span>
+            <h2>Corporate Office</h2>
+            <p>Office No 2, Block 20-B, Kashif Blair Plaza, G-8 Markaz, Islamabad, Pakistan.</p>
+          </div>
+          <div class="contact-info-cards">
+            <div class="ci-card reveal">
+              <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z" stroke="#fff" stroke-width="1.5"/></svg></div>
+              <h4>Islamabad</h4>
+              <a href="tel:0512251642">051-2251642</a>
+              <a href="tel:0512260727">051-2260727</a>
+              <a href="tel:05187723850">051-8772385-86</a>
+            </div>
+            <div class="ci-card reveal">
+              <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.8 19.8 0 01-8.63-3.07 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.07-8.67A2 2 0 014.11 2h3a2 2 0 012 1.72c.13.96.36 1.9.7 2.81a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0122 16.92z" stroke="#fff" stroke-width="1.5"/></svg></div>
+              <h4>Regional Offices</h4>
+              <a href="tel:02136643618">Karachi: 021-36643618</a>
+              <a href="tel:04235791378">Lahore: 042-35791378</a>
+              <a href="tel:0812846477">Quetta: 081-2846477</a>
+            </div>
+            <div class="ci-card reveal">
+              <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M4 4h16v16H4z" stroke="#fff" stroke-width="1.5"/><path d="M4 7l8 6 8-6" stroke="#fff" stroke-width="1.5"/></svg></div>
+              <h4>Email & Saudi Arabia</h4>
+              <a href="mailto:info@utspakistan.com">info@utspakistan.com</a>
+              <a href="tel:+966503315914">KSA: +96-6503315914</a>
+            </div>
+            <div class="ci-card reveal">
+              <div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M20.5 3.5A11 11 0 003.5 17L2 22l5-1.5A11 11 0 1020.5 3.5z" stroke="#fff" stroke-width="1.5"/></svg></div>
+              <h4>WhatsApp</h4>
+              <a href="https://wa.me/923285723452" target="_blank">+92 328 5723452</a>
+              <p>24/7 instant booking</p>
+            </div>
+          </div>
+          <div class="map-embed reveal">
+            <iframe loading="lazy" title="UTS G-8 Markaz Islamabad" src="https://www.google.com/maps?q=G-8%20Markaz%20Islamabad&output=embed"></iframe>
+          </div>
+        </div>
+        <div class="form-card reveal">
+          <h3 style="font-family:Syne;color:var(--dark);font-size:1.5rem;margin-bottom:8px">Send Us a Message</h3>
+          <p style="color:var(--muted);font-size:.9rem;margin-bottom:26px">Fill the form and our team will respond within 24 hours.</p>
+          <form onsubmit="submitForm(event)">
+            <div class="form-row">
+              <div class="field"><label>Full Name</label><input type="text" required placeholder="Your name"/></div>
+              <div class="field"><label>Phone</label><input type="tel" required placeholder="03XX-XXXXXXX"/></div>
+            </div>
+            <div class="field"><label>Email</label><input type="email" required placeholder="you@example.com"/></div>
+            <div class="field"><label>Service Required</label><select required><option value="">Select a service</option><option>Corporate Transportation</option><option>Rent A Car</option><option>Chauffeur Drive</option><option>Tourism Booking</option><option>Airport Transfer</option><option>Ambulance Service</option><option>Other</option></select></div>
+            <div class="field"><label>Message</label><textarea required placeholder="Tell us about your requirement..."></textarea></div>
+            <button class="btn btn-orange" type="submit" style="width:100%;justify-content:center">Send Message</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- ============================================================= -->
+<!-- CAREERS -->
+<!-- ============================================================= -->
+<div class="page" id="page-careers">
+  <section class="subhero">
+    <div class="container">
+      <div class="breadcrumb"><a href="#" onclick="go('home',event)">Home</a> / Careers</div>
+      <h1>Build Your <span class="grad">Career</span> With Us</h1>
+      <p>Join a team that has been moving Pakistan forward for over five decades. Grow with purpose at UTS.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="sec-head center reveal"><span class="eyebrow">Why UTS</span><h2>A Culture of Excellence & Care</h2><p>We invest in our people with training, growth and a supportive environment.</p></div>
+      <div class="benefits-grid" id="benefitsGrid"></div>
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="container">
+      <div class="sec-head center reveal"><span class="eyebrow">Open Positions</span><h2>Current Opportunities</h2></div>
+      <div class="job-list" id="jobList"></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="sec-head center reveal"><span class="eyebrow">Process</span><h2>Our Recruitment Journey</h2></div>
+      <div class="process">
+        <div class="pstep reveal"><div class="n">01</div><h4>Apply</h4><p>Submit your application and CV through our online form.</p></div>
+        <div class="pstep reveal"><div class="n">02</div><h4>Screening</h4><p>Our HR team reviews your profile and reaches out for a first call.</p></div>
+        <div class="pstep reveal"><div class="n">03</div><h4>Interview</h4><p>Meet the team and showcase your skills and experience.</p></div>
+        <div class="pstep reveal"><div class="n">04</div><h4>Onboard</h4><p>Receive your offer and begin your journey with UTS.</p></div>
+      </div>
+    </div>
+  </section>
+  <section class="section soft">
+    <div class="container">
+      <div class="sec-head center reveal"><span class="eyebrow">Voices</span><h2>Life at UTS</h2></div>
+      <div class="test-grid" id="careerTest"></div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container" style="max-width:760px">
+      <div class="sec-head center reveal"><span class="eyebrow">Apply Now</span><h2>Submit Your Application</h2></div>
+      <div class="form-card reveal">
+        <form onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="field"><label>Full Name</label><input type="text" required placeholder="Your name"/></div>
+            <div class="field"><label>Phone</label><input type="tel" required placeholder="03XX-XXXXXXX"/></div>
+          </div>
+          <div class="form-row">
+            <div class="field"><label>Email</label><input type="email" required placeholder="you@example.com"/></div>
+            <div class="field"><label>Position</label><select required><option value="">Select position</option><option>Professional Chauffeur</option><option>Fleet Supervisor</option><option>Operations Coordinator</option><option>Customer Service Executive</option><option>Mechanic / Technician</option><option>Sales Executive</option></select></div>
+          </div>
+          <div class="field"><label>Experience</label><input type="text" placeholder="Years of relevant experience"/></div>
+          <div class="field"><label>Cover Message</label><textarea required placeholder="Tell us why you'd be a great fit..."></textarea></div>
+          <button class="btn btn-orange" type="submit" style="width:100%;justify-content:center">Submit Application</button>
+        </form>
+      </div>
+    </div>
+  </section>
+</div>
+
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div class="foot-col foot-about">
+        <div class="logo foot-logo">
+          <div class="logo-mark" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M3 13l2-5a2 2 0 012-1.5h10A2 2 0 0119 8l2 5v5h-2a2 2 0 11-4 0H9a2 2 0 11-4 0H3v-5z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round"/><circle cx="7.5" cy="18" r="1.6" fill="#3FA9F5"/><circle cx="16.5" cy="18" r="1.6" fill="#FF7A00"/></svg>
+          </div>
+          <div class="logo-text"><b>UTS</b><span>United Transport</span></div>
+        </div>
+        <p>Pakistan's trusted transport partner since 1970. Delivering premium mobility, corporate fleets and nationwide transport solutions with five decades of excellence.</p>
+        <div class="socials">
+          <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M14 9h3V6h-3c-2 0-3 1-3 3v2H9v3h2v7h3v-7h2.5l.5-3H14v-1c0-.6.4-1 1-1z"/></svg></a>
+          <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.8"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></svg></a>
+          <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 002.5 6a2.5 2.5 0 005 0 2.5 2.5 0 00-2.52-2.5zM3 9h4v12H3zM9 9h3.8v1.7h.05c.53-1 1.83-2.05 3.77-2.05C20.4 8.65 21 11 21 14v7h-4v-6.2c0-1.5 0-3.4-2.07-3.4-2.07 0-2.38 1.6-2.38 3.3V21H9z"/></svg></a>
+          <a href="#" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M22 12s0-3.2-.4-4.7a2.5 2.5 0 00-1.8-1.8C18.3 5 12 5 12 5s-6.3 0-7.8.5A2.5 2.5 0 002.4 7.3C2 8.8 2 12 2 12s0 3.2.4 4.7a2.5 2.5 0 001.8 1.8C5.7 19 12 19 12 19s6.3 0 7.8-.5a2.5 2.5 0 001.8-1.8C22 15.2 22 12 22 12zm-12 3V9l5 3z"/></svg></a>
+          <a href="#" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 3c.3 2.1 1.6 3.7 3.7 4v2.5c-1.4 0-2.7-.4-3.7-1.1V15a5.5 5.5 0 11-5.5-5.5c.3 0 .6 0 .9.1v2.6a2.9 2.9 0 102 2.8V3z"/></svg></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h5>Quick Links</h5>
+        <ul>
+          <li><a href="#" onclick="go('home',event)">Home</a></li>
+          <li><a href="#" onclick="go('fleet',event)">Fleet</a></li>
+          <li><a href="#" onclick="go('about',event)">About Us</a></li>
+          <li><a href="#" onclick="go('network',event)">Network</a></li>
+          <li><a href="#" onclick="go('careers',event)">Careers</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Services</h5>
+        <ul>
+          <li><a href="#" onclick="go('services',event)">Corporate Transport</a></li>
+          <li><a href="#" onclick="go('services',event)">Rent A Car</a></li>
+          <li><a href="#" onclick="go('services',event)">Chauffeur Drive</a></li>
+          <li><a href="#" onclick="go('nust',event)">NUST Pick &amp; Drop</a></li>
+          <li><a href="#" onclick="go('services',event)">Airport Transfers</a></li>
+        </ul>
+      </div>
+      <div class="foot-col">
+        <h5>Newsletter</h5>
+        <ul><li>Office No 2, Block 20-B, Kashif Blair Plaza, G-8 Markaz, Islamabad</li>
+        <li><a href="mailto:info@utspakistan.com">info@utspakistan.com</a></li>
+        <li><a href="tel:0512251642">051-2251642</a></li></ul>
+        <form class="newsletter" onsubmit="submitForm(event)">
+          <input type="email" placeholder="Your email" required aria-label="Email"/>
+          <button type="submit">Join</button>
+        </form>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 United Transport Services (UTS Pakistan). All rights reserved.</span>
+      <span>Established 1970 &middot; Privacy Policy &middot; Terms of Service</span>
+    </div>
+  </div>
+</footer>
+
+<a class="wa-float" href="https://wa.me/923285723452" target="_blank" aria-label="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24" fill="currentColor"><path d="M17.5 14.4c-.3-.15-1.7-.85-2-.95-.26-.1-.45-.15-.64.15-.19.28-.73.94-.9 1.13-.16.19-.33.2-.62.07-.3-.15-1.25-.46-2.38-1.47-.88-.78-1.47-1.75-1.64-2.04-.17-.3-.02-.46.13-.6.13-.13.3-.34.45-.5.15-.17.2-.29.3-.48.1-.2.05-.36-.02-.5-.08-.15-.64-1.55-.88-2.12-.23-.56-.46-.48-.64-.49h-.54c-.19 0-.5.07-.76.36-.26.28-1 .98-1 2.38s1.02 2.76 1.17 2.95c.15.2 2 3.05 4.85 4.28.68.3 1.2.47 1.62.6.68.22 1.3.19 1.78.12.54-.08 1.7-.7 1.94-1.36.24-.67.24-1.24.17-1.36-.07-.12-.26-.19-.55-.34zM12 2a10 10 0 00-8.6 15.06L2 22l5.06-1.33A10 10 0 1012 2z"/></svg>
+</a>
+
+<div class="toast" id="toast"><svg viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span id="toastMsg">Success!</span></div>
+
+<!-- ============ CDN SCRIPTS ============ -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
+
+<script>
+/* ===================== SVG ICON HELPERS ===================== */
+function vehSvg(type){
+  // returns an SVG of a vehicle silhouette
+  const common='stroke="currentColor" stroke-width="1.4" fill="none" stroke-linejoin="round" stroke-linecap="round"';
+  if(type==='suv') return `<svg viewBox="0 0 120 60"><path d="M8 44 L14 26 C16 21 20 19 26 19 L78 19 C84 19 88 21 92 26 L106 36 C110 38 112 40 112 44" ${common}/><path d="M8 44 H112 V48 H8 Z" ${common}/><circle cx="32" cy="48" r="7" ${common}/><circle cx="90" cy="48" r="7" ${common}/><path d="M30 20 V36 M55 20 V36 M80 22 V36 M16 36 H100" ${common}/></svg>`;
+  if(type==='sedan') return `<svg viewBox="0 0 120 60"><path d="M6 44 L16 38 L28 24 C31 21 35 20 40 20 L74 20 C80 20 84 22 88 26 L104 38 L114 44" ${common}/><path d="M6 44 H114 V48 H6 Z" ${common}/><circle cx="32" cy="48" r="7" ${common}/><circle cx="90" cy="48" r="7" ${common}/><path d="M36 21 V37 M60 20 V37 M84 24 V37 M20 37 H100" ${common}/></svg>`;
+  if(type==='luxury') return `<svg viewBox="0 0 120 60"><path d="M4 44 L14 39 L26 25 C29 22 33 21 38 21 L76 21 C82 21 86 23 90 27 L106 39 L116 44" ${common}/><path d="M4 44 H116 V48 H4 Z" ${common}/><circle cx="32" cy="48" r="7" ${common}/><circle cx="90" cy="48" r="7" ${common}/><path d="M36 22 V38 M62 21 V38 M86 25 V38 M18 38 H102" ${common}/><path d="M50 13 L56 8 L66 8 L70 13" ${common}/></svg>`;
+  if(type==='van') return `<svg viewBox="0 0 120 60"><path d="M8 44 V22 C8 19 10 17 14 17 L74 17 C80 17 84 19 90 24 L108 38 C111 40 112 42 112 44" ${common}/><path d="M8 44 H112 V48 H8 Z" ${common}/><circle cx="30" cy="48" r="7" ${common}/><circle cx="92" cy="48" r="7" ${common}/><path d="M24 18 V38 M44 18 V38 M64 18 V38 M82 22 V38 M14 38 H100" ${common}/></svg>`;
+  if(type==='commercial') return `<svg viewBox="0 0 120 60"><path d="M8 44 V20 H66 V44 M66 28 H86 L104 40 V44" ${common}/><path d="M8 44 H112 V48 H8 Z" ${common}/><circle cx="30" cy="48" r="7" ${common}/><circle cx="92" cy="48" r="7" ${common}/><path d="M70 30 H84 L96 40 H70 Z" ${common}/></svg>`;
+  if(type==='ambulance') return `<svg viewBox="0 0 120 60"><path d="M8 44 V20 H62 V44 M62 26 H84 L104 40 V44" ${common}/><path d="M8 44 H112 V48 H8 Z" ${common}/><circle cx="30" cy="48" r="7" ${common}/><circle cx="92" cy="48" r="7" ${common}/><path d="M30 27 V37 M25 32 H35" stroke="#FF7A00" stroke-width="2.4" stroke-linecap="round"/><path d="M88 28 H100" stroke="#FF7A00" stroke-width="2"/></svg>`;
+  if(type==='armored') return `<svg viewBox="0 0 120 60"><path d="M8 44 L14 28 C16 23 20 21 26 21 L80 21 C86 21 90 23 94 28 L108 38 V44" ${common}/><path d="M8 44 H112 V48 H8 Z" ${common}/><circle cx="32" cy="48" r="7" ${common}/><circle cx="90" cy="48" r="7" ${common}/><path d="M60 8 L72 13 V22 C72 30 66 34 60 36 C54 34 48 30 48 22 V13 Z" stroke="#FF7A00" stroke-width="1.6" fill="none"/></svg>`;
+  return `<svg viewBox="0 0 120 60"><path d="M8 44 L16 26 H100 L112 44" ${common}/></svg>`;
+}
+function pinSvg(){return '<svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M12 22s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z" stroke="currentColor" stroke-width="1.6"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.6"/></svg>'}
+function seatIco(){return '<svg viewBox="0 0 24 24" fill="none"><path d="M5 11V6a2 2 0 012-2h2a2 2 0 012 2v5M5 11h10a2 2 0 012 2v3H5v-5zM5 16v3M17 16v3" stroke="currentColor" stroke-width="1.6"/></svg>'}
+function gearIco(){return '<svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="3" stroke="currentColor" stroke-width="1.6"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2" stroke="currentColor" stroke-width="1.6"/></svg>'}
+function fuelIco(){return '<svg viewBox="0 0 24 24" fill="none"><path d="M5 21V5a2 2 0 012-2h6a2 2 0 012 2v16H5zM15 8h2a2 2 0 012 2v6a1.5 1.5 0 003 0V9l-3-3" stroke="currentColor" stroke-width="1.6"/></svg>'}
+
+/* ===================== DATA ===================== */
+const vehicles=[
+  {name:'Toyota Land Cruiser V8',cat:'SUV',icon:'suv',seats:'7 Seats',trans:'Automatic',fuel:'Petrol',cls:'Premium SUV'},
+  {name:'Toyota Prado',cat:'SUV',icon:'suv',seats:'7 Seats',trans:'Automatic',fuel:'Diesel',cls:'Premium SUV'},
+  {name:'Toyota Fortuner',cat:'SUV',icon:'suv',seats:'7 Seats',trans:'Automatic',fuel:'Diesel',cls:'Family SUV'},
+  {name:'Toyota Revo',cat:'Commercial',icon:'commercial',seats:'5 Seats',trans:'Manual',fuel:'Diesel',cls:'SUV / Pickup'},
+  {name:'Honda City',cat:'Sedan',icon:'sedan',seats:'5 Seats',trans:'Automatic',fuel:'Petrol',cls:'Executive Sedan'},
+  {name:'Audi Luxury Series',cat:'Luxury',icon:'luxury',seats:'4 Seats',trans:'Automatic',fuel:'Petrol',cls:'Luxury Class'},
+  {name:'Toyota Hiace',cat:'Van',icon:'van',seats:'14 Seats',trans:'Manual',fuel:'Diesel',cls:'Passenger Van'},
+  {name:'Toyota Coaster',cat:'Van',icon:'van',seats:'30 Seats',trans:'Manual',fuel:'Diesel',cls:'Mini Coach'},
+  {name:'Suzuki Cultus',cat:'Sedan',icon:'sedan',seats:'5 Seats',trans:'Manual',fuel:'Petrol',cls:'Economy Sedan'},
+  {name:'Ambulance Fleet',cat:'Special Purpose',icon:'ambulance',seats:'Medical',trans:'Automatic',fuel:'Diesel',cls:'Emergency Unit'},
+  {name:'Bulletproof Vehicles',cat:'Special Purpose',icon:'armored',seats:'4-5 Seats',trans:'Automatic',fuel:'Petrol',cls:'Armored Security'}
+];
+const categories=['All','SUV','Sedan','Luxury','Van','Commercial','Special Purpose'];
+
+const services=[
+  {t:'Corporate Transportation',d:'Managed executive fleets and reliable daily mobility programs for organisations.',p:'3 21h18M5 21V7l8-4 8 4v14M9 9h2M9 13h2'},
+  {t:'Employee Transportation',d:'Safe, punctual staff shuttles with route optimisation and live tracking.',p:'17 20a6 6 0 00-12 0M12 11a4 4 0 100-8 4 4 0 000 8z'},
+  {t:'Tourism Booking',d:'Curated tour transport across northern Pakistan and historic destinations.',p:'3 17l4-8 6 2 4-6 4 4'},
+  {t:'Airport Transfers',d:'On-time pickups and drop-offs with flight tracking and meet-and-greet.',p:'2 12l20-9-7 20-3-7-7-3z'},
+  {t:'Pick & Drop Service',d:'Dedicated home-to-work and school routes with verified drivers.',p:'5 12h14M13 6l6 6-6 6'},
+  {t:'Rent A Car',d:'Wide selection of sedans, SUVs and vans for short or long-term rental.',p:'2 16l3-9h14l3 9M5 16h14M7 20h2'},
+  {t:'Chauffeur Drive',d:'Professional, trained chauffeurs for executive and luxury journeys.',p:'12 12a4 4 0 100-8 4 4 0 000 8zM6 21v-2a4 4 0 014-4h4'},
+  {t:'Self Drive',d:'Freedom to drive yourself with fully insured, well-maintained vehicles.',p:'4 11l2-6h12l2 6M6 11h12v6H6z'},
+  {t:'Group Transfers',d:'Coasters and vans for events, weddings and large group movements.',p:'9 11a3 3 0 100-6 3 3 0 000 6zM3 20a6 6 0 0112 0'},
+  {t:'VIP Transportation',d:'Discreet, premium mobility for dignitaries and high-profile clients.',p:'12 2l2.5 6.5L21 9l-5 4.5L17.5 21 12 17l-5.5 4L8 13.5 3 9z'},
+  {t:'Ambulance Services',d:'Emergency medical transport with trained staff and equipped vehicles.',p:'2 12h4l2-3 3 9 3-12 2 6h4'},
+  {t:'Personal Booking',d:'Flexible single-trip bookings for any occasion, anywhere we operate.',p:'8 7V3m8 4V3M3 11h18M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'}
+];
+
+const whyItems=[
+  {t:'55+ Years of Trust',d:'Over five decades of consistent, reliable service since 1970.',p:'12 2l2.5 6.5L21 9l-5 4.5L17.5 21 12 17l-5.5 4L8 13.5 3 9z'},
+  {t:'Safety First',d:'Rigorous vehicle maintenance, vetted drivers and full insurance.',p:'12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'},
+  {t:'24/7 Availability',d:'Round-the-clock booking, dispatch and customer support.',p:'12 7v5l3 3M12 22a10 10 0 100-20 10 10 0 000 20z'},
+  {t:'Trained Chauffeurs',d:'Professional, courteous drivers trained in safety and etiquette.',p:'12 12a4 4 0 100-8 4 4 0 000 8zM6 21v-1a6 6 0 0112 0v1'},
+  {t:'Modern Fleet',d:'500+ regularly upgraded, GPS-tracked premium vehicles.',p:'3 13l2-5h14l2 5v5H3v-5z'},
+  {t:'Nationwide Reach',d:'9 strategic locations covering Pakistan and Saudi Arabia.',p:'12 22s7-6.5 7-12a7 7 0 10-14 0c0 5.5 7 12 7 12z'}
+];
+
+const cities=[
+  {n:'Islamabad',s:'Head Office'},{n:'Karachi',s:'Regional Hub'},{n:'Lahore',s:'Regional Hub'},
+  {n:'Quetta',s:'Regional Office'},{n:'Faisalabad',s:'Service Point'},{n:'Multan',s:'Service Point'},
+  {n:'Sukkur',s:'Service Point'},{n:'Peshawar',s:'Service Point'},{n:'Saudi Arabia',s:'International'}
+];
+
+const offices=[
+  {c:'Islamabad',p:'051-2251642 · 051-8772385-86'},
+  {c:'Karachi',p:'021-36643618'},
+  {c:'Lahore',p:'042-35791378'},
+  {c:'Quetta',p:'081-2846477'},
+  {c:'Saudi Arabia',p:'+96-6503315914'},
+];
+
+const testimonials=[
+  {q:'UTS has handled our corporate fleet for years. Punctual, professional and always reliable. A true partner.',n:'Ahmed Raza',r:'Operations Head, Multinational Co.'},
+  {q:'Booked their Land Cruisers for a northern tour. Immaculate vehicles and excellent chauffeurs throughout.',n:'Sara Khan',r:'Travel Enthusiast'},
+  {q:'Their airport transfer service is flawless. On time, every time, with courteous drivers.',n:'Bilal Aslam',r:'Frequent Traveller'},
+];
+const nustTest=[
+  {q:'My commute to NUST is finally stress-free. The driver is punctual and the van is always clean.',n:'Hamza I.',r:'NUST SEECS Student'},
+  {q:'As a parent, the live tracking gives me complete peace of mind. Highly recommended.',n:'Mrs. Tariq',r:'Parent'},
+  {q:'Affordable, safe and reliable. Best decision for my daily university travel.',n:'Ayesha M.',r:'NUST NBS Student'},
+];
+const careerTest=[
+  {q:'I started as a driver and grew into a fleet supervisor. UTS truly invests in its people.',n:'Imran S.',r:'Fleet Supervisor, 8 years'},
+  {q:'Supportive management and real opportunities to learn. A great place to build a career.',n:'Nadia A.',r:'Operations Coordinator'},
+  {q:'The training and respect here are unmatched in this industry. Proud to be part of UTS.',n:'Kashif R.',r:'Senior Chauffeur'},
+];
+
+const timeline=[
+  {y:'1970',t:'The Beginning',d:'United Transport Services is founded with a small fleet and a big vision for reliable transport in Pakistan.'},
+  {y:'1985',t:'Corporate Expansion',d:'Launched dedicated corporate and employee transportation programs for leading organisations.'},
+  {y:'1998',t:'National Network',d:'Expanded operations to Karachi, Lahore and Quetta, building a true nationwide footprint.'},
+  {y:'2008',t:'Fleet Modernisation',d:'Introduced premium SUVs, luxury sedans and modern coasters with maintenance excellence.'},
+  {y:'2015',t:'International Reach',d:'Established operations in Saudi Arabia, extending our trusted service beyond borders.'},
+  {y:'2026',t:'500+ Vehicles & Growing',d:'Today UTS operates 500+ vehicles across 9 locations with GPS tracking and 24/7 support.'},
+];
+const team=[
+  {n:'M. Yousaf',r:'Founder & Chairman',i:'MY',b:'Visionary who built UTS from the ground up with an unwavering commitment to service.'},
+  {n:'Imran Yousaf',r:'Chief Executive Officer',i:'IY',b:'Driving modernisation and national expansion across all UTS operations.'},
+  {n:'Sana Malik',r:'Director Operations',i:'SM',b:'Oversees fleet management, logistics and service quality nationwide.'},
+  {n:'Asad Khan',r:'Head of Corporate Sales',i:'AK',b:'Leads corporate partnerships and bespoke mobility solutions.'},
+];
+const awards=[
+  {t:'Best Transport Company',d:'National Mobility Awards',p:'12 2l2.5 6.5L21 9l-5 4.5L17.5 21 12 17l-5.5 4L8 13.5 3 9z'},
+  {t:'ISO Certified Operations',d:'Quality Management',p:'12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'},
+  {t:'55 Years of Service',d:'Excellence in Longevity',p:'12 7v5l3 3M12 22a10 10 0 100-20 10 10 0 000 20z'},
+  {t:'Safety Excellence',d:'Zero-Incident Record Award',p:'9 12l2 2 4-4M12 22a10 10 0 100-20 10 10 0 000 20z'},
+];
+const benefits=[
+  {t:'Competitive Pay',d:'Market-leading salaries with performance bonuses.',p:'12 1v22M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6'},
+  {t:'Health Coverage',d:'Comprehensive medical insurance for you and family.',p:'12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'},
+  {t:'Career Growth',d:'Clear paths for promotion and skill development.',p:'3 17l6-6 4 4 8-8M21 7v5h-5'},
+  {t:'Training Programs',d:'Continuous learning and professional development.',p:'22 10L12 5 2 10l10 5 10-5zM6 12v5c0 1 3 3 6 3s6-2 6-3v-5'},
+];
+const jobs=[
+  {t:'Professional Chauffeur',loc:'Islamabad',type:'Full-time',exp:'2+ years'},
+  {t:'Fleet Supervisor',loc:'Karachi',type:'Full-time',exp:'4+ years'},
+  {t:'Operations Coordinator',loc:'Lahore',type:'Full-time',exp:'3+ years'},
+  {t:'Customer Service Executive',loc:'Islamabad',type:'Full-time',exp:'1+ years'},
+  {t:'Mechanic / Technician',loc:'Quetta',type:'Full-time',exp:'3+ years'},
+];
+const nustRoutes=[
+  {n:'G-9 / G-10',s:'Daily Route'},{n:'F-10 / F-11',s:'Daily Route'},{n:'Bahria Town',s:'Daily Route'},
+  {n:'DHA Phase 1-2',s:'Daily Route'},{n:'Saddar / Rawalpindi',s:'Daily Route'},{n:'I-8 / I-9',s:'Daily Route'},
+  {n:'Bani Gala',s:'On Request'},{n:'Airport Housing',s:'Daily Route'}
+];
+const nustFaq=[
+  {q:'How do I register for the NUST pick & drop service?',a:'Simply fill out the registration form above with your details and preferred plan. Our team confirms route availability within 24 hours.'},
+  {q:'Are the drivers verified and trained?',a:'Yes. Every driver undergoes background verification and is trained in safety, punctuality and student care protocols.'},
+  {q:'Can parents track the vehicle?',a:'Our Round Trip and Premium plans include GPS tracking and live updates so parents have complete peace of mind.'},
+  {q:'What happens during exams or holidays?',a:'Schedules are adjusted around the NUST academic calendar. Holiday periods are not charged for inactive days where applicable.'},
+  {q:'Is there a security deposit?',a:'A nominal refundable deposit applies for private plans only. Shared route plans require no deposit.'},
+];
+
+/* ===================== RENDER ===================== */
+function el(html){const d=document.createElement('div');d.innerHTML=html.trim();return d.firstElementChild;}
+
+function renderHorizontalFleet(){
+  const track=document.getElementById('hTrack');
+  const set=vehicles.slice(0,8);
+  [...set,...set].forEach(v=>{
+    track.appendChild(el(`<div class="fleet-card">
+      <div class="fleet-img"><span class="fleet-badge">${v.cat}</span>${vehSvg(v.icon)}</div>
+      <div class="fleet-body"><h3>${v.name}</h3>
+        <div class="fleet-specs"><span>${seatIco()}${v.seats}</span><span>${gearIco()}${v.trans}</span></div>
+      </div></div>`));
+  });
+}
+function renderWhy(){const g=document.getElementById('whyGrid');whyItems.forEach(w=>g.appendChild(el(`<div class="why-item reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M${w.p}" stroke="#fff" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div><h4>${w.t}</h4><p>${w.d}</p></div></div>`)));}
+function renderCities(id,data){const g=document.getElementById(id);data.forEach(c=>g.appendChild(el(`<div class="city-chip reveal"><div class="pin">${pinSvg()}</div><h4>${c.n}</h4><span>${c.s}</span></div>`)));}
+function renderTest(id,data){const g=document.getElementById(id);data.forEach(t=>g.appendChild(el(`<div class="test-card reveal"><div class="quote">&ldquo;</div><p>${t.q}</p><div class="test-meta"><div class="avatar">${t.n[0]}</div><div><b>${t.n}</b><span>${t.r}</span><div class="stars">★★★★★</div></div></div></div>`)));}
+function renderServices(){const g=document.getElementById('servicesGrid');services.forEach(s=>g.appendChild(el(`<div class="card reveal"><div class="ico"><svg viewBox="0 0 24 24" fill="none"><path d="M${s.p}" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h3>${s.t}</h3><p>${s.d}</p><span class="more" onclick="go('contact')">Book this &rarr;</span></div>`)));}
+
+let activeFilter='All';
+function renderFilters(){const f=document.getElementById('filters');f.innerHTML='';categories.forEach(c=>{const b=el(`<button class="filter-btn ${c===activeFilter?'active':''}">${c}</button>`);b.onclick=()=>{activeFilter=c;renderFilters();renderFleetGrid();};f.appendChild(b);});}
+function renderFleetGrid(){
+  const g=document.getElementById('fleetGrid');g.innerHTML='';
+  vehicles.filter(v=>activeFilter==='All'||v.cat===activeFilter||(activeFilter==='SUV'&&v.icon==='suv')).forEach(v=>{
+    g.appendChild(el(`<div class="vcard reveal">
+      <div class="vcard-img"><span class="glow"></span><span class="cat-badge">${v.cat}</span>${vehSvg(v.icon)}</div>
+      <div class="vcard-body"><h3>${v.name}</h3><div class="cls">${v.cls}</div>
+        <div class="specs-row">
+          <span class="spec-pill">${seatIco()}${v.seats}</span>
+          <span class="spec-pill">${gearIco()}${v.trans}</span>
+          <span class="spec-pill">${fuelIco()}${v.fuel}</span>
+        </div>
+        <div class="vcard-foot"><span style="color:var(--muted);font-size:.82rem">Available Now</span><button class="btn btn-orange btn-sm" onclick="go('contact')">Book Now</button></div>
+      </div></div>`));
+  });
+  gsapReveal();
+}
+function renderTimeline(){const t=document.getElementById('timeline');timeline.forEach(m=>t.appendChild(el(`<div class="tl-item reveal"><div class="tl-year">${m.y}</div><h4>${m.t}</h4><p>${m.d}</p></div>`)));}
+function renderTeam(){const g=document.getElementById('teamGrid');team.forEach(m=>g.appendChild(el(`<div class="team-card reveal"><div class="team-photo">${m.i}</div><div class="info"><h4>${m.n}</h4><div class="role">${m.r}</div><p class="bio">${m.b}</p></div></div>`)));}
+function renderAwards(){const g=document.getElementById('awardGrid');awards.forEach(a=>g.appendChild(el(`<div class="award reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M${a.p}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h4>${a.t}</h4><p>${a.d}</p></div>`)));}
+function renderOffices(){const g=document.getElementById('officeList');offices.forEach(o=>g.appendChild(el(`<div class="office-card reveal"><div class="ic">${pinSvg()}</div><div><h4>${o.c}</h4><p>${o.p}</p></div></div>`)));}
+function renderBenefits(){const g=document.getElementById('benefitsGrid');benefits.forEach(b=>g.appendChild(el(`<div class="benefit reveal"><div class="ic"><svg viewBox="0 0 24 24" fill="none"><path d="M${b.p}" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><h4>${b.t}</h4><p>${b.d}</p></div>`)));}
+function renderJobs(){const g=document.getElementById('jobList');jobs.forEach(j=>g.appendChild(el(`<div class="job reveal"><div><h4>${j.t}</h4><div class="meta"><span>${pinSvg()} ${j.loc}</span><span class="job-tag">${j.type}</span><span class="job-tag">${j.exp}</span></div></div><button class="btn btn-orange btn-sm" onclick="go('careers');scrollToId('page-careers')">Apply Now</button></div>`)));}
+function renderFaq(){const g=document.getElementById('nustFaq');nustFaq.forEach(f=>{const item=el(`<div class="faq-item"><div class="faq-q">${f.q}<span class="pm">+</span></div><div class="faq-a"><p>${f.a}</p></div></div>`);item.querySelector('.faq-q').onclick=()=>{const open=item.classList.contains('open');document.querySelectorAll('.faq-item').forEach(i=>{i.classList.remove('open');i.querySelector('.faq-a').style.maxHeight=null;});if(!open){item.classList.add('open');item.querySelector('.faq-a').style.maxHeight=item.querySelector('.faq-a').scrollHeight+'px';}};g.appendChild(item);});}
+
+/* ===================== ROUTING ===================== */
+function go(page,e){
+  if(e)e.preventDefault();
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  const target=document.getElementById('page-'+page);
+  if(target)target.classList.add('active');
+  document.querySelectorAll('.nav-link,.mobile-menu a').forEach(a=>{a.classList.toggle('active',a.dataset.page===page);});
+  if(document.getElementById('mobileMenu').classList.contains('open'))toggleMenu();
+  window.scrollTo({top:0,behavior:'instant'});
+  if(window.lenis)window.lenis.scrollTo(0,{immediate:true});
+  setHeaderState();
+  if(typeof ScrollTrigger!=='undefined')ScrollTrigger.refresh();
+  setTimeout(()=>{gsapReveal();initCounters();},50);
+}
+function scrollToId(id){const t=document.getElementById(id);if(t){const y=t.getBoundingClientRect().top+window.scrollY-90;if(window.lenis)window.lenis.scrollTo(y);else window.scrollTo({top:y,behavior:'smooth'});}}
+
+function toggleMenu(){
+  document.getElementById('mobileMenu').classList.toggle('open');
+  document.getElementById('overlay').classList.toggle('show');
+  document.getElementById('hamburger').classList.toggle('open');
+}
+
+function setHeaderState(){
+  const h=document.getElementById('header');
+  const onHome=document.getElementById('page-home').classList.contains('active');
+  if(window.scrollY>60||!onHome)h.classList.add('solid');else h.classList.remove('solid');
+}
+
+/* ===================== FORM ===================== */
+function submitForm(e){e.preventDefault();e.target.reset&&e.target.reset();showToast('Thank you! Our team will contact you shortly.');}
+function showToast(msg){const t=document.getElementById('toast');document.getElementById('toastMsg').textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);}
+
+/* ===================== COUNTERS ===================== */
+let countersDone=new WeakSet();
+function initCounters(){
+  document.querySelectorAll('.count').forEach(c=>{
+    const page=c.closest('.page');
+    if(!page||!page.classList.contains('active'))return;
+    const rect=c.getBoundingClientRect();
+    if(rect.top<window.innerHeight&&rect.bottom>0&&!countersDone.has(c)){
+      countersDone.add(c);animateCount(c);
+    }
+  });
+}
+function animateCount(elm){
+  const target=+elm.dataset.target;const dur=1800;const start=performance.now();
+  function step(now){const p=Math.min((now-start)/dur,1);const ease=1-Math.pow(1-p,3);
+    let val=Math.floor(ease*target);
+    elm.textContent=target>=1000?val.toLocaleString():val;
+    if(p<1)requestAnimationFrame(step);else elm.textContent=target>=1000?target.toLocaleString():target;
+  }requestAnimationFrame(step);
+}
+
+/* ===================== GSAP REVEAL ===================== */
+function gsapReveal(){
+  if(typeof gsap==='undefined')return;
+  document.querySelectorAll('.page.active .reveal').forEach(el=>{
+    if(el._revealed)return;el._revealed=true;
+    gsap.fromTo(el,{opacity:0,y:42},{opacity:1,y:0,duration:.9,ease:'power3.out',
+      scrollTrigger:{trigger:el,start:'top 88%'}});
+  });
+}
+
+/* ===================== HORIZONTAL FLEET SCROLL ===================== */
+function initHScroll(){
+  if(typeof gsap==='undefined')return;
+  const track=document.getElementById('hTrack');
+  const section=document.getElementById('fleetScrollSection');
+  const total=track.scrollWidth/2;
+  gsap.to(track,{x:-total,ease:'none',
+    scrollTrigger:{trigger:section,start:'top 30%',end:'+='+total,scrub:1}});
+}
+
+/* ===================== THREE.JS HERO ===================== */
+function initHero(){
+  if(typeof THREE==='undefined')return;
+  const canvas=document.getElementById('hero-canvas');
+  const renderer=new THREE.WebGLRenderer({canvas,alpha:true,antialias:true});
+  const scene=new THREE.Scene();
+  scene.fog=new THREE.FogExp2(0x06122a,0.045);
+  const camera=new THREE.PerspectiveCamera(70,1,0.1,200);
+  camera.position.set(0,4,18);camera.lookAt(0,2,-30);
+
+  function resize(){const w=canvas.clientWidth,h=canvas.clientHeight;renderer.setSize(w,h,false);renderer.setPixelRatio(Math.min(devicePixelRatio,2));camera.aspect=w/h;camera.updateProjectionMatrix();}
+
+  // highway grid floor
+  const grid=new THREE.GridHelper(400,80,0x143258,0x0e2748);
+  grid.position.y=-0.5;scene.add(grid);
+
+  // light trails
+  const trails=[];
+  const COLORS=[0x3FA9F5,0xFF7A00,0x3FA9F5,0x66c2ff,0xFF9433];
+  const lanes=[-9,-6,-3,3,6,9];
+  function makeTrail(){
+    const len=4+Math.random()*8;
+    const geo=new THREE.BoxGeometry(0.18,0.05,len);
+    const color=COLORS[Math.floor(Math.random()*COLORS.length)];
+    const mat=new THREE.MeshBasicMaterial({color,transparent:true,opacity:0.85});
+    const m=new THREE.Mesh(geo,mat);
+    const lane=lanes[Math.floor(Math.random()*lanes.length)];
+    m.position.set(lane+(Math.random()*1.4-0.7),0,-60-Math.random()*120);
+    m.userData={speed:0.6+Math.random()*1.2,dir:lane<0?1:1};
+    scene.add(m);trails.push(m);
+  }
+  for(let i=0;i<70;i++)makeTrail();
+
+  // glow orbs near horizon
+  const orbGeo=new THREE.SphereGeometry(0.4,8,8);
+  for(let i=0;i<24;i++){
+    const c=i%2?0xFF7A00:0x3FA9F5;
+    const o=new THREE.Mesh(orbGeo,new THREE.MeshBasicMaterial({color:c,transparent:true,opacity:0.5}));
+    o.position.set((Math.random()-0.5)*40,0.2+Math.random()*0.6,-40-Math.random()*100);
+    o.userData={speed:0.4+Math.random()*0.8};scene.add(o);trails.push(o);
+  }
+
+  let mx=0;
+  window.addEventListener('mousemove',e=>{mx=(e.clientX/window.innerWidth-0.5)*2;});
+
+  function animate(){
+    requestAnimationFrame(animate);
+    trails.forEach(t=>{
+      t.position.z+=t.userData.speed;
+      if(t.position.z>22){t.position.z=-60-Math.random()*120;t.position.x=lanes[Math.floor(Math.random()*lanes.length)]+(Math.random()*1.4-0.7);}
+    });
+    camera.position.x+=((mx*3)-camera.position.x)*0.04;
+    camera.lookAt(0,2,-30);
+    renderer.render(scene,camera);
+  }
+  resize();window.addEventListener('resize',resize);animate();
+}
+
+/* ===================== INIT ===================== */
+window.addEventListener('DOMContentLoaded',()=>{
+  // render everything
+  renderHorizontalFleet();renderWhy();renderCities('cityGrid',cities);renderTest('testGrid',testimonials);
+  renderServices();renderFilters();renderFleetGrid();renderTimeline();renderTeam();renderAwards();
+  renderOffices();renderBenefits();renderJobs();renderFaq();renderCities('nustRoutes',nustRoutes);
+  renderTest('nustTest',nustTest);renderTest('careerTest',careerTest);
+
+  // Lenis smooth scroll
+  if(typeof Lenis!=='undefined'){
+    window.lenis=new Lenis({duration:1.1,smoothWheel:true});
+    function raf(t){window.lenis.raf(t);requestAnimationFrame(raf);}requestAnimationFrame(raf);
+    if(typeof ScrollTrigger!=='undefined'){window.lenis.on('scroll',ScrollTrigger.update);}
+  }
+
+  if(typeof gsap!=='undefined'&&typeof ScrollTrigger!=='undefined'){gsap.registerPlugin(ScrollTrigger);}
+  initHero();initHScroll();gsapReveal();
+
+  // counters on scroll
+  window.addEventListener('scroll',()=>{setHeaderState();initCounters();},{passive:true});
+  setHeaderState();initCounters();
+  setTimeout(initCounters,400);
+});
+</script>
+</body>
+</html>
