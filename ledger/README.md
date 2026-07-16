@@ -19,15 +19,19 @@ Business logic (trade PnL, recursive business net-profit rollup, Zakat eligible 
 
 ## Deploying (Vercel + a hosted Postgres)
 
-1. **Database**: create a Postgres instance (Supabase, Neon, or Vercel Postgres all work) and copy its connection string.
-2. **Vercel project**: import this repo, set the project root to `ledger/`.
-3. **Environment variables** (Vercel project settings):
-   - `DATABASE_URL` — the hosted Postgres connection string
-   - `NEXTAUTH_SECRET` — `openssl rand -base64 32`
-   - `NEXTAUTH_URL` — the deployed URL (e.g. `https://your-app.vercel.app`)
-   - `ADMIN_EMAIL`, `ADMIN_PASSWORD` — only needed transiently to run the seed step
-4. **Push the schema**: run `DATABASE_URL=... npx prisma db push` from your machine (or a one-off Vercel deploy hook) against the hosted database.
-5. **Seed the owner account**: run `DATABASE_URL=... ADMIN_EMAIL=... ADMIN_PASSWORD=... npm run seed` once. After that you can remove `ADMIN_EMAIL`/`ADMIN_PASSWORD` from the Vercel env — they're only read by the seed script, not the app itself.
-6. Deploy. The app is private: every route except `/login` and `/api/auth/*` requires a signed-in session (`src/middleware.ts`), so the Vercel URL is safe to be "unlisted but not secret" — though you may still want to disable search indexing (already set via `robots: noindex` in `src/app/layout.tsx`) and treat the URL as private.
+The `build` script runs `prisma db push` before `next build`, so the schema syncs itself on every deploy — no separate migration step needed. Seeding the owner account is a one-time authenticated HTTP call instead of a script that needs direct DB access, since some environments (this one included) can't open raw TCP connections to Postgres.
 
-To add a second user later, insert another row into `users` (e.g. via a small script using the same bcrypt hashing as `prisma/seed.ts`) — every table already scopes by `userId`.
+1. **Database**: create a Postgres instance (Supabase, Neon, or Vercel Postgres) and copy its connection string. On Supabase specifically, use the **pooler** connection string (Project Settings → Database → Connection string → "Transaction pooler" or "Session pooler"), not the direct `db.<ref>.supabase.co` one — the direct host is IPv6-only unless you pay for their IPv4 add-on, which breaks most serverless/CI environments including plain `prisma db push` from a laptop without IPv6.
+2. **Vercel project**: at vercel.com, "Add New… → Project", import `unitedapexdevelopers-sultan/united-apex-developers`, set **Root Directory** to `ledger`.
+3. **Environment variables** (Vercel project settings → Environment Variables, scope: Production):
+   - `DATABASE_URL` — the pooler connection string from step 1
+   - `NEXTAUTH_SECRET` — `openssl rand -base64 32`
+   - `NEXTAUTH_URL` — the deployed URL Vercel assigns (e.g. `https://ledger-xyz.vercel.app`) — you can fill this in after the first deploy and redeploy once
+   - `ADMIN_EMAIL`, `ADMIN_PASSWORD` — the login you want
+   - `SETUP_TOKEN` — any random string (e.g. `openssl rand -hex 16`), used once to authorize the bootstrap call below
+4. **Deploy**. The build pushes the schema automatically.
+5. **Create the owner account**: visit `https://<your-deployed-url>/api/setup?token=<SETUP_TOKEN>` once in a browser. It creates the user from `ADMIN_EMAIL`/`ADMIN_PASSWORD` and returns `{"ok":true}`.
+6. **Remove the bootstrap route**: delete `src/app/api/setup/route.ts`, remove its exclusion from `src/middleware.ts`'s matcher, and delete `SETUP_TOKEN`/`ADMIN_EMAIL`/`ADMIN_PASSWORD` from the Vercel env, then redeploy. It's a one-time-use door — don't leave it open.
+7. Sign in at `/login`. Every other route requires a session (`src/middleware.ts`), and the page is set to `noindex` — treat the URL as private (unlisted, not secret).
+
+To add a second user later, insert another row into `users` (e.g. temporarily restore the setup route with a different email, or write a small one-off script using the same bcrypt hashing) — every table already scopes by `userId`.
