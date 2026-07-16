@@ -4,11 +4,19 @@
 
 html,
 body {
+  height: 100%;
   padding: 0;
   margin: 0;
   background: #0f1216;
   color: #e9e7e1;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  /* Standalone/installed mode has no browser chrome to absorb the notch/home-indicator area. */
+  padding-top: env(safe-area-inset-top);
+  padding-bottom: env(safe-area-inset-bottom);
+}
+
+#__next {
+  height: 100%;
 }
 
 input,
@@ -38,6 +46,33 @@ button {
 
 .card {
   animation: fadein 0.2s ease;
+}
+
+.bottom-nav-mobile {
+  display: none;
+}
+
+.mobile-topbar {
+  display: none;
+}
+
+@media (max-width: 680px) {
+  .sidebar-desktop {
+    display: none !important;
+  }
+  .bottom-nav-mobile {
+    display: flex;
+  }
+  .mobile-topbar {
+    display: flex;
+  }
+  .app-content {
+    padding: 16px !important;
+    padding-bottom: calc(76px + env(safe-area-inset-bottom)) !important;
+  }
+  .dashboard-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
 @keyframes fadein {

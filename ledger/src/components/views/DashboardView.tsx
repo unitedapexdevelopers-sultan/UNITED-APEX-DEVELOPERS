@@ -28,7 +28,7 @@ export function DashboardView() {
         <StatCard label="Businesses tracked" value={businesses.length} sub={`${businesses.filter((b) => !b.parentId).length} top-level`} />
       </div>
 
-      <div style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 16 }}>
+      <div className="dashboard-grid" style={{ display: "grid", gridTemplateColumns: "1.4fr 1fr", gap: 16 }}>
         <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12, padding: 18, minWidth: 0 }}>
           <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 12, color: C.muted }}>Cumulative PnL</div>
           <ResponsiveContainer width="100%" height={220}>

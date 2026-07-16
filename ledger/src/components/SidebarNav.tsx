@@ -3,23 +3,18 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { signOut } from "next-auth/react";
-import { LayoutDashboard, Wallet, Receipt, TrendingUp, Building2, Percent, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
 import { C } from "@/components/ui";
-
-const NAV = [
-  { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
-  { id: "wallets", label: "Wallets", icon: Wallet, href: "/wallets" },
-  { id: "expenses", label: "Expenses", icon: Receipt, href: "/expenses" },
-  { id: "trading", label: "Trading & PnL", icon: TrendingUp, href: "/trading" },
-  { id: "businesses", label: "Businesses", icon: Building2, href: "/businesses" },
-  { id: "zakat", label: "Zakat", icon: Percent, href: "/zakat" },
-];
+import { NAV } from "@/lib/nav";
 
 export function SidebarNav() {
   const pathname = usePathname();
 
   return (
-    <div style={{ width: 220, borderRight: `1px solid ${C.border}`, padding: "24px 14px", flexShrink: 0, display: "flex", flexDirection: "column" }}>
+    <div
+      className="sidebar-desktop"
+      style={{ width: 220, borderRight: `1px solid ${C.border}`, padding: "24px 14px", flexShrink: 0, display: "flex", flexDirection: "column" }}
+    >
       <div style={{ display: "flex", alignItems: "baseline", gap: 8, padding: "0 10px 24px" }}>
         <span style={{ fontSize: 18, fontWeight: 700, letterSpacing: "-0.02em" }}>Ledger</span>
         <span className="mono" style={{ fontSize: 11, color: C.gold }}>
