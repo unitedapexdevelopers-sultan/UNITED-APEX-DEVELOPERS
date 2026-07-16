@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
-# Builds the Windows desktop-app bundle: a portable Node runtime + the built
-# Next.js standalone server + launcher scripts, zipped up for download.
+# Builds the Windows desktop-app bundle: the built Next.js standalone server +
+# launcher scripts, zipped up for download. By default it does NOT bundle a
+# portable Node.js runtime (the launcher expects `node` on PATH, and the user
+# installs it once from nodejs.org) — that keeps the zip small enough to send
+# as a chat attachment. Set BUNDLE_NODE=1 to embed a portable Windows Node
+# runtime instead (bigger zip, no Node.js install required on the target
+# machine).
 #
 # Required env vars (not read from .env on purpose — pass them explicitly so
 # nothing personal ends up cached in a build script):
@@ -9,6 +14,8 @@
 # Usage:
 #   DATABASE_URL=... NEXTAUTH_SECRET=... ADMIN_EMAIL=... ADMIN_PASSWORD=... SETUP_TOKEN=... \
 #     ./scripts/package-windows.sh /path/to/output-dir
+#
+#   BUNDLE_NODE=1 DATABASE_URL=... ... ./scripts/package-windows.sh /path/to/output-dir
 
 set -euo pipefail
 
@@ -22,6 +29,7 @@ done
 OUT_DIR="${1:?Usage: $0 <output-dir>}"
 NODE_VERSION="v24.18.0"
 PORT=47831
+BUNDLE_NODE="${BUNDLE_NODE:-0}"
 
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 WORK="$(mktemp -d)"
@@ -37,16 +45,20 @@ cp -r .next/static/* .next/standalone/.next/static/
 
 echo "== Assembling package =="
 PKG="$WORK/Ledger"
-mkdir -p "$PKG/node" "$PKG/tools"
+mkdir -p "$PKG/tools"
 cp -r .next/standalone "$PKG/app"
 # Windows-only shipping bundle: drop the native engine for whatever platform built it.
 find "$PKG/app/node_modules/.prisma/client" -iname "libquery_engine-*" -delete 2>/dev/null || true
 
-if [ ! -f "$WORK/node-win.zip" ]; then
-  curl -sS -o "$WORK/node-win.zip" "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-win-x64.zip"
+if [ "$BUNDLE_NODE" = "1" ]; then
+  echo "== Bundling portable Node.js runtime =="
+  mkdir -p "$PKG/node"
+  if [ ! -f "$WORK/node-win.zip" ]; then
+    curl -sS -o "$WORK/node-win.zip" "https://nodejs.org/dist/${NODE_VERSION}/node-${NODE_VERSION}-win-x64.zip"
+  fi
+  unzip -q "$WORK/node-win.zip" -d "$WORK/node-win"
+  cp "$WORK"/node-win/node-*-win-x64/node.exe "$PKG/node/node.exe"
 fi
-unzip -q "$WORK/node-win.zip" -d "$WORK/node-win"
-cp "$WORK"/node-win/node-*-win-x64/node.exe "$PKG/node/node.exe"
 
 (cd "$ROOT" && node -e "
 const mod = require('png-to-ico');
@@ -60,6 +72,11 @@ cp "$ROOT/scripts/windows-bundle/call-setup.js" "$PKG/tools/call-setup.js"
 cp "$ROOT/scripts/windows-bundle/port-in-use.js" "$PKG/tools/port-in-use.js"
 cp "$ROOT/scripts/windows-bundle/README.txt" "$PKG/README.txt"
 
+TEMPLATE="Start Ledger.bat.template"
+if [ "$BUNDLE_NODE" = "1" ]; then
+  TEMPLATE="Start Ledger.bat.bundled-node.template"
+fi
+
 sed \
   -e "s#__DATABASE_URL__#${DATABASE_URL}#" \
   -e "s#__NEXTAUTH_SECRET__#${NEXTAUTH_SECRET}#" \
@@ -67,7 +84,7 @@ sed \
   -e "s#__ADMIN_PASSWORD__#${ADMIN_PASSWORD}#" \
   -e "s#__SETUP_TOKEN__#${SETUP_TOKEN}#" \
   -e "s#__PORT__#${PORT}#g" \
-  "$ROOT/scripts/windows-bundle/Start Ledger.bat.template" > "$PKG/Start Ledger.bat"
+  "$ROOT/scripts/windows-bundle/$TEMPLATE" > "$PKG/Start Ledger.bat"
 cp "$ROOT/scripts/windows-bundle/Stop Ledger.bat" "$PKG/Stop Ledger.bat"
 cp "$ROOT/scripts/windows-bundle/Create Desktop Shortcut.bat" "$PKG/Create Desktop Shortcut.bat"
 

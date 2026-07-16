@@ -2,16 +2,6 @@
 setlocal
 cd /d "%~dp0"
 
-where node >nul 2>&1
-if errorlevel 1 (
-  echo Node.js is required but wasn't found on this computer.
-  echo.
-  echo Install it once from https://nodejs.org ^(choose the LTS version^),
-  echo then run this file again.
-  pause
-  exit /b 1
-)
-
 set PORT=__PORT__
 set HOSTNAME=127.0.0.1
 set NEXTAUTH_URL=http://127.0.0.1:__PORT__
@@ -21,20 +11,20 @@ set ADMIN_EMAIL=__ADMIN_EMAIL__
 set ADMIN_PASSWORD=__ADMIN_PASSWORD__
 set SETUP_TOKEN=__SETUP_TOKEN__
 
-node "%~dp0tools\port-in-use.js"
+"%~dp0node\node.exe" "%~dp0tools\port-in-use.js"
 if %errorlevel%==0 goto openwindow
 
 echo Starting Ledger server...
-start "Ledger Server" /min node "%~dp0app\server.js"
+start "Ledger Server" /min "%~dp0node\node.exe" "%~dp0app\server.js"
 
-node "%~dp0tools\wait-for-server.js"
+"%~dp0node\node.exe" "%~dp0tools\wait-for-server.js"
 if errorlevel 1 (
   echo Ledger server did not start in time. Close this window and try again.
   pause
   exit /b 1
 )
 
-node "%~dp0tools\call-setup.js"
+"%~dp0node\node.exe" "%~dp0tools\call-setup.js"
 
 :openwindow
 echo Opening Ledger...

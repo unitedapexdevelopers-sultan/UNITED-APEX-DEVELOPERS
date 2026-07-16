@@ -4,9 +4,19 @@ LEDGER — Desktop App (Windows)
 WHAT THIS IS
 ------------
 Ledger runs entirely on your laptop. There's no website involved — double-clicking
-"Start Ledger.bat" starts a small local server (bundled, nothing to install) and
-opens the app in its own window, no browser address bar. Your data lives in a
-private Postgres database (Supabase), so it's safe across reinstalls/reboots.
+"Start Ledger.bat" starts a small local server and opens the app in its own
+window, no browser address bar. Your data lives in a private Postgres database
+(Supabase), so it's safe across reinstalls/reboots.
+
+REQUIREMENT: NODE.JS
+----------------------
+This package needs Node.js installed once (it's what runs the local server —
+this zip only ships the app itself, not a full runtime, to keep the download
+small). If you don't have it:
+1. Go to https://nodejs.org and download the "LTS" installer for Windows.
+2. Run it, click through with the defaults (Next, Next, Install).
+3. That's it — no need to touch anything else it mentions (npm, etc.).
+You only need to do this once, even if you reinstall Ledger later.
 
 FIRST-TIME SETUP
 -----------------
@@ -30,6 +40,8 @@ EVERY-DAY USE
 
 TROUBLESHOOTING
 ----------------
+- "Node.js is required but wasn't found": install it from nodejs.org (see
+  above), then run "Start Ledger.bat" again.
 - "Ledger server did not start in time": close the window, wait a few seconds,
   and run "Start Ledger.bat" again — the very first launch can be slower.
 - If the app opens in a normal Edge tab instead of its own window, Edge isn't
@@ -40,7 +52,6 @@ TROUBLESHOOTING
 
 WHAT'S INSIDE (for the curious)
 --------------------------------
-- node\        a portable Node.js runtime (no system install needed)
 - app\         the built application (Next.js, standalone server)
 - tools\       small helper scripts the launcher uses to wait for the server
                and create your account on first run
