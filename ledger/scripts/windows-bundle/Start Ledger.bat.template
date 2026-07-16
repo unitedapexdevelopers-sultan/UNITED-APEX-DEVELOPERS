@@ -1,0 +1,34 @@
+@echo off
+setlocal
+cd /d "%~dp0"
+
+set PORT=__PORT__
+set HOSTNAME=127.0.0.1
+set NEXTAUTH_URL=http://127.0.0.1:__PORT__
+set NEXTAUTH_SECRET=__NEXTAUTH_SECRET__
+set DATABASE_URL=__DATABASE_URL__
+set ADMIN_EMAIL=__ADMIN_EMAIL__
+set ADMIN_PASSWORD=__ADMIN_PASSWORD__
+set SETUP_TOKEN=__SETUP_TOKEN__
+
+"%~dp0node\node.exe" "%~dp0tools\port-in-use.js"
+if %errorlevel%==0 goto openwindow
+
+echo Starting Ledger server...
+start "Ledger Server" /min "%~dp0node\node.exe" "%~dp0app\server.js"
+
+"%~dp0node\node.exe" "%~dp0tools\wait-for-server.js"
+if errorlevel 1 (
+  echo Ledger server did not start in time. Close this window and try again.
+  pause
+  exit /b 1
+)
+
+"%~dp0node\node.exe" "%~dp0tools\call-setup.js"
+
+:openwindow
+echo Opening Ledger...
+start "" msedge --app=http://127.0.0.1:__PORT__/dashboard --user-data-dir="%LOCALAPPDATA%\LedgerApp\Profile"
+if errorlevel 1 (
+  start "" "%ProgramFiles(x86)%\Microsoft\Edge\Application\msedge.exe" --app=http://127.0.0.1:__PORT__/dashboard --user-data-dir="%LOCALAPPDATA%\LedgerApp\Profile"
+)

@@ -47,3 +47,23 @@ Once deployed (PWA installability requires HTTPS — it won't offer install on p
 After installing, the icon opens straight to `/dashboard` (or `/login` if not signed in) in its own window — no visible URL bar. Layout is responsive: a sidebar on desktop widths, a bottom tab bar + compact top bar under 680px (phone widths).
 
 If icons/branding ever need to change, edit `scripts/generate-icons.mjs` and rerun `node scripts/generate-icons.mjs` (requires `sharp`: `npm install --no-save sharp` first) — it regenerates every icon file from one source-of-truth script.
+
+## Windows desktop bundle (no hosting required)
+
+For a version that runs entirely on someone's own laptop and talks directly to the Postgres database — no Vercel, no browser install prompt — `scripts/package-windows.sh` builds a self-contained folder: a portable Node.js runtime, the Next.js standalone server (`output: "standalone"` in `next.config.mjs`), and `.bat` launchers that open the app in a chrome-less Edge app window (`msedge --app=...`).
+
+```
+DATABASE_URL="postgresql://...pooler.supabase.com:5432/postgres?sslmode=require" \
+NEXTAUTH_SECRET="$(openssl rand -base64 32)" \
+ADMIN_EMAIL="you@example.com" \
+ADMIN_PASSWORD="..." \
+SETUP_TOKEN="$(openssl rand -hex 16)" \
+  ./scripts/package-windows.sh /path/to/output-dir
+```
+
+This produces `Ledger-Windows.zip`. The templates it fills in live in `scripts/windows-bundle/` — edit those (not files inside a built zip) to change launcher behavior. Notes:
+
+- `prisma/schema.prisma`'s `generator client` has `binaryTargets = ["native", "windows"]` so `prisma generate` fetches the Windows query-engine binary regardless of what OS runs the build.
+- The account is bootstrapped the same way as the Vercel path: the bundled server exposes `/api/setup?token=...`, and the launcher calls it once (idempotent) after the local server comes up.
+- The zip embeds `DATABASE_URL`/`NEXTAUTH_SECRET`/`ADMIN_PASSWORD` in plaintext inside `Start Ledger.bat` — treat the zip itself as a secret; don't upload or share it anywhere public.
+- It's unsigned, so Windows SmartScreen will warn on first run ("Unknown Publisher" → More info → Run anyway). There's no way around that without a code-signing certificate.
