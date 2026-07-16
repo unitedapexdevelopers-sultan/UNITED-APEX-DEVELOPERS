@@ -1,0 +1,126 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  createdAt    DateTime @default(now())
+
+  wallets      Wallet[]
+  transactions Transaction[]
+  businesses   Business[]
+  trades       Trade[]
+  zakatConfig  ZakatConfig?
+  zakatRecords ZakatRecord[]
+}
+
+enum WalletType {
+  bank
+  crypto
+  broker
+  cash
+}
+
+model Wallet {
+  id        String     @id @default(cuid())
+  userId    String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  type      WalletType
+  balance   Float
+  currency  String     @default("USD")
+  zakatable Boolean    @default(true)
+  createdAt DateTime   @default(now())
+
+  transactions Transaction[]
+
+  @@index([userId])
+}
+
+enum TxType {
+  income
+  expense
+}
+
+model Transaction {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  walletId   String?
+  wallet     Wallet?  @relation(fields: [walletId], references: [id], onDelete: SetNull)
+  businessId String?
+  business   Business? @relation(fields: [businessId], references: [id], onDelete: SetNull)
+  type       TxType
+  amount     Float
+  category   String
+  date       DateTime @db.Date
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Business {
+  id        String     @id @default(cuid())
+  userId    String
+  user      User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name      String
+  parentId  String?
+  parent    Business?  @relation("BusinessTree", fields: [parentId], references: [id], onDelete: SetNull)
+  children  Business[] @relation("BusinessTree")
+  createdAt DateTime   @default(now())
+
+  transactions Transaction[]
+  trades       Trade[]
+
+  @@index([userId])
+}
+
+model Trade {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  businessId String?
+  business   Business? @relation(fields: [businessId], references: [id], onDelete: SetNull)
+  asset      String
+  entryPrice Float
+  exitPrice  Float?
+  quantity   Float
+  date       DateTime @db.Date
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+}
+
+enum NisabBasis {
+  gold
+  silver
+  manual
+}
+
+model ZakatConfig {
+  id         String     @id @default(cuid())
+  userId     String     @unique
+  user       User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  nisabBasis NisabBasis @default(gold)
+  nisabValue Float      @default(5000)
+  rate       Float      @default(2.5)
+}
+
+model ZakatRecord {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date           DateTime @default(now()) @db.Date
+  eligibleWealth Float
+  zakatDue       Float
+  createdAt      DateTime @default(now())
+
+  @@index([userId])
+}
