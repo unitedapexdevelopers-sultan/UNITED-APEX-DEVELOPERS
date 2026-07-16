@@ -35,3 +35,15 @@ The `build` script runs `prisma db push` before `next build`, so the schema sync
 7. Sign in at `/login`. Every other route requires a session (`src/middleware.ts`), and the page is set to `noindex` — treat the URL as private (unlisted, not secret).
 
 To add a second user later, insert another row into `users` (e.g. temporarily restore the setup route with a different email, or write a small one-off script using the same bcrypt hashing) — every table already scopes by `userId`.
+
+## Installing as an app (PWA)
+
+Once deployed (PWA installability requires HTTPS — it won't offer install on plain `http://`), the app is installable with no browser chrome, its own icon, and offline app-shell caching via `manifest.ts` + the service worker (`@ducanh2912/next-pwa`).
+
+- **Android / Chrome / Edge (desktop or mobile)**: open the site, then the browser shows an "Install" icon in the address bar (desktop) or an "Add to Home screen" / "Install app" prompt (Android). Tap/click it.
+- **iOS / iPadOS (Safari only — Chrome on iOS can't install PWAs)**: open the site in Safari, tap the Share icon, tap **Add to Home Screen**.
+- **Desktop (macOS/Windows, Chrome/Edge)**: address bar → install icon, or menu → "Install Ledger…".
+
+After installing, the icon opens straight to `/dashboard` (or `/login` if not signed in) in its own window — no visible URL bar. Layout is responsive: a sidebar on desktop widths, a bottom tab bar + compact top bar under 680px (phone widths).
+
+If icons/branding ever need to change, edit `scripts/generate-icons.mjs` and rerun `node scripts/generate-icons.mjs` (requires `sharp`: `npm install --no-save sharp` first) — it regenerates every icon file from one source-of-truth script.
