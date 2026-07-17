@@ -36,6 +36,7 @@ type Ctx = DataState & {
   eligibleWealth: number;
   zakatDue: number;
   addWallet: (w: Omit<WalletDTO, "id">) => Promise<void>;
+  updateWallet: (id: string, patch: Partial<Omit<WalletDTO, "id">>) => Promise<void>;
   removeWallet: (id: string) => Promise<void>;
   addTransaction: (t: Omit<TransactionDTO, "id">) => Promise<void>;
   removeTransaction: (id: string) => Promise<void>;
@@ -86,6 +87,15 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     if (!res.ok) return;
     const created = await res.json();
     setWallets((prev) => [...prev, created]);
+  }, []);
+
+  const updateWallet = useCallback(async (id: string, patch: Partial<Omit<WalletDTO, "id">>) => {
+    setWallets((prev) => prev.map((w) => (w.id === id ? { ...w, ...patch } : w)));
+    const res = await fetch(`/api/wallets/${id}`, { method: "PATCH", body: JSON.stringify(patch) });
+    if (res.ok) {
+      const updated = await res.json();
+      setWallets((prev) => prev.map((w) => (w.id === id ? updated : w)));
+    }
   }, []);
 
   const removeWallet = useCallback(async (id: string) => {
@@ -174,6 +184,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     eligibleWealth: zakat.eligibleWealth,
     zakatDue: zakat.zakatDue,
     addWallet,
+    updateWallet,
     removeWallet,
     addTransaction,
     removeTransaction,
