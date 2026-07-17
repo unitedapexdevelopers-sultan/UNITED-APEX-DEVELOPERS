@@ -5,8 +5,12 @@ WHAT THIS IS
 ------------
 Ledger runs entirely on your laptop. There's no website involved — double-clicking
 "Start Ledger.bat" starts a small local server and opens the app in its own
-window, no browser address bar. Your data lives in a private Postgres database
-(Supabase), so it's safe across reinstalls/reboots.
+window, no browser address bar, no login screen. Your data lives in a private
+Postgres database (Supabase), so it's safe across reinstalls/reboots.
+
+There's no login because the server only ever listens on 127.0.0.1 — nothing
+outside your own laptop can reach it, so a password screen wouldn't add real
+protection here, only friction.
 
 REQUIREMENT: NODE.JS
 ----------------------

@@ -20,6 +20,7 @@ set DATABASE_URL=__DATABASE_URL__
 set ADMIN_EMAIL=__ADMIN_EMAIL__
 set ADMIN_PASSWORD=__ADMIN_PASSWORD__
 set SETUP_TOKEN=__SETUP_TOKEN__
+set DISABLE_AUTH=true
 
 node "%~dp0tools\port-in-use.js"
 if %errorlevel%==0 goto openwindow
