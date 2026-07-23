@@ -8,11 +8,12 @@ import { C, StatCard, SectionHeader, Btn, Field, EmptyState, DeleteBtn, inputSty
 import { money, tradePnl } from "@/lib/calc";
 
 export function TradingView() {
-  const { trades, addTrade, removeTrade, businesses, dailyPnl, totalPnl } = useData();
+  const { trades, addTrade, removeTrade, businesses, wallets, dailyPnl, totalPnl } = useData();
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({
     asset: "",
     businessId: "",
+    walletId: "",
     entryPrice: "",
     exitPrice: "",
     quantity: "",
@@ -24,12 +25,13 @@ export function TradingView() {
     addTrade({
       asset: form.asset,
       businessId: form.businessId || null,
+      walletId: form.walletId || null,
       entryPrice: Number(form.entryPrice),
       exitPrice: form.exitPrice === "" ? null : Number(form.exitPrice),
       quantity: Number(form.quantity),
       date: form.date,
     });
-    setForm({ asset: "", businessId: "", entryPrice: "", exitPrice: "", quantity: "", date: new Date().toISOString().slice(0, 10) });
+    setForm({ asset: "", businessId: "", walletId: "", entryPrice: "", exitPrice: "", quantity: "", date: new Date().toISOString().slice(0, 10) });
     setShowForm(false);
   }
 
@@ -56,6 +58,16 @@ export function TradingView() {
           <Field label="Asset">
             <input style={inputStyle} value={form.asset} onChange={(e) => setForm({ ...form, asset: e.target.value })} placeholder="BTC, AAPL…" />
           </Field>
+          <Field label="Wallet (funding source)">
+            <select style={inputStyle} value={form.walletId} onChange={(e) => setForm({ ...form, walletId: e.target.value })}>
+              <option value="">—</option>
+              {wallets.map((w) => (
+                <option key={w.id} value={w.id}>
+                  {w.name}
+                </option>
+              ))}
+            </select>
+          </Field>
           <Field label="Business">
             <select style={inputStyle} value={form.businessId} onChange={(e) => setForm({ ...form, businessId: e.target.value })}>
               <option value="">—</option>
@@ -79,6 +91,12 @@ export function TradingView() {
             <input style={inputStyle} type="date" value={form.date} onChange={(e) => setForm({ ...form, date: e.target.value })} />
           </Field>
           <Btn onClick={submit}>Save</Btn>
+        </div>
+      )}
+      {showForm && (
+        <div style={{ fontSize: 11.5, color: C.muted, marginTop: -8, marginBottom: 16 }}>
+          If a wallet is selected, opening the trade withdraws the entry cost from it; closing it (or logging a trade that's already closed) settles the
+          realized profit/loss back into that wallet.
         </div>
       )}
 
@@ -126,6 +144,7 @@ export function TradingView() {
                   {t.date} · entry {money(t.entryPrice)}
                   {t.exitPrice !== null ? ` → exit ${money(t.exitPrice)}` : " · open"}
                   {t.businessId ? " · " + (businesses.find((b) => b.id === t.businessId)?.name || "") : ""}
+                  {t.walletId ? " · " + (wallets.find((w) => w.id === t.walletId)?.name || "") : ""}
                 </div>
               </div>
               <div style={{ display: "flex", alignItems: "center", gap: 12 }}>

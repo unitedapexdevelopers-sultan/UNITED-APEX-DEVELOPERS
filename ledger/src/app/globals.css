@@ -75,6 +75,27 @@ button {
   }
 }
 
+/* Recharts' default Legend/Tooltip text ignores our theme colors (renders
+   near-black), which is unreadable against this app's dark background. */
+.recharts-legend-item-text {
+  color: #e9e7e1 !important;
+}
+
+.recharts-default-tooltip {
+  color: #e9e7e1 !important;
+}
+
+.recharts-tooltip-item,
+.recharts-tooltip-item-name,
+.recharts-tooltip-item-separator,
+.recharts-tooltip-item-value {
+  color: #e9e7e1 !important;
+}
+
+.recharts-tooltip-label {
+  color: #888e97 !important;
+}
+
 @keyframes fadein {
   from {
     opacity: 0;

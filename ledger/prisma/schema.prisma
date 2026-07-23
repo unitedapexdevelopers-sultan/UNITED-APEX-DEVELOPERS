@@ -41,6 +41,7 @@ model Wallet {
   createdAt DateTime   @default(now())
 
   transactions Transaction[]
+  trades       Trade[]
 
   @@index([userId])
 }
@@ -89,6 +90,8 @@ model Trade {
   user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   businessId String?
   business   Business? @relation(fields: [businessId], references: [id], onDelete: SetNull)
+  walletId   String?
+  wallet     Wallet?  @relation(fields: [walletId], references: [id], onDelete: SetNull)
   asset      String
   entryPrice Float
   exitPrice  Float?

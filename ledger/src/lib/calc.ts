@@ -26,6 +26,7 @@ export type BusinessDTO = {
 export type TradeDTO = {
   id: string;
   businessId: string | null;
+  walletId: string | null;
   asset: string;
   entryPrice: number;
   exitPrice: number | null;

@@ -62,6 +62,18 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const [zakatConfig, setZakatConfig] = useState<ZakatConfigDTO>(DEFAULT_ZAKAT_CONFIG);
   const [zakatRecords, setZakatRecords] = useState<ZakatRecordDTO[]>([]);
 
+  const refresh = useCallback(async () => {
+    const res = await fetch("/api/data");
+    if (!res.ok) return;
+    const data: DataState = await res.json();
+    setWallets(data.wallets);
+    setTransactions(data.transactions);
+    setBusinesses(data.businesses);
+    setTrades(data.trades);
+    setZakatConfig(data.zakatConfig);
+    setZakatRecords(data.zakatRecords);
+  }, []);
+
   useEffect(() => {
     let mounted = true;
     (async () => {
@@ -103,17 +115,24 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     await fetch(`/api/wallets/${id}`, { method: "DELETE" });
   }, []);
 
-  const addTransaction = useCallback(async (t: Omit<TransactionDTO, "id">) => {
-    const res = await fetch("/api/transactions", { method: "POST", body: JSON.stringify(t) });
-    if (!res.ok) return;
-    const created = await res.json();
-    setTransactions((prev) => [created, ...prev]);
-  }, []);
+  const addTransaction = useCallback(
+    async (t: Omit<TransactionDTO, "id">) => {
+      const res = await fetch("/api/transactions", { method: "POST", body: JSON.stringify(t) });
+      if (!res.ok) return;
+      // A wallet-linked transaction changes that wallet's balance server-side, so refetch
+      // everything rather than only patching the transactions list.
+      await refresh();
+    },
+    [refresh]
+  );
 
-  const removeTransaction = useCallback(async (id: string) => {
-    setTransactions((prev) => prev.filter((t) => t.id !== id));
-    await fetch(`/api/transactions/${id}`, { method: "DELETE" });
-  }, []);
+  const removeTransaction = useCallback(
+    async (id: string) => {
+      await fetch(`/api/transactions/${id}`, { method: "DELETE" });
+      await refresh();
+    },
+    [refresh]
+  );
 
   const addBusiness = useCallback(async (b: Omit<BusinessDTO, "id">) => {
     const res = await fetch("/api/businesses", { method: "POST", body: JSON.stringify(b) });
@@ -127,17 +146,24 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     await fetch(`/api/businesses/${id}`, { method: "DELETE" });
   }, []);
 
-  const addTrade = useCallback(async (t: Omit<TradeDTO, "id">) => {
-    const res = await fetch("/api/trades", { method: "POST", body: JSON.stringify(t) });
-    if (!res.ok) return;
-    const created = await res.json();
-    setTrades((prev) => [created, ...prev]);
-  }, []);
+  const addTrade = useCallback(
+    async (t: Omit<TradeDTO, "id">) => {
+      const res = await fetch("/api/trades", { method: "POST", body: JSON.stringify(t) });
+      if (!res.ok) return;
+      // A wallet-linked trade changes that wallet's balance server-side, so refetch
+      // everything rather than only patching the trades list.
+      await refresh();
+    },
+    [refresh]
+  );
 
-  const removeTrade = useCallback(async (id: string) => {
-    setTrades((prev) => prev.filter((t) => t.id !== id));
-    await fetch(`/api/trades/${id}`, { method: "DELETE" });
-  }, []);
+  const removeTrade = useCallback(
+    async (id: string) => {
+      await fetch(`/api/trades/${id}`, { method: "DELETE" });
+      await refresh();
+    },
+    [refresh]
+  );
 
   const saveZakatConfig = useCallback(async (cfg: ZakatConfigDTO) => {
     setZakatConfig(cfg);
