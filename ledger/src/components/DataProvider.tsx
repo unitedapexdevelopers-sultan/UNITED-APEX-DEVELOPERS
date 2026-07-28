@@ -3,6 +3,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import {
   BusinessDTO,
+  HoldingDTO,
   TradeDTO,
   TransactionDTO,
   WalletDTO,
@@ -11,8 +12,10 @@ import {
   computeBusinessNet,
   computeDailyPnl,
   computeMonthlyPnl,
+  computeTotalHoldingsGain,
+  computeTotalHoldingsValue,
   computeTotalPnl,
-  computeZakat,
+  computeZakatProfitOnly,
 } from "@/lib/calc";
 import { C } from "@/components/ui";
 
@@ -21,6 +24,7 @@ type DataState = {
   transactions: TransactionDTO[];
   businesses: BusinessDTO[];
   trades: TradeDTO[];
+  holdings: HoldingDTO[];
   zakatConfig: ZakatConfigDTO;
   zakatRecords: ZakatRecordDTO[];
 };
@@ -32,8 +36,12 @@ type Ctx = DataState & {
   monthlyPnl: { month: string; pnl: number }[];
   dailyPnl: { date: string; pnl: number; cumulative: number }[];
   totalWalletBalance: number;
-  zakatableWalletBalance: number;
-  eligibleWealth: number;
+  totalHoldingsValue: number;
+  totalHoldingsGain: number;
+  zakatTradingPnl: number;
+  zakatTransactionsNet: number;
+  zakatTotalProfit: number;
+  zakatEligibleProfit: number;
   zakatDue: number;
   addWallet: (w: Omit<WalletDTO, "id">) => Promise<void>;
   updateWallet: (id: string, patch: Partial<Omit<WalletDTO, "id">>) => Promise<void>;
@@ -44,6 +52,9 @@ type Ctx = DataState & {
   removeBusiness: (id: string) => Promise<void>;
   addTrade: (t: Omit<TradeDTO, "id">) => Promise<void>;
   removeTrade: (id: string) => Promise<void>;
+  addHolding: (h: Omit<HoldingDTO, "id">) => Promise<void>;
+  updateHolding: (id: string, currentPrice: number) => Promise<void>;
+  removeHolding: (id: string) => Promise<void>;
   saveZakatConfig: (c: ZakatConfigDTO) => Promise<void>;
   recordZakatCalculation: () => Promise<void>;
   removeZakatRecord: (id: string) => Promise<void>;
@@ -51,7 +62,7 @@ type Ctx = DataState & {
 
 const DataContext = createContext<Ctx | null>(null);
 
-const DEFAULT_ZAKAT_CONFIG: ZakatConfigDTO = { nisabBasis: "gold", nisabValue: 5000, rate: 2.5 };
+const DEFAULT_ZAKAT_CONFIG: ZakatConfigDTO = { rate: 2.5 };
 
 export function DataProvider({ children }: { children: React.ReactNode }) {
   const [loaded, setLoaded] = useState(false);
@@ -59,6 +70,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const [transactions, setTransactions] = useState<TransactionDTO[]>([]);
   const [businesses, setBusinesses] = useState<BusinessDTO[]>([]);
   const [trades, setTrades] = useState<TradeDTO[]>([]);
+  const [holdings, setHoldings] = useState<HoldingDTO[]>([]);
   const [zakatConfig, setZakatConfig] = useState<ZakatConfigDTO>(DEFAULT_ZAKAT_CONFIG);
   const [zakatRecords, setZakatRecords] = useState<ZakatRecordDTO[]>([]);
 
@@ -70,6 +82,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     setTransactions(data.transactions);
     setBusinesses(data.businesses);
     setTrades(data.trades);
+    setHoldings(data.holdings);
     setZakatConfig(data.zakatConfig);
     setZakatRecords(data.zakatRecords);
   }, []);
@@ -85,6 +98,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       setTransactions(data.transactions);
       setBusinesses(data.businesses);
       setTrades(data.trades);
+      setHoldings(data.holdings);
       setZakatConfig(data.zakatConfig);
       setZakatRecords(data.zakatRecords);
       setLoaded(true);
@@ -165,6 +179,34 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     [refresh]
   );
 
+  const addHolding = useCallback(
+    async (h: Omit<HoldingDTO, "id">) => {
+      const res = await fetch("/api/holdings", { method: "POST", body: JSON.stringify(h) });
+      if (!res.ok) return;
+      // Buying a holding withdraws its cost basis from the funding wallet server-side.
+      await refresh();
+    },
+    [refresh]
+  );
+
+  const updateHolding = useCallback(async (id: string, currentPrice: number) => {
+    setHoldings((prev) => prev.map((h) => (h.id === id ? { ...h, currentPrice } : h)));
+    const res = await fetch(`/api/holdings/${id}`, { method: "PATCH", body: JSON.stringify({ currentPrice }) });
+    if (res.ok) {
+      const updated = await res.json();
+      setHoldings((prev) => prev.map((h) => (h.id === id ? updated : h)));
+    }
+  }, []);
+
+  const removeHolding = useCallback(
+    async (id: string) => {
+      await fetch(`/api/holdings/${id}`, { method: "DELETE" });
+      // Removing a holding credits its current value back to the wallet server-side.
+      await refresh();
+    },
+    [refresh]
+  );
+
   const saveZakatConfig = useCallback(async (cfg: ZakatConfigDTO) => {
     setZakatConfig(cfg);
     const res = await fetch("/api/zakat-config", { method: "PUT", body: JSON.stringify(cfg) });
@@ -176,17 +218,19 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const monthlyPnl = useMemo(() => computeMonthlyPnl(trades), [trades]);
   const dailyPnl = useMemo(() => computeDailyPnl(trades), [trades]);
   const totalWalletBalance = useMemo(() => wallets.reduce((s, w) => s + w.balance, 0), [wallets]);
-  const zakat = useMemo(() => computeZakat(wallets, businessNet, zakatConfig), [wallets, businessNet, zakatConfig]);
+  const totalHoldingsValue = useMemo(() => computeTotalHoldingsValue(holdings), [holdings]);
+  const totalHoldingsGain = useMemo(() => computeTotalHoldingsGain(holdings), [holdings]);
+  const zakat = useMemo(() => computeZakatProfitOnly(trades, transactions, zakatConfig.rate), [trades, transactions, zakatConfig.rate]);
 
   const recordZakatCalculation = useCallback(async () => {
     const res = await fetch("/api/zakat-records", {
       method: "POST",
-      body: JSON.stringify({ eligibleWealth: zakat.eligibleWealth, zakatDue: zakat.zakatDue }),
+      body: JSON.stringify({ eligibleWealth: zakat.eligibleProfit, zakatDue: zakat.zakatDue }),
     });
     if (!res.ok) return;
     const created = await res.json();
     setZakatRecords((prev) => [created, ...prev]);
-  }, [zakat.eligibleWealth, zakat.zakatDue]);
+  }, [zakat.eligibleProfit, zakat.zakatDue]);
 
   const removeZakatRecord = useCallback(async (id: string) => {
     setZakatRecords((prev) => prev.filter((r) => r.id !== id));
@@ -198,6 +242,7 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     transactions,
     businesses,
     trades,
+    holdings,
     zakatConfig,
     zakatRecords,
     loaded,
@@ -206,8 +251,12 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     monthlyPnl,
     dailyPnl,
     totalWalletBalance,
-    zakatableWalletBalance: zakat.zakatableWalletBalance,
-    eligibleWealth: zakat.eligibleWealth,
+    totalHoldingsValue,
+    totalHoldingsGain,
+    zakatTradingPnl: zakat.tradingPnl,
+    zakatTransactionsNet: zakat.transactionsNet,
+    zakatTotalProfit: zakat.totalProfit,
+    zakatEligibleProfit: zakat.eligibleProfit,
     zakatDue: zakat.zakatDue,
     addWallet,
     updateWallet,
@@ -218,6 +267,9 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     removeBusiness,
     addTrade,
     removeTrade,
+    addHolding,
+    updateHolding,
+    removeHolding,
     saveZakatConfig,
     recordZakatCalculation,
     removeZakatRecord,

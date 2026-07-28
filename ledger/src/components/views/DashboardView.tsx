@@ -3,10 +3,11 @@
 import { LineChart, Line, BarChart, Bar, PieChart, Pie, Cell, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from "recharts";
 import { useData } from "@/components/DataProvider";
 import { C, StatCard, SectionHeader } from "@/components/ui";
-import { money } from "@/lib/calc";
+import { money, holdingCurrentValue } from "@/lib/calc";
 
 export function DashboardView() {
-  const { wallets, businesses, trades, businessNet, totalPnl, monthlyPnl, dailyPnl, totalWalletBalance } = useData();
+  const { wallets, businesses, trades, holdings, businessNet, totalPnl, monthlyPnl, dailyPnl, totalWalletBalance, totalHoldingsValue, totalHoldingsGain } =
+    useData();
 
   const pieData = businesses
     .filter((b) => !b.parentId)
@@ -14,9 +15,11 @@ export function DashboardView() {
     .filter((d) => d.value > 0);
   const pieColors = [C.gold, C.pos, "#7C9CBF", "#B98BC9", C.neg, "#E0A458"];
 
+  const holdingsPieData = holdings.map((h) => ({ name: h.name, value: holdingCurrentValue(h) })).filter((d) => d.value > 0);
+
   return (
     <div className="card">
-      <SectionHeader title="Dashboard" sub="Overview across wallets, businesses, and trading" />
+      <SectionHeader title="Dashboard" sub="Overview across wallets, businesses, trading, and holdings" />
       <div style={{ display: "flex", gap: 14, flexWrap: "wrap", marginBottom: 24 }}>
         <StatCard label="Total wallet balance" value={money(totalWalletBalance)} sub={`${wallets.length} wallet${wallets.length !== 1 ? "s" : ""}`} />
         <StatCard
@@ -25,6 +28,7 @@ export function DashboardView() {
           tone={totalPnl >= 0 ? "pos" : "neg"}
           sub={`${trades.filter((t) => t.exitPrice !== null).length} closed trades`}
         />
+        <StatCard label="Holdings value" value={money(totalHoldingsValue)} sub={`${holdings.length} holding${holdings.length !== 1 ? "s" : ""}`} />
         <StatCard label="Businesses tracked" value={businesses.length} sub={`${businesses.filter((b) => !b.parentId).length} top-level`} />
       </div>
 
@@ -61,21 +65,43 @@ export function DashboardView() {
         </div>
       </div>
 
-      <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12, padding: 18, marginTop: 16 }}>
-        <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 12, color: C.muted }}>Monthly PnL</div>
-        <ResponsiveContainer width="100%" height={200}>
-          <BarChart data={monthlyPnl}>
-            <CartesianGrid stroke={C.border} strokeDasharray="3 3" />
-            <XAxis dataKey="month" tick={{ fill: C.muted, fontSize: 10 }} />
-            <YAxis tick={{ fill: C.muted, fontSize: 10 }} />
-            <Tooltip contentStyle={{ background: C.surface2, border: `1px solid ${C.border}`, fontSize: 12 }} />
-            <Bar dataKey="pnl" radius={[4, 4, 0, 0]}>
-              {monthlyPnl.map((d, i) => (
-                <Cell key={i} fill={d.pnl >= 0 ? C.pos : C.neg} />
-              ))}
-            </Bar>
-          </BarChart>
-        </ResponsiveContainer>
+      <div className="dashboard-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1.4fr", gap: 16, marginTop: 16 }}>
+        <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12, padding: 18, minWidth: 0 }}>
+          <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 12, color: C.muted }}>
+            Holdings allocation <span style={{ color: totalHoldingsGain >= 0 ? C.pos : C.neg }}>({money(totalHoldingsGain)} unrealized)</span>
+          </div>
+          {holdingsPieData.length === 0 ? (
+            <div style={{ color: C.muted, fontSize: 12.5, padding: "40px 0", textAlign: "center" }}>Add holdings to see the allocation breakdown.</div>
+          ) : (
+            <ResponsiveContainer width="100%" height={220}>
+              <PieChart>
+                <Pie data={holdingsPieData} dataKey="value" nameKey="name" innerRadius={45} outerRadius={80} paddingAngle={2}>
+                  {holdingsPieData.map((d, i) => (
+                    <Cell key={i} fill={pieColors[i % pieColors.length]} />
+                  ))}
+                </Pie>
+                <Tooltip contentStyle={{ background: C.surface2, border: `1px solid ${C.border}`, fontSize: 12 }} />
+                <Legend wrapperStyle={{ fontSize: 11, color: C.muted }} />
+              </PieChart>
+            </ResponsiveContainer>
+          )}
+        </div>
+        <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12, padding: 18, minWidth: 0 }}>
+          <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 12, color: C.muted }}>Monthly PnL</div>
+          <ResponsiveContainer width="100%" height={200}>
+            <BarChart data={monthlyPnl}>
+              <CartesianGrid stroke={C.border} strokeDasharray="3 3" />
+              <XAxis dataKey="month" tick={{ fill: C.muted, fontSize: 10 }} />
+              <YAxis tick={{ fill: C.muted, fontSize: 10 }} />
+              <Tooltip contentStyle={{ background: C.surface2, border: `1px solid ${C.border}`, fontSize: 12 }} />
+              <Bar dataKey="pnl" radius={[4, 4, 0, 0]}>
+                {monthlyPnl.map((d, i) => (
+                  <Cell key={i} fill={d.pnl >= 0 ? C.pos : C.neg} />
+                ))}
+              </Bar>
+            </BarChart>
+          </ResponsiveContainer>
+        </div>
       </div>
     </div>
   );

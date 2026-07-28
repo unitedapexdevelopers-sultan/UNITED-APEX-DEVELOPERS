@@ -7,13 +7,13 @@ export async function PUT(req: Request) {
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
   const body = await req.json();
-  const { nisabBasis, nisabValue, rate } = body;
+  const { rate } = body;
 
   const config = await prisma.zakatConfig.upsert({
     where: { userId },
-    update: { nisabBasis, nisabValue: Number(nisabValue), rate: Number(rate) },
-    create: { userId, nisabBasis, nisabValue: Number(nisabValue), rate: Number(rate) },
+    update: { rate: Number(rate) },
+    create: { userId, rate: Number(rate) },
   });
 
-  return NextResponse.json({ ...config, nisabValue: Number(config.nisabValue), rate: Number(config.rate) });
+  return NextResponse.json({ rate: Number(config.rate) });
 }

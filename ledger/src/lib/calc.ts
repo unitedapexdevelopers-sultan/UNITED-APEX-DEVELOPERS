@@ -34,9 +34,17 @@ export type TradeDTO = {
   date: string;
 };
 
+export type HoldingDTO = {
+  id: string;
+  walletId: string | null;
+  name: string;
+  quantity: number;
+  purchasePrice: number;
+  currentPrice: number;
+};
+
+/** Zakat here is rate-only: no nisab minimum, applies to ledger-wide realized profit. */
 export type ZakatConfigDTO = {
-  nisabBasis: "gold" | "silver" | "manual";
-  nisabValue: number;
   rate: number;
 };
 
@@ -110,20 +118,57 @@ export function computeDailyPnl(trades: TradeDTO[]): { date: string; pnl: number
   });
 }
 
-export function computeZakat(
-  wallets: WalletDTO[],
-  businessNet: Record<string, number>,
-  config: ZakatConfigDTO
-): { zakatableWalletBalance: number; positiveBusinessProfit: number; eligibleWealth: number; zakatDue: number } {
-  const zakatableWalletBalance = wallets.filter((w) => w.zakatable).reduce((s, w) => s + w.balance, 0);
-  const positiveBusinessProfit = Object.values(businessNet).reduce((s, v) => s + (v > 0 ? v : 0), 0);
-  const eligibleWealth = zakatableWalletBalance + positiveBusinessProfit;
-  const zakatDue = eligibleWealth >= config.nisabValue ? eligibleWealth * (config.rate / 100) : 0;
-  return { zakatableWalletBalance, positiveBusinessProfit, eligibleWealth, zakatDue };
+/**
+ * Profit-only, no-nisab zakat: rate% of (realized trade PnL + net income/expenses)
+ * across the whole ledger, floored at zero. Wallet balances (principal) don't factor in —
+ * only what's actually been realized as profit.
+ */
+export function computeZakatProfitOnly(
+  trades: TradeDTO[],
+  transactions: TransactionDTO[],
+  rate: number
+): { tradingPnl: number; transactionsNet: number; totalProfit: number; eligibleProfit: number; zakatDue: number } {
+  const tradingPnl = computeTotalPnl(trades);
+  const transactionsNet = transactions.reduce((s, tx) => s + (tx.type === "income" ? tx.amount : -tx.amount), 0);
+  const totalProfit = tradingPnl + transactionsNet;
+  const eligibleProfit = Math.max(0, totalProfit);
+  const zakatDue = eligibleProfit * (rate / 100);
+  return { tradingPnl, transactionsNet, totalProfit, eligibleProfit, zakatDue };
+}
+
+export function holdingCostBasis(h: Pick<HoldingDTO, "quantity" | "purchasePrice">): number {
+  return h.quantity * h.purchasePrice;
+}
+
+export function holdingCurrentValue(h: Pick<HoldingDTO, "quantity" | "currentPrice">): number {
+  return h.quantity * h.currentPrice;
+}
+
+export function holdingGainLoss(h: Pick<HoldingDTO, "quantity" | "purchasePrice" | "currentPrice">): number {
+  return holdingCurrentValue(h) - holdingCostBasis(h);
+}
+
+export function holdingPercentChange(h: Pick<HoldingDTO, "purchasePrice" | "currentPrice">): number | null {
+  if (h.purchasePrice === 0) return null;
+  return ((h.currentPrice - h.purchasePrice) / h.purchasePrice) * 100;
+}
+
+export function computeTotalHoldingsValue(holdings: HoldingDTO[]): number {
+  return holdings.reduce((s, h) => s + holdingCurrentValue(h), 0);
+}
+
+export function computeTotalHoldingsGain(holdings: HoldingDTO[]): number {
+  return holdings.reduce((s, h) => s + holdingGainLoss(h), 0);
 }
 
 export function money(n: number | null | undefined): string {
   if (n === null || n === undefined || Number.isNaN(n)) return "—";
   const neg = n < 0;
   return (neg ? "−$" : "$") + Math.abs(n).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+export function percent(n: number | null | undefined): string {
+  if (n === null || n === undefined || Number.isNaN(n)) return "—";
+  const sign = n > 0 ? "+" : "";
+  return `${sign}${n.toFixed(2)}%`;
 }

@@ -18,6 +18,7 @@ model User {
   transactions Transaction[]
   businesses   Business[]
   trades       Trade[]
+  holdings     Holding[]
   zakatConfig  ZakatConfig?
   zakatRecords ZakatRecord[]
 }
@@ -42,6 +43,7 @@ model Wallet {
 
   transactions Transaction[]
   trades       Trade[]
+  holdings     Holding[]
 
   @@index([userId])
 }
@@ -98,6 +100,21 @@ model Trade {
   quantity   Float
   date       DateTime @db.Date
   createdAt  DateTime @default(now())
+
+  @@index([userId])
+}
+
+model Holding {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  walletId      String?
+  wallet        Wallet?  @relation(fields: [walletId], references: [id], onDelete: SetNull)
+  name          String
+  quantity      Float
+  purchasePrice Float
+  currentPrice  Float
+  createdAt     DateTime @default(now())
 
   @@index([userId])
 }

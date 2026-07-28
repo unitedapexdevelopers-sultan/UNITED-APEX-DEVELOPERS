@@ -10,11 +10,12 @@ export async function GET() {
   const userId = await requireUserId();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const [wallets, transactions, businesses, trades, zakatConfig, zakatRecords] = await Promise.all([
+  const [wallets, transactions, businesses, trades, holdings, zakatConfig, zakatRecords] = await Promise.all([
     prisma.wallet.findMany({ where: { userId }, orderBy: { createdAt: "asc" } }),
     prisma.transaction.findMany({ where: { userId }, orderBy: { date: "desc" } }),
     prisma.business.findMany({ where: { userId }, orderBy: { createdAt: "asc" } }),
     prisma.trade.findMany({ where: { userId }, orderBy: { date: "desc" } }),
+    prisma.holding.findMany({ where: { userId }, orderBy: { createdAt: "asc" } }),
     prisma.zakatConfig.findUnique({ where: { userId } }),
     prisma.zakatRecord.findMany({ where: { userId }, orderBy: { date: "desc" } }),
   ]);
@@ -36,7 +37,13 @@ export async function GET() {
       quantity: Number(t.quantity),
       date: fmtDate(t.date),
     })),
-    zakatConfig: { ...config, nisabValue: Number(config.nisabValue), rate: Number(config.rate) },
+    holdings: holdings.map((h) => ({
+      ...h,
+      quantity: Number(h.quantity),
+      purchasePrice: Number(h.purchasePrice),
+      currentPrice: Number(h.currentPrice),
+    })),
+    zakatConfig: { rate: Number(config.rate) },
     zakatRecords: zakatRecords.map((r) => ({
       ...r,
       eligibleWealth: Number(r.eligibleWealth),

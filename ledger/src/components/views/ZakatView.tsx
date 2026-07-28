@@ -11,41 +11,20 @@ export function ZakatView() {
     zakatRecords,
     recordZakatCalculation,
     removeZakatRecord,
-    eligibleWealth,
+    zakatTradingPnl,
+    zakatTransactionsNet,
+    zakatTotalProfit,
+    zakatEligibleProfit,
     zakatDue,
-    businesses,
-    businessNet,
-    zakatableWalletBalance,
   } = useData();
-
-  const meetsNisab = eligibleWealth >= Number(zakatConfig.nisabValue);
 
   return (
     <div className="card">
-      <SectionHeader title="Zakat calculator" sub="Aggregated across wallets marked zakatable and all business profits" />
+      <SectionHeader title="Zakat calculator" sub="Applied to realized profit across the whole ledger — no minimum threshold" />
 
       <div style={{ background: C.surface, border: `1px solid ${C.gold}55`, borderRadius: 12, padding: 20, marginBottom: 20 }}>
         <div style={{ fontSize: 11, color: C.muted, textTransform: "uppercase", letterSpacing: "0.06em", marginBottom: 14 }}>Calculation settings</div>
         <div style={{ display: "flex", flexWrap: "wrap", gap: 14, marginBottom: 16 }}>
-          <Field label="Nisab basis">
-            <select
-              style={inputStyle}
-              value={zakatConfig.nisabBasis}
-              onChange={(e) => saveZakatConfig({ ...zakatConfig, nisabBasis: e.target.value as typeof zakatConfig.nisabBasis })}
-            >
-              <option value="gold">Gold</option>
-              <option value="silver">Silver</option>
-              <option value="manual">Manual</option>
-            </select>
-          </Field>
-          <Field label="Nisab threshold value">
-            <input
-              style={inputStyle}
-              type="number"
-              value={zakatConfig.nisabValue}
-              onChange={(e) => saveZakatConfig({ ...zakatConfig, nisabValue: Number(e.target.value) })}
-            />
-          </Field>
           <Field label="Zakat rate (%)">
             <input
               style={inputStyle}
@@ -57,34 +36,19 @@ export function ZakatView() {
           </Field>
         </div>
         <div style={{ fontSize: 11.5, color: C.muted, lineHeight: 1.5 }}>
-          The nisab threshold, the year basis, and what counts as zakatable wealth vary by methodology — set these to match your own practice. This
-          tool only totals the numbers you give it and applies the percentage you set; it doesn&apos;t determine what&apos;s owed on your behalf.
+          No nisab minimum is applied here — zakat is calculated on any positive profit, however small. It only counts realized profit (closed trade
+          P&amp;L plus net income/expenses across every wallet and business), never wallet balances or holding value on their own — unrealized gains
+          in Holdings aren&apos;t included until a position is closed out. This tool only totals the numbers already in your ledger and applies the
+          percentage you set; it doesn&apos;t determine what&apos;s owed on your behalf.
         </div>
       </div>
 
       <div style={{ display: "flex", gap: 14, marginBottom: 20, flexWrap: "wrap" }}>
-        <StatCard label="Zakatable wallet balance" value={money(zakatableWalletBalance)} />
-        <StatCard label="Business profit (positive only)" value={money(eligibleWealth - zakatableWalletBalance)} />
-        <StatCard label="Total eligible wealth" value={money(eligibleWealth)} tone="gold" />
-        <StatCard label={meetsNisab ? "Zakat due" : "Below nisab"} value={meetsNisab ? money(zakatDue) : money(0)} tone={meetsNisab ? "gold" : undefined} />
-      </div>
-
-      <div style={{ background: C.surface, border: `1px solid ${C.border}`, borderRadius: 12, padding: 18, marginBottom: 20 }}>
-        <div style={{ fontSize: 13, fontWeight: 600, marginBottom: 10, color: C.muted }}>Contribution by business</div>
-        {businesses.filter((b) => !b.parentId).length === 0 ? (
-          <EmptyState text="No businesses added yet." />
-        ) : (
-          businesses
-            .filter((b) => !b.parentId)
-            .map((b) => (
-              <div key={b.id} style={{ display: "flex", justifyContent: "space-between", padding: "8px 0", borderBottom: `1px solid ${C.border}` }}>
-                <span style={{ fontSize: 13 }}>{b.name}</span>
-                <span className="mono" style={{ fontWeight: 600, color: (businessNet[b.id] || 0) >= 0 ? C.pos : C.neg }}>
-                  {money(businessNet[b.id] || 0)}
-                </span>
-              </div>
-            ))
-        )}
+        <StatCard label="Trading P&L" value={money(zakatTradingPnl)} tone={zakatTradingPnl >= 0 ? "pos" : "neg"} />
+        <StatCard label="Net income / expenses" value={money(zakatTransactionsNet)} tone={zakatTransactionsNet >= 0 ? "pos" : "neg"} />
+        <StatCard label="Total profit" value={money(zakatTotalProfit)} tone={zakatTotalProfit >= 0 ? "pos" : "neg"} />
+        <StatCard label="Eligible profit" value={money(zakatEligibleProfit)} tone="gold" />
+        <StatCard label="Zakat due" value={money(zakatDue)} tone="gold" />
       </div>
 
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12, flexWrap: "wrap", gap: 10 }}>
@@ -108,7 +72,7 @@ export function ZakatView() {
           >
             <div>
               <div style={{ fontSize: 13, fontWeight: 600 }}>{r.date}</div>
-              <div style={{ fontSize: 11, color: C.muted }}>Eligible wealth {money(r.eligibleWealth)}</div>
+              <div style={{ fontSize: 11, color: C.muted }}>Eligible profit {money(r.eligibleWealth)}</div>
             </div>
             <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
               <div className="mono" style={{ fontWeight: 600, color: C.gold }}>
