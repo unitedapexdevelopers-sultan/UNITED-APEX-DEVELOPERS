@@ -4,6 +4,8 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useState } 
 import {
   BusinessDTO,
   HoldingDTO,
+  ProfitShareParticipantDTO,
+  ProfitShareRecordDTO,
   TradeDTO,
   TransactionDTO,
   WalletDTO,
@@ -12,6 +14,7 @@ import {
   computeBusinessNet,
   computeDailyPnl,
   computeMonthlyPnl,
+  computeProfitShare,
   computeTotalHoldingsGain,
   computeTotalHoldingsValue,
   computeTotalPnl,
@@ -27,6 +30,8 @@ type DataState = {
   holdings: HoldingDTO[];
   zakatConfig: ZakatConfigDTO;
   zakatRecords: ZakatRecordDTO[];
+  profitShareParticipants: ProfitShareParticipantDTO[];
+  profitShareRecords: ProfitShareRecordDTO[];
 };
 
 type Ctx = DataState & {
@@ -43,6 +48,11 @@ type Ctx = DataState & {
   zakatTotalProfit: number;
   zakatEligibleProfit: number;
   zakatDue: number;
+  remainingAfterZakat: number;
+  profitSharePerParticipant: { id: string; name: string; percentage: number; amount: number }[];
+  profitShareSharedAmount: number;
+  profitShareReinvestAmount: number;
+  profitShareTotalPercentageAllocated: number;
   addWallet: (w: Omit<WalletDTO, "id">) => Promise<void>;
   updateWallet: (id: string, patch: Partial<Omit<WalletDTO, "id">>) => Promise<void>;
   removeWallet: (id: string) => Promise<void>;
@@ -58,6 +68,11 @@ type Ctx = DataState & {
   saveZakatConfig: (c: ZakatConfigDTO) => Promise<void>;
   recordZakatCalculation: () => Promise<void>;
   removeZakatRecord: (id: string) => Promise<void>;
+  addProfitShareParticipant: (p: Omit<ProfitShareParticipantDTO, "id">) => Promise<void>;
+  updateProfitShareParticipant: (id: string, patch: Partial<Omit<ProfitShareParticipantDTO, "id">>) => Promise<void>;
+  removeProfitShareParticipant: (id: string) => Promise<void>;
+  recordProfitShareDistribution: () => Promise<void>;
+  removeProfitShareRecord: (id: string) => Promise<void>;
 };
 
 const DataContext = createContext<Ctx | null>(null);
@@ -73,11 +88,10 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const [holdings, setHoldings] = useState<HoldingDTO[]>([]);
   const [zakatConfig, setZakatConfig] = useState<ZakatConfigDTO>(DEFAULT_ZAKAT_CONFIG);
   const [zakatRecords, setZakatRecords] = useState<ZakatRecordDTO[]>([]);
+  const [profitShareParticipants, setProfitShareParticipants] = useState<ProfitShareParticipantDTO[]>([]);
+  const [profitShareRecords, setProfitShareRecords] = useState<ProfitShareRecordDTO[]>([]);
 
-  const refresh = useCallback(async () => {
-    const res = await fetch("/api/data");
-    if (!res.ok) return;
-    const data: DataState = await res.json();
+  const applyData = useCallback((data: DataState) => {
     setWallets(data.wallets);
     setTransactions(data.transactions);
     setBusinesses(data.businesses);
@@ -85,7 +99,15 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     setHoldings(data.holdings);
     setZakatConfig(data.zakatConfig);
     setZakatRecords(data.zakatRecords);
+    setProfitShareParticipants(data.profitShareParticipants);
+    setProfitShareRecords(data.profitShareRecords);
   }, []);
+
+  const refresh = useCallback(async () => {
+    const res = await fetch("/api/data");
+    if (!res.ok) return;
+    applyData(await res.json());
+  }, [applyData]);
 
   useEffect(() => {
     let mounted = true;
@@ -94,19 +116,13 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
       if (!res.ok) return;
       const data: DataState = await res.json();
       if (!mounted) return;
-      setWallets(data.wallets);
-      setTransactions(data.transactions);
-      setBusinesses(data.businesses);
-      setTrades(data.trades);
-      setHoldings(data.holdings);
-      setZakatConfig(data.zakatConfig);
-      setZakatRecords(data.zakatRecords);
+      applyData(data);
       setLoaded(true);
     })();
     return () => {
       mounted = false;
     };
-  }, []);
+  }, [applyData]);
 
   const addWallet = useCallback(async (w: Omit<WalletDTO, "id">) => {
     const res = await fetch("/api/wallets", { method: "POST", body: JSON.stringify(w) });
@@ -221,6 +237,11 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
   const totalHoldingsValue = useMemo(() => computeTotalHoldingsValue(holdings), [holdings]);
   const totalHoldingsGain = useMemo(() => computeTotalHoldingsGain(holdings), [holdings]);
   const zakat = useMemo(() => computeZakatProfitOnly(trades, transactions, zakatConfig.rate), [trades, transactions, zakatConfig.rate]);
+  const remainingAfterZakat = zakat.eligibleProfit - zakat.zakatDue;
+  const profitShare = useMemo(
+    () => computeProfitShare(remainingAfterZakat, profitShareParticipants),
+    [remainingAfterZakat, profitShareParticipants]
+  );
 
   const recordZakatCalculation = useCallback(async () => {
     const res = await fetch("/api/zakat-records", {
@@ -237,6 +258,47 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     await fetch(`/api/zakat-records/${id}`, { method: "DELETE" });
   }, []);
 
+  const addProfitShareParticipant = useCallback(async (p: Omit<ProfitShareParticipantDTO, "id">) => {
+    const res = await fetch("/api/profit-share-participants", { method: "POST", body: JSON.stringify(p) });
+    if (!res.ok) return;
+    const created = await res.json();
+    setProfitShareParticipants((prev) => [...prev, created]);
+  }, []);
+
+  const updateProfitShareParticipant = useCallback(async (id: string, patch: Partial<Omit<ProfitShareParticipantDTO, "id">>) => {
+    setProfitShareParticipants((prev) => prev.map((p) => (p.id === id ? { ...p, ...patch } : p)));
+    const res = await fetch(`/api/profit-share-participants/${id}`, { method: "PATCH", body: JSON.stringify(patch) });
+    if (res.ok) {
+      const updated = await res.json();
+      setProfitShareParticipants((prev) => prev.map((p) => (p.id === id ? updated : p)));
+    }
+  }, []);
+
+  const removeProfitShareParticipant = useCallback(async (id: string) => {
+    setProfitShareParticipants((prev) => prev.filter((p) => p.id !== id));
+    await fetch(`/api/profit-share-participants/${id}`, { method: "DELETE" });
+  }, []);
+
+  const recordProfitShareDistribution = useCallback(async () => {
+    const res = await fetch("/api/profit-share-records", {
+      method: "POST",
+      body: JSON.stringify({
+        totalProfit: zakat.eligibleProfit,
+        zakatAmount: zakat.zakatDue,
+        sharedAmount: profitShare.sharedAmount,
+        reinvestAmount: profitShare.reinvestAmount,
+      }),
+    });
+    if (!res.ok) return;
+    const created = await res.json();
+    setProfitShareRecords((prev) => [created, ...prev]);
+  }, [zakat.eligibleProfit, zakat.zakatDue, profitShare.sharedAmount, profitShare.reinvestAmount]);
+
+  const removeProfitShareRecord = useCallback(async (id: string) => {
+    setProfitShareRecords((prev) => prev.filter((r) => r.id !== id));
+    await fetch(`/api/profit-share-records/${id}`, { method: "DELETE" });
+  }, []);
+
   const value: Ctx = {
     wallets,
     transactions,
@@ -245,6 +307,8 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     holdings,
     zakatConfig,
     zakatRecords,
+    profitShareParticipants,
+    profitShareRecords,
     loaded,
     businessNet,
     totalPnl,
@@ -258,6 +322,11 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     zakatTotalProfit: zakat.totalProfit,
     zakatEligibleProfit: zakat.eligibleProfit,
     zakatDue: zakat.zakatDue,
+    remainingAfterZakat,
+    profitSharePerParticipant: profitShare.perParticipant,
+    profitShareSharedAmount: profitShare.sharedAmount,
+    profitShareReinvestAmount: profitShare.reinvestAmount,
+    profitShareTotalPercentageAllocated: profitShare.totalPercentageAllocated,
     addWallet,
     updateWallet,
     removeWallet,
@@ -273,6 +342,11 @@ export function DataProvider({ children }: { children: React.ReactNode }) {
     saveZakatConfig,
     recordZakatCalculation,
     removeZakatRecord,
+    addProfitShareParticipant,
+    updateProfitShareParticipant,
+    removeProfitShareParticipant,
+    recordProfitShareDistribution,
+    removeProfitShareRecord,
   };
 
   if (!loaded) {

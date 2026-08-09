@@ -14,13 +14,15 @@ model User {
   passwordHash String
   createdAt    DateTime @default(now())
 
-  wallets      Wallet[]
-  transactions Transaction[]
-  businesses   Business[]
-  trades       Trade[]
-  holdings     Holding[]
-  zakatConfig  ZakatConfig?
-  zakatRecords ZakatRecord[]
+  wallets                 Wallet[]
+  transactions            Transaction[]
+  businesses              Business[]
+  trades                  Trade[]
+  holdings                Holding[]
+  zakatConfig             ZakatConfig?
+  zakatRecords            ZakatRecord[]
+  profitShareParticipants ProfitShareParticipant[]
+  profitShareRecords      ProfitShareRecord[]
 }
 
 enum WalletType {
@@ -141,6 +143,31 @@ model ZakatRecord {
   date           DateTime @default(now()) @db.Date
   eligibleWealth Float
   zakatDue       Float
+  createdAt      DateTime @default(now())
+
+  @@index([userId])
+}
+
+model ProfitShareParticipant {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  name       String
+  percentage Float
+  createdAt  DateTime @default(now())
+
+  @@index([userId])
+}
+
+model ProfitShareRecord {
+  id             String   @id @default(cuid())
+  userId         String
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  date           DateTime @default(now()) @db.Date
+  totalProfit    Float
+  zakatAmount    Float
+  sharedAmount   Float
+  reinvestAmount Float
   createdAt      DateTime @default(now())
 
   @@index([userId])

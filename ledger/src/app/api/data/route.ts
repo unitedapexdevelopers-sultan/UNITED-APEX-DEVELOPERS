@@ -10,15 +10,18 @@ export async function GET() {
   const userId = await requireUserId();
   if (!userId) return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
 
-  const [wallets, transactions, businesses, trades, holdings, zakatConfig, zakatRecords] = await Promise.all([
-    prisma.wallet.findMany({ where: { userId }, orderBy: { createdAt: "asc" } }),
-    prisma.transaction.findMany({ where: { userId }, orderBy: { date: "desc" } }),
-    prisma.business.findMany({ where: { userId }, orderBy: { createdAt: "asc" } }),
-    prisma.trade.findMany({ where: { userId }, orderBy: { date: "desc" } }),
-    prisma.holding.findMany({ where: { userId }, orderBy: { createdAt: "asc" } }),
-    prisma.zakatConfig.findUnique({ where: { userId } }),
-    prisma.zakatRecord.findMany({ where: { userId }, orderBy: { date: "desc" } }),
-  ]);
+  const [wallets, transactions, businesses, trades, holdings, zakatConfig, zakatRecords, profitShareParticipants, profitShareRecords] =
+    await Promise.all([
+      prisma.wallet.findMany({ where: { userId }, orderBy: { createdAt: "asc" } }),
+      prisma.transaction.findMany({ where: { userId }, orderBy: { date: "desc" } }),
+      prisma.business.findMany({ where: { userId }, orderBy: { createdAt: "asc" } }),
+      prisma.trade.findMany({ where: { userId }, orderBy: { date: "desc" } }),
+      prisma.holding.findMany({ where: { userId }, orderBy: { createdAt: "asc" } }),
+      prisma.zakatConfig.findUnique({ where: { userId } }),
+      prisma.zakatRecord.findMany({ where: { userId }, orderBy: { date: "desc" } }),
+      prisma.profitShareParticipant.findMany({ where: { userId }, orderBy: { createdAt: "asc" } }),
+      prisma.profitShareRecord.findMany({ where: { userId }, orderBy: { date: "desc" } }),
+    ]);
 
   const config =
     zakatConfig ??
@@ -48,6 +51,15 @@ export async function GET() {
       ...r,
       eligibleWealth: Number(r.eligibleWealth),
       zakatDue: Number(r.zakatDue),
+      date: fmtDate(r.date),
+    })),
+    profitShareParticipants: profitShareParticipants.map((p) => ({ ...p, percentage: Number(p.percentage) })),
+    profitShareRecords: profitShareRecords.map((r) => ({
+      ...r,
+      totalProfit: Number(r.totalProfit),
+      zakatAmount: Number(r.zakatAmount),
+      sharedAmount: Number(r.sharedAmount),
+      reinvestAmount: Number(r.reinvestAmount),
       date: fmtDate(r.date),
     })),
   });

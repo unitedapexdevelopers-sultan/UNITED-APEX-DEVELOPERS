@@ -1,4 +1,4 @@
-import { LayoutDashboard, Wallet, Receipt, TrendingUp, Building2, Coins, Percent } from "lucide-react";
+import { LayoutDashboard, Wallet, Receipt, TrendingUp, Building2, Coins, Percent, Users } from "lucide-react";
 
 export const NAV = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard, href: "/dashboard" },
@@ -8,4 +8,5 @@ export const NAV = [
   { id: "holdings", label: "Holdings", icon: Coins, href: "/holdings" },
   { id: "businesses", label: "Businesses", icon: Building2, href: "/businesses" },
   { id: "zakat", label: "Zakat", icon: Percent, href: "/zakat" },
+  { id: "profit-sharing", label: "Profit Sharing", icon: Users, href: "/profit-sharing" },
 ];

@@ -55,6 +55,21 @@ export type ZakatRecordDTO = {
   zakatDue: number;
 };
 
+export type ProfitShareParticipantDTO = {
+  id: string;
+  name: string;
+  percentage: number;
+};
+
+export type ProfitShareRecordDTO = {
+  id: string;
+  date: string;
+  totalProfit: number;
+  zakatAmount: number;
+  sharedAmount: number;
+  reinvestAmount: number;
+};
+
 export function tradePnl(t: Pick<TradeDTO, "entryPrice" | "exitPrice" | "quantity">): number | null {
   if (t.exitPrice === null || t.exitPrice === undefined) return null;
   return (Number(t.exitPrice) - Number(t.entryPrice)) * Number(t.quantity);
@@ -134,6 +149,31 @@ export function computeZakatProfitOnly(
   const eligibleProfit = Math.max(0, totalProfit);
   const zakatDue = eligibleProfit * (rate / 100);
   return { tradingPnl, transactionsNet, totalProfit, eligibleProfit, zakatDue };
+}
+
+/**
+ * Splits what's left after zakat: each participant takes a percentage of the post-zakat
+ * remainder, and whatever's left after all participant shares is available for reinvestment.
+ */
+export function computeProfitShare(
+  remainingAfterZakat: number,
+  participants: ProfitShareParticipantDTO[]
+): {
+  perParticipant: { id: string; name: string; percentage: number; amount: number }[];
+  sharedAmount: number;
+  reinvestAmount: number;
+  totalPercentageAllocated: number;
+} {
+  const perParticipant = participants.map((p) => ({
+    id: p.id,
+    name: p.name,
+    percentage: p.percentage,
+    amount: remainingAfterZakat * (p.percentage / 100),
+  }));
+  const sharedAmount = perParticipant.reduce((s, p) => s + p.amount, 0);
+  const reinvestAmount = remainingAfterZakat - sharedAmount;
+  const totalPercentageAllocated = participants.reduce((s, p) => s + p.percentage, 0);
+  return { perParticipant, sharedAmount, reinvestAmount, totalPercentageAllocated };
 }
 
 export function holdingCostBasis(h: Pick<HoldingDTO, "quantity" | "purchasePrice">): number {
