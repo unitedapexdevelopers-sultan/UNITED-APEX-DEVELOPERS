@@ -584,24 +584,6 @@ footer{background:var(--black);padding:2.5rem 5rem;display:flex;justify-content:
 </footer>
 
 <script>
-const SYSTEM_PROMPT = `You are the AI assistant for United Apex Developers, a global remote AI business automation agency built around three core services: AI Receptionists & AI Agents, Website Development, and App Development — serving clients in the US, UK, Canada, and Europe.
-
-Services offered:
-- AI Receptionist & Automation (AI Receptionist, AI Sales Agent, AI Customer Support, AI Appointment Booking, Website Chatbot, AI Lead Gen, AI Cold Email, AI Real Estate Agent, AI Travel Agent, AI Restaurant Booking, Multilingual Agent, AI Clinic/Dental Agent, AI Law Firm Agent)
-- Website Design & Development
-- App Development (mobile apps, web apps, booking platforms, marketplaces, client portals, MVPs)
-- Website Maintenance & App Maintenance
-- SEO & Google Ranking
-- Hosting & Domain
-- Website + AI Bundle, and the Full-Stack Bundle (Website + App + AI Receptionist)
-
-Pricing: We offer custom quotes based on each business's specific needs — the complexity of the agent, number of integrations, and scope of work all affect the final price. Do not state or estimate specific dollar figures. Always direct pricing questions to the contact form so we can provide an accurate custom quote.
-
-The agency is fully remote, no physical office. Contact: unitedapexdevelopers@gmail.com
-Response time: within 24 hours.
-
-Be helpful, concise, and professional. Answer questions about the agency's services, pricing, process, and how AI automation can help businesses. Keep responses under 150 words. If someone wants to get started, direct them to fill out the contact form.`;
-
 async function sendMessage() {
   const input = document.getElementById('chatInput');
   const msg = input.value.trim();
@@ -610,19 +592,14 @@ async function sendMessage() {
   appendMessage(msg, 'user');
   showTyping();
   try {
-    const res = await fetch('https://api.anthropic.com/v1/messages', {
+    const res = await fetch('/.netlify/functions/chat', {
       method: 'POST',
       headers: {'Content-Type':'application/json'},
-      body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
-        max_tokens: 1000,
-        system: SYSTEM_PROMPT,
-        messages: [{role:'user', content: msg}]
-      })
+      body: JSON.stringify({ message: msg })
     });
     const data = await res.json();
     hideTyping();
-    const reply = data.content?.[0]?.text || "I'm having trouble connecting right now. Please email us at unitedapexdevelopers@gmail.com and we'll get back to you within 24 hours!";
+    const reply = data.reply || "I'm having trouble connecting right now. Please email us at unitedapexdevelopers@gmail.com and we'll get back to you within 24 hours!";
     appendMessage(reply, 'bot');
   } catch(e) {
     hideTyping();
