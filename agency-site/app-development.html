@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Development — United Apex Developers</title>
+<meta name="description" content="Custom mobile and web app development — booking platforms, marketplaces, client portals, and MVPs. Built from scratch and architected to scale by United Apex Developers.">
+<link rel="canonical" href="https://unitedapexdevelopers.com/app-development.html">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://unitedapexdevelopers.com/#organization",
+  "name": "United Apex Developers",
+  "url": "https://unitedapexdevelopers.com/",
+  "description": "United Apex Developers is a remote AI business automation agency. We build AI receptionists and AI agents, high-converting websites, and custom mobile & web apps for businesses across the US, UK, Canada, and Europe.",
+  "email": "unitedapexdevelopers@gmail.com",
+  "areaServed": [
+    {"@type": "Country", "name": "United States"},
+    {"@type": "Country", "name": "United Kingdom"},
+    {"@type": "Country", "name": "Canada"},
+    {"@type": "Place", "name": "Europe"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "App Development",
+  "provider": {"@type": "Organization", "name": "United Apex Developers", "url": "https://unitedapexdevelopers.com/"},
+  "areaServed": ["United States", "United Kingdom", "Canada", "Europe"],
+  "description": "Custom mobile and web app development — booking platforms, marketplaces, client portals, and MVPs, built from scratch and architected to scale.",
+  "url": "https://unitedapexdevelopers.com/app-development.html"
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--blue:#2B7FFF;--blue-dark:#1A5FCC;--blue-glow:rgba(43,127,255,0.22);--black:#060810;--dark:#0C1120;--card:#101828;--border:rgba(43,127,255,0.18);--text:#E8EEF8;--muted:#7A8BA8;}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--black);color:var(--text);overflow-x:hidden}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
+nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1rem 5rem;background:rgba(6,8,16,0.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
+.nav-brand{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);text-decoration:none}.nav-brand span{color:var(--blue)}
+.nav-links{display:flex;gap:2rem;list-style:none}
+.nav-links a{text-decoration:none;color:var(--muted);font-size:.8rem;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--blue)}
+.nav-cta{background:var(--blue)!important;color:white!important;padding:.5rem 1.3rem;border-radius:8px;font-weight:500!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.3rem;background:none;border:none}
+.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
+.mobile-menu{display:none;position:fixed;top:70px;left:0;right:0;background:rgba(6,8,16,0.98);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:1.5rem 2rem;z-index:199;flex-direction:column;gap:1.2rem}
+.mobile-menu.open{display:flex}
+.mobile-menu a{text-decoration:none;color:var(--muted);font-size:.9rem;padding:.4rem 0;border-bottom:1px solid var(--border)}
+.gradient{background:linear-gradient(135deg,#2B7FFF,#60A5FA,#A8C8FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.btn-blue{background:var(--blue);color:white;padding:.9rem 2rem;border-radius:10px;border:none;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .3s}
+.btn-blue:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 8px 32px var(--blue-glow)}
+.btn-outline{background:transparent;color:var(--text);padding:.75rem 1.5rem;border-radius:10px;border:1px solid var(--border);font-family:'Inter',sans-serif;font-size:.8rem;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .3s}
+.btn-outline:hover{border-color:var(--blue);color:var(--blue)}
+.sec-tag{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem}
+.sec-tag::before{content:'';display:block;width:20px;height:2px;background:var(--blue)}
+.sec-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;line-height:1.15;color:var(--text);margin-bottom:1.2rem;letter-spacing:-.01em}
+.sec-title span{color:var(--blue)}
+.sec-hdr{text-align:center;max-width:650px;margin:0 auto 4rem}
+.sec-hdr .sec-tag{justify-content:center}.sec-hdr .sec-tag::before{display:none}
+.sec-sub{font-size:.88rem;color:var(--muted);line-height:1.85;font-weight:300}
+/* PAGE HERO */
+.page-hero{padding:10rem 5rem 6rem;text-align:center;position:relative;overflow:hidden;background:var(--dark)}
+.page-hero::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(43,127,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(43,127,255,.03) 1px,transparent 1px);background-size:50px 50px}
+.page-hero-content{position:relative;z-index:1;max-width:820px;margin:0 auto}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(43,127,255,.12);border:1px solid rgba(43,127,255,.28);color:var(--blue);font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:.45rem 1.1rem;border-radius:100px;margin-bottom:2rem}
+.hero-badge::before{content:'';width:6px;height:6px;background:var(--blue);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+.page-hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.2rem,5vw,4rem);font-weight:800;line-height:1.08;margin-bottom:1.4rem;letter-spacing:-.02em}
+.page-hero p{font-size:.95rem;line-height:1.85;color:var(--muted);max-width:580px;margin:0 auto 2.5rem;font-weight:300}
+/* APPS GRID */
+.agents-section{padding:7rem 5rem;background:var(--black)}
+.agents-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.agent-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2rem;transition:all .35s;display:flex;flex-direction:column;position:relative;overflow:hidden}
+.agent-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),transparent);transform:scaleX(0);transition:transform .4s;transform-origin:left}
+.agent-card:hover::after{transform:scaleX(1)}
+.agent-card:hover{border-color:rgba(43,127,255,.4);transform:translateY(-4px);box-shadow:0 16px 50px rgba(43,127,255,.12)}
+.agent-emoji{font-size:2rem;margin-bottom:.9rem}
+.agent-name{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.3rem}
+.agent-for{font-size:.65rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:.8rem}
+.agent-desc{font-size:.8rem;line-height:1.75;color:var(--muted);font-weight:300;flex:1}
+.agent-features{margin-top:1.2rem;display:flex;flex-direction:column;gap:.4rem}
+.agent-feat{font-size:.73rem;color:rgba(232,238,248,.65);display:flex;gap:.5rem;align-items:flex-start;line-height:1.4}
+.agent-feat::before{content:'→';color:var(--blue);flex-shrink:0;font-size:.7rem;margin-top:.1rem}
+.agent-pricing{margin-top:1.2rem;padding:.6rem .9rem;background:rgba(43,127,255,.08);border:1px solid rgba(43,127,255,.18);border-radius:8px;font-size:.72rem;color:var(--blue);font-weight:600}
+/* PROCESS */
+.how{padding:7rem 5rem;background:var(--dark)}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;position:relative}
+.steps-grid::before{content:'';position:absolute;top:2.2rem;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent)}
+.step-card{text-align:center;position:relative;z-index:1}
+.step-num{width:44px;height:44px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;color:white;margin:0 auto 1.2rem}
+.step-title{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.5rem}
+.step-desc{font-size:.78rem;color:var(--muted);line-height:1.7}
+/* DEMO CHAT */
+.demo-section{padding:7rem 5rem;background:var(--black)}
+.chat-wrapper{max-width:760px;margin:0 auto}
+.chat-box{background:var(--card);border:1px solid var(--border);border-radius:20px;overflow:hidden}
+.chat-header{background:linear-gradient(135deg,rgba(43,127,255,.18),rgba(43,127,255,.08));padding:1.2rem 1.6rem;display:flex;align-items:center;gap:.9rem;border-bottom:1px solid var(--border)}
+.chat-avatar{width:40px;height:40px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0}
+.chat-agent-name{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--text)}
+.chat-agent-status{font-size:.65rem;color:#4ade80;display:flex;align-items:center;gap:.3rem}
+.chat-agent-status::before{content:'';width:6px;height:6px;background:#4ade80;border-radius:50%;animation:pulse 2s infinite}
+.chat-messages{height:340px;overflow-y:auto;padding:1.4rem;display:flex;flex-direction:column;gap:1rem}
+.chat-messages::-webkit-scrollbar{width:3px}
+.msg{max-width:78%;display:flex;flex-direction:column;gap:.3rem}
+.msg.bot{align-self:flex-start}.msg.user{align-self:flex-end}
+.msg-bubble{padding:.75rem 1rem;border-radius:14px;font-size:.82rem;line-height:1.65}
+.msg.bot .msg-bubble{background:rgba(43,127,255,.12);border:1px solid rgba(43,127,255,.2);color:var(--text);border-bottom-left-radius:4px}
+.msg.user .msg-bubble{background:var(--blue);color:white;border-bottom-right-radius:4px}
+.msg-time{font-size:.6rem;color:var(--muted)}.msg.user .msg-time{text-align:right}
+.chat-suggestions{padding:.6rem 1.4rem 1rem;display:flex;gap:.5rem;flex-wrap:wrap}
+.sugg-btn{background:rgba(43,127,255,.08);border:1px solid rgba(43,127,255,.2);color:var(--blue);font-size:.68rem;padding:.3rem .75rem;border-radius:100px;cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
+.sugg-btn:hover{background:rgba(43,127,255,.2)}
+.chat-input-row{padding:1rem 1.4rem;border-top:1px solid var(--border);display:flex;gap:.7rem;align-items:center}
+.chat-input{flex:1;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:.7rem 1rem;font-family:'Inter',sans-serif;font-size:.83rem;color:var(--text);outline:none;transition:border-color .2s}
+.chat-input:focus{border-color:var(--blue)}
+.chat-send{background:var(--blue);color:white;border:none;border-radius:10px;width:40px;height:40px;cursor:pointer;font-size:1rem;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-send:hover{background:var(--blue-dark)}
+.typing-indicator{display:flex;gap:4px;align-items:center;padding:.75rem 1rem}
+.typing-dot{width:7px;height:7px;background:var(--blue);border-radius:50%;animation:typing .8s ease-in-out infinite}
+.typing-dot:nth-child(2){animation-delay:.15s}.typing-dot:nth-child(3){animation-delay:.3s}
+@keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-6px);opacity:1}}
+/* CTA STRIP */
+.cta-strip{padding:5rem;background:linear-gradient(135deg,rgba(43,127,255,.12),rgba(43,127,255,.04));border-top:1px solid var(--border);border-bottom:1px solid var(--border);text-align:center}
+footer{background:var(--black);padding:2.5rem 5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-top:1px solid var(--border)}
+.foot-brand{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:var(--text)}.foot-brand span{color:var(--blue)}
+.foot-txt{font-size:.7rem;color:var(--muted)}
+.foot-links{display:flex;gap:1.8rem;list-style:none}
+.foot-links a{color:var(--muted);text-decoration:none;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
+.foot-links a:hover{color:var(--blue)}
+@media(max-width:960px){nav{padding:1rem 1.5rem}.nav-links{display:none}.hamburger{display:flex}.page-hero{padding:8rem 1.5rem 4rem}.agents-section{padding:5rem 1.5rem}.agents-grid{grid-template-columns:1fr 1fr}.how{padding:5rem 1.5rem}.steps-grid{grid-template-columns:1fr 1fr}.steps-grid::before{display:none}.demo-section{padding:5rem 1.5rem}.cta-strip{padding:4rem 1.5rem}footer{padding:2rem 1.5rem;flex-direction:column;text-align:center}.foot-links{justify-content:center}}
+@media(max-width:600px){.agents-grid{grid-template-columns:1fr}.steps-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-brand">United <span>Apex</span> Developers</a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="ai-agents.html">AI Receptionist</a></li>
+    <li><a href="app-development.html" class="active">App Development</a></li>
+    <li><a href="portfolio.html">Portfolio</a></li>
+    <li><a href="faq.html">FAQ</a></li>
+    <li><a href="about.html">About</a></li>
+    <li><a href="index.html#contact" class="nav-cta">Get Started</a></li>
+  </ul>
+  <button class="hamburger" onclick="document.getElementById('mob').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="index.html">Home</a><a href="ai-agents.html">AI Receptionist</a><a href="app-development.html">App Development</a><a href="portfolio.html">Portfolio</a><a href="faq.html">FAQ</a><a href="about.html">About</a><a href="index.html#contact">Get Started</a>
+</div>
+
+<section class="page-hero">
+  <div class="page-hero-content">
+    <div class="hero-badge">📱 Custom App Development</div>
+    <h1>Apps Built to<br><span class="gradient">Launch &amp; Scale</span></h1>
+    <p>We design, build, and deploy custom mobile and web apps — from focused MVPs to full marketplace platforms. Built from scratch, architected to scale, and documented so your app never depends on one person to maintain it.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="index.html#contact" class="btn-blue">Start Your App →</a>
+      <a href="#demo" class="btn-outline">Try the Demo</a>
+    </div>
+  </div>
+</section>
+
+<section class="agents-section" id="apps">
+  <div class="sec-hdr">
+    <div class="sec-tag">What We Build</div>
+    <h2 class="sec-title">App Types <span>We Build</span></h2>
+    <p class="sec-sub">Every app is scoped around what your business actually needs — no bloated builds, no unnecessary complexity. Just the right product, shipped well.</p>
+  </div>
+  <div class="agents-grid">
+
+    <div class="agent-card">
+      <div class="agent-emoji">📱</div>
+      <div class="agent-name">Mobile Apps</div>
+      <div class="agent-for">For: Consumer & Business Apps</div>
+      <div class="agent-desc">Native-quality iOS and Android apps built from a single codebase — fast, polished, and ready for the App Store and Google Play.</div>
+      <div class="agent-features">
+        <div class="agent-feat">iOS & Android from one build</div>
+        <div class="agent-feat">Push notifications & offline support</div>
+        <div class="agent-feat">App Store & Play Store submission</div>
+        <div class="agent-feat">Analytics & crash monitoring</div>
+      </div>
+      <div class="agent-pricing">Get a Quote</div>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-emoji">💻</div>
+      <div class="agent-name">Web Applications & SaaS Platforms</div>
+      <div class="agent-for">For: Startups, SaaS Products, Internal Tools</div>
+      <div class="agent-desc">Browser-based applications — dashboards, subscription products, and internal tools — built for speed, accessible on any device, no install required.</div>
+      <div class="agent-features">
+        <div class="agent-feat">Responsive, works on any device</div>
+        <div class="agent-feat">User accounts & subscription billing</div>
+        <div class="agent-feat">Real-time data & dashboards</div>
+        <div class="agent-feat">Scalable cloud architecture</div>
+      </div>
+      <div class="agent-pricing">Get a Quote</div>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-emoji">🛒</div>
+      <div class="agent-name">E-Commerce & Booking Apps</div>
+      <div class="agent-for">For: Retailers, Service Businesses, Tour & Rental Operators</div>
+      <div class="agent-desc">Apps that let customers browse, book, and pay — whether you're selling products, appointments, or packaged services.</div>
+      <div class="agent-features">
+        <div class="agent-feat">Product/service catalog & search</div>
+        <div class="agent-feat">Stripe, PayPal & other payment integration</div>
+        <div class="agent-feat">Booking & scheduling flows</div>
+        <div class="agent-feat">Order & customer management</div>
+      </div>
+      <div class="agent-pricing">Get a Quote</div>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-emoji">🤝</div>
+      <div class="agent-name">Marketplace & Two-Sided Platforms</div>
+      <div class="agent-for">For: On-Demand Services, Provider Networks</div>
+      <div class="agent-desc">Platforms connecting customers with providers — think booking, quoting, live tracking, and payouts, built for both sides of the transaction.</div>
+      <div class="agent-features">
+        <div class="agent-feat">Customer & provider apps</div>
+        <div class="agent-feat">Split payments & provider payouts</div>
+        <div class="agent-feat">Live tracking & in-app chat</div>
+        <div class="agent-feat">Admin dashboard for full control</div>
+      </div>
+      <div class="agent-pricing">Get a Quote</div>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-emoji">🏢</div>
+      <div class="agent-name">Business & Internal Tools</div>
+      <div class="agent-for">For: Growing Teams, Operations</div>
+      <div class="agent-desc">Custom internal dashboards, inventory systems, and workflow tools that replace spreadsheets and disconnected software with one built-for-you system.</div>
+      <div class="agent-features">
+        <div class="agent-feat">Role-based staff access</div>
+        <div class="agent-feat">Custom workflows & reporting</div>
+        <div class="agent-feat">Integrates with your existing tools</div>
+        <div class="agent-feat">Built around how your team works</div>
+      </div>
+      <div class="agent-pricing">Get a Quote</div>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-emoji">🚀</div>
+      <div class="agent-name">MVP Development for Startups</div>
+      <div class="agent-for">For: Founders Validating a New Idea</div>
+      <div class="agent-desc">A lean, focused build that proves your core idea works — fast enough to get in front of users or investors without overbuilding before you know what sticks.</div>
+      <div class="agent-features">
+        <div class="agent-feat">Scoped to core value proposition only</div>
+        <div class="agent-feat">Fast build, phased roadmap after</div>
+        <div class="agent-feat">Architecture that won't need a rebuild</div>
+        <div class="agent-feat">Investor-ready demo quality</div>
+      </div>
+      <div class="agent-pricing">Get a Quote</div>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-emoji">🔐</div>
+      <div class="agent-name">Client & Admin Portals</div>
+      <div class="agent-for">For: Agencies, Service Providers, Multi-Role Businesses</div>
+      <div class="agent-desc">Secure, role-based portals where clients, staff, and admins each see exactly what they need — nothing more, nothing less.</div>
+      <div class="agent-features">
+        <div class="agent-feat">Multi-role access control</div>
+        <div class="agent-feat">Secure authentication</div>
+        <div class="agent-feat">Document & file management</div>
+        <div class="agent-feat">Custom dashboards per role</div>
+      </div>
+      <div class="agent-pricing">Get a Quote</div>
+    </div>
+
+    <div class="agent-card">
+      <div class="agent-emoji">🔗</div>
+      <div class="agent-name">API & Third-Party Integrations</div>
+      <div class="agent-for">For: Existing Apps Needing New Capabilities</div>
+      <div class="agent-desc">Connect your app to payments, maps, CRMs, and other platforms — or expose your own API for partners and integrations.</div>
+      <div class="agent-features">
+        <div class="agent-feat">Payment gateway integration</div>
+        <div class="agent-feat">Maps, notifications & third-party APIs</div>
+        <div class="agent-feat">CRM & business tool connections</div>
+        <div class="agent-feat">Custom API development</div>
+      </div>
+      <div class="agent-pricing">Get a Quote</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="how">
+  <div class="sec-hdr">
+    <div class="sec-tag">Process</div>
+    <h2 class="sec-title">How We <span>Build</span> Your App</h2>
+    <p class="sec-sub">A clear, phased process — so you always know what's being built, why, and when it ships.</p>
+  </div>
+  <div class="steps-grid">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <div class="step-title">Discovery & Scope</div>
+      <div class="step-desc">We learn your business and users, define the core features that matter first, and agree a phased build plan.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <div class="step-title">Design</div>
+      <div class="step-desc">We design the user experience and screens before writing code, so you approve the product before it's built.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <div class="step-title">Build & Test</div>
+      <div class="step-desc">We build in phases with regular check-ins, testing continuously rather than all at once at the end.</div>
+    </div>
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <div class="step-title">Launch + Support</div>
+      <div class="step-desc">We handle store submission and deployment, then stay on for support and the next phase of features.</div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO CHAT -->
+<section class="demo-section" id="demo">
+  <div class="chat-wrapper">
+    <div class="sec-hdr">
+      <div class="sec-tag">Live Demo</div>
+      <h2 class="sec-title">Ask About Your <span>App Idea</span></h2>
+      <p class="sec-sub">Ask this real AI agent what kind of app fits your idea, how long it might take, or how we scope a project.</p>
+    </div>
+    <div class="chat-box">
+      <div class="chat-header">
+        <div class="chat-avatar">🤖</div>
+        <div>
+          <div class="chat-agent-name">Apex App Advisor</div>
+          <div class="chat-agent-status">Online — Powered by Claude</div>
+        </div>
+      </div>
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg bot">
+          <div class="msg-bubble">Hi! I'm your App Advisor. Tell me about the app idea you have in mind and I'll help you think through what type of app it is, roughly how it should be scoped, and what to expect. What are you looking to build? 👋</div>
+          <div class="msg-time">Just now</div>
+        </div>
+      </div>
+      <div class="chat-suggestions">
+        <button class="sugg-btn" onclick="sendSuggestion(this)">I want to build a marketplace app</button>
+        <button class="sugg-btn" onclick="sendSuggestion(this)">I need an MVP for my startup</button>
+        <button class="sugg-btn" onclick="sendSuggestion(this)">Website vs app — which do I need?</button>
+        <button class="sugg-btn" onclick="sendSuggestion(this)">How long does app development take?</button>
+      </div>
+      <div class="chat-input-row">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Describe your app idea or ask a question..." onkeydown="if(event.key==='Enter')sendMessage()">
+        <button class="chat-send" onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="cta-strip">
+  <h2 style="font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;color:var(--text);margin-bottom:.8rem">Ready to Build Your <span style="color:var(--blue)">App?</span></h2>
+  <p style="color:var(--muted);font-size:.9rem;margin-bottom:2rem">Tell us about your idea and we'll come back with a phased scope and timeline — not just a guess.</p>
+  <a href="index.html#contact" class="btn-blue">Get Started — Free Consultation →</a>
+  <a href="ai-agents.html" class="btn-outline" style="margin-left:.8rem">Also Need an AI Receptionist? →</a>
+</div>
+
+<footer>
+  <div><div class="foot-brand">United <span>Apex</span> Developers</div><div class="foot-txt" style="margin-top:.3rem">Global AI Receptionist, Web & App Development Agency</div></div>
+  <ul class="foot-links">
+    <li><a href="index.html">Home</a></li><li><a href="ai-agents.html">AI Receptionist</a></li><li><a href="app-development.html">App Development</a></li><li><a href="portfolio.html">Portfolio</a></li><li><a href="faq.html">FAQ</a></li><li><a href="about.html">About</a></li>
+  </ul>
+  <div class="foot-txt">© 2025 United Apex Developers. All rights reserved.</div>
+</footer>
+
+<script>
+const SYSTEM_PROMPT = `You are the App Advisor for United Apex Developers. Help visitors think through what kind of app fits their idea.
+
+App types we build:
+- Mobile Apps (iOS & Android, single codebase)
+- Web Applications & SaaS Platforms
+- E-Commerce & Booking Apps
+- Marketplace & Two-Sided Platforms (customer + provider apps)
+- Business & Internal Tools
+- MVP Development for Startups
+- Client & Admin Portals (role-based access)
+- API & Third-Party Integrations
+
+Tech approach: apps are custom-built (not templated) and architected to scale, with phased delivery and clear milestones.
+Timeline: varies by scope — a focused MVP is much faster than a full marketplace platform. Always recommend a discovery call for a real phased timeline rather than a single guess.
+Pricing: Custom quotes based on scope and complexity. Do not state or estimate specific dollar figures — direct pricing questions to the contact form.
+Contact: unitedapexdevelopers@gmail.com
+
+When someone describes their idea, help them understand what type of app it is, flag if a website or AI receptionist might actually suit them better, and explain briefly what a sensible first phase would look like. Keep responses under 150 words. Be honest and helpful, not salesy.`;
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+  appendMessage(msg, 'user');
+  showTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYSTEM_PROMPT,messages:[{role:'user',content:msg}]})
+    });
+    const data = await res.json();
+    hideTyping();
+    appendMessage(data.content?.[0]?.text || "Please email unitedapexdevelopers@gmail.com and we'll help you scope your app idea!", 'bot');
+  } catch(e) {
+    hideTyping();
+    appendMessage("Please email unitedapexdevelopers@gmail.com and we'll help you scope your app idea!", 'bot');
+  }
+}
+function sendSuggestion(btn){document.getElementById('chatInput').value=btn.textContent;sendMessage()}
+function appendMessage(text,sender){const box=document.getElementById('chatMessages');const d=document.createElement('div');d.className=`msg ${sender}`;const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});d.innerHTML=`<div class="msg-bubble">${text}</div><div class="msg-time">${now}</div>`;box.appendChild(d);box.scrollTop=box.scrollHeight}
+let typingEl=null;
+function showTyping(){const box=document.getElementById('chatMessages');typingEl=document.createElement('div');typingEl.className='msg bot';typingEl.id='typingIndicator';typingEl.innerHTML='<div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';box.appendChild(typingEl);box.scrollTop=box.scrollHeight}
+function hideTyping(){const el=document.getElementById('typingIndicator');if(el)el.remove()}
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+# United Apex Developers
+
+> United Apex Developers is a remote AI business automation agency. We build AI receptionists and AI agents, high-converting websites, and custom mobile & web apps for businesses across the US, UK, Canada, and Europe.
+
+## Services
+
+- **AI Receptionist & AI Agents** — 24/7 AI receptionists and agents for sales, support, lead generation, appointment booking, and multilingual customer interaction. Deployed to website, phone, WhatsApp, or CRM. See /ai-agents.html
+- **Website Design & Development** — Custom, conversion-focused websites, no templates. Includes SEO setup and hosting/domain configuration.
+- **App Development** — Custom iOS, Android, and web apps built from scratch — booking platforms, marketplaces, client portals, and MVPs. See /app-development.html
+- **Website + AI Bundle** and **Full-Stack Bundle** — Website, app, and AI receptionist delivered together as a single package.
+- **Website Maintenance & App Maintenance** — Ongoing updates, bug fixes, and monitoring.
+- **SEO & Google Ranking** — Technical SEO, keyword research, and local SEO.
+
+## Company
+
+- Fully remote, international team — no physical office.
+- Serves clients across the United States, United Kingdom, Canada, and Europe.
+- Contact: unitedapexdevelopers@gmail.com
+- Response time: within 24 hours.
+- Pricing: custom quotes based on project scope — no fixed public pricing.
+
+## Pages
+
+- Home: https://unitedapexdevelopers.com/
+- AI Receptionist & AI Agents: https://unitedapexdevelopers.com/ai-agents.html
+- App Development: https://unitedapexdevelopers.com/app-development.html
+- Portfolio: https://unitedapexdevelopers.com/portfolio.html
+- About: https://unitedapexdevelopers.com/about.html
+- FAQ: https://unitedapexdevelopers.com/faq.html
