@@ -143,7 +143,7 @@ def main() -> int:
 
     combined = metrics.combine_results([trend_result, mr_result])
     print_report("PORTFOLIO (combined)", combined, total_equity)
-    print_consistency_check("PORTFOLIO (combined)", combined, n_periods=4)
+    print_consistency_check("PORTFOLIO (combined)", combined, n_periods=4, periods_per_year=365)
 
     print("\n=== Smoothness comparison (lower monthly P&L stdev = smoother) ===")
     rows = []

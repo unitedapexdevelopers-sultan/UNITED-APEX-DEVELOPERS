@@ -46,7 +46,10 @@ class SummaryStats:
         }
 
 
-def summarize(result: BacktestResult, starting_equity: float, periods_per_year: int = 365) -> SummaryStats:
+def summarize(result: BacktestResult, starting_equity: float, periods_per_year: float = 365) -> SummaryStats:
+    """periods_per_year should match the bar timeframe actually used (see
+    indicators.periods_per_year_for_timeframe) -- the default of 365 is only
+    correct for daily bars."""
     trades = result.trades
     pnls = np.array([t.pnl for t in trades]) if trades else np.array([])
     wins = pnls[pnls > 0]

@@ -29,6 +29,7 @@ from tradingbot import mean_reversion  # noqa: E402
 from tradingbot import metrics  # noqa: E402
 from tradingbot import strategy as strat  # noqa: E402
 from tradingbot.backtest import run_backtest  # noqa: E402
+from tradingbot.indicators import periods_per_year_for_timeframe  # noqa: E402
 from tradingbot.risk import RiskParams  # noqa: E402
 
 STRATEGY_BUILDERS = {
@@ -44,8 +45,8 @@ def build_risk_params(cfg: dict, sleeve: dict) -> RiskParams:
     return RiskParams.from_config(merged)
 
 
-def print_report(title: str, result, starting_equity: float) -> None:
-    stats = metrics.summarize(result, starting_equity)
+def print_report(title: str, result, starting_equity: float, periods_per_year: float) -> None:
+    stats = metrics.summarize(result, starting_equity, periods_per_year)
     monthly = metrics.monthly_pnl_table(result)
 
     print(f"\n=== {title}: Summary ===")
@@ -61,7 +62,7 @@ def print_report(title: str, result, starting_equity: float) -> None:
         print(f"\n{title}: no trades were taken.")
 
 
-def print_consistency_check(title: str, result, n_periods: int) -> None:
+def print_consistency_check(title: str, result, n_periods: int, periods_per_year: float) -> None:
     """Splits one already-run backtest into N calendar segments and prints
     per-segment stats side by side. This is a consistency check, not
     walk-forward optimization -- no parameters get re-fit per segment (this
@@ -76,7 +77,7 @@ def print_consistency_check(title: str, result, n_periods: int) -> None:
     rows = []
     losing_segments = 0
     for seg in segments:
-        stats = metrics.summarize(seg.result, seg.starting_equity)
+        stats = metrics.summarize(seg.result, seg.starting_equity, periods_per_year)
         monthly = metrics.monthly_pnl_table(seg.result)
         label = f"{seg.start.date()} -> {seg.end.date()}"
         if stats.profit_factor < 1.0 and stats.total_trades > 0:
@@ -116,6 +117,7 @@ def main() -> int:
 
     bt_cfg = cfg["backtest"]
     total_equity = bt_cfg["starting_equity"]
+    periods_per_year = periods_per_year_for_timeframe(cfg["timeframe"])
 
     out_dir = ROOT / "state"
     out_dir.mkdir(exist_ok=True)
@@ -159,8 +161,8 @@ def main() -> int:
             slippage_bps=bt_cfg["slippage_bps"],
         )
         sleeve_results.append((name, sleeve_equity, result))
-        print_report(f"Sleeve '{name}'", result, sleeve_equity)
-        print_consistency_check(f"Sleeve '{name}'", result, args.periods)
+        print_report(f"Sleeve '{name}'", result, sleeve_equity, periods_per_year)
+        print_consistency_check(f"Sleeve '{name}'", result, args.periods, periods_per_year)
 
         result.equity_curve.to_csv(out_dir / f"{name}_equity_curve.csv", header=["equity"])
         pd.DataFrame([vars(t) for t in result.trades]).to_csv(out_dir / f"{name}_trades.csv", index=False)
@@ -171,8 +173,8 @@ def main() -> int:
 
     if len(sleeve_results) > 1:
         combined = metrics.combine_results([r for _, _, r in sleeve_results])
-        print_report("PORTFOLIO (combined)", combined, total_equity)
-        print_consistency_check("PORTFOLIO (combined)", combined, args.periods)
+        print_report("PORTFOLIO (combined)", combined, total_equity, periods_per_year)
+        print_consistency_check("PORTFOLIO (combined)", combined, args.periods, periods_per_year)
 
         print("\n=== Smoothness comparison (lower monthly P&L stdev = smoother) ===")
         rows = []

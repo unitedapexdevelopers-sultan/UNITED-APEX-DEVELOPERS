@@ -132,10 +132,11 @@ manufacturing a nice-looking number.
 Running one strategy over one pool of capital tends to produce a P&L stream
 that's profitable in aggregate but choppy month to month -- exactly what this
 project found when the trend sleeve alone was backtested against real Binance
-history: **39% trade win rate, but only 33% of active months closed green**,
-because almost the entire return was concentrated in 3 outsized trending
-months out of ~24 active ones. Mathematically fine (positive expectancy is
-positive expectancy); psychologically hard to sit through.
+history (daily candles, 2020-2025): **39% trade win rate, but only 33% of
+active months closed green**, because almost the entire return was
+concentrated in 3 outsized trending months out of ~24 active ones.
+Mathematically fine (positive expectancy is positive expectancy);
+psychologically hard to sit through.
 
 The lever this project uses to address that is running a **second sleeve
 that's built to be active in the regime the first one sits out**:
@@ -159,6 +160,21 @@ is an empirical question for real market data, not something config.yaml can
 guarantee. Run `run_backtest.py` with real history and look at the
 smoothness comparison table it prints before trusting this for your markets.
 
+**The real-data run backing that claim (same daily/2020-2025 window) was
+mixed, not a clean win.** The mean-reversion sleeve alone was a net loser
+(profit factor 0.80, -1.3% return) with its strict production thresholds --
+only 19 trades in 5 years is too selective to have found a real edge on that
+window. What it *did* do: its one profitable stretch (2022-07 to 2023-10,
+profit factor 1.65) lined up with the trend sleeve's weakest stretch (profit
+factor 1.24) -- the regime-complementary design worked exactly as intended,
+just not with enough magnitude to fully offset it. Net effect on the
+portfolio: max drawdown improved (11.2% -> 7.6%), but total return dropped
+(46.2% -> 27.2%), because mean-reversion's own losses ate into more of the
+smoothing benefit than they gave back. That's a real cost for a real but
+modest benefit -- not yet a clear improvement, and a sign the mean-reversion
+sleeve's thresholds need tuning against real data (not the synthetic demo's
+loosened ones) before its capital allocation is justified as-is.
+
 One implementation detail worth knowing: the mean-reversion sleeve's real
 edge comes from taking profit when price **returns to the mean** (the moving
 Bollinger mid-band), not from a trailing stop. An earlier version of this
@@ -166,6 +182,32 @@ project reused the trend sleeve's trailing-stop-only exit for mean-reversion
 too, which quietly destroyed its edge (19.7% win rate, profit factor 0.27) --
 `tests/test_mean_reversion.py::test_backtest_exits_via_target_not_just_stop`
 is a regression test for that specific bug.
+
+## Trade frequency & history depth
+
+Two settings in `config.yaml` control this, and it's worth being clear about
+what each one actually does and doesn't buy you:
+
+- **`timeframe: 4h`** (was `1d`) is the responsible lever for more frequent
+  trades: same strategy rules, same indicator period *counts*
+  (`fast_ema: 20` is still 20 bars), just shorter bars -- so signals fire
+  more often without changing what counts as a signal. This is different
+  from loosening entry thresholds (RSI/ADX/Bollinger width) to force more
+  trades, which was tried in the synthetic demo purely to make it
+  illustrative and is called out there as *not* a real recommendation --
+  looser thresholds mean lower-conviction entries, and this project's own
+  real-data mean-reversion result (see "Sleeves & smoothing" above) shows
+  what a strategy with too little edge per trade looks like: net losing even
+  before considering execution risk. More frequent trades also means more
+  cumulative fee/slippage drag -- worth watching in the backtest report, not
+  just the trade count.
+- **`backtest.start: "2017-09-01"`** is the practical ceiling for this
+  symbol set, not an arbitrary choice. Binance itself launched in September
+  2017; some of these symbols (SOL, for one) were listed on Binance well
+  after that and will simply return however much history they actually
+  have. "10-15 years" of crypto history doesn't exist for exchange-traded
+  data on most of these pairs -- treat ~9 years as the real maximum here,
+  and expect an uneven amount of history per symbol.
 
 ## Configuration (`config.yaml`)
 

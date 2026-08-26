@@ -83,6 +83,21 @@ def adx(high: pd.Series, low: pd.Series, close: pd.Series, period: int) -> pd.Se
     return dx.ewm(alpha=1.0 / period, adjust=False, min_periods=period).mean().fillna(0)
 
 
+def periods_per_year_for_timeframe(timeframe: str) -> float:
+    """How many bars of this timeframe occur in a year -- used to annualize
+    a Sharpe ratio correctly. Getting this wrong doesn't change the backtest
+    result, only how the Sharpe number is scaled for display, but it's an
+    easy silent mistake: this project's default periods_per_year=365 was
+    only ever correct for daily bars, and stayed a hidden assumption when
+    the default timeframe changed to 4h.
+    """
+    unit = timeframe[-1]
+    value = int(timeframe[:-1])
+    hours_per_unit = {"m": 1 / 60, "h": 1.0, "d": 24.0, "w": 24.0 * 7}[unit]
+    hours_per_bar = value * hours_per_unit
+    return 24.0 * 365.0 / hours_per_bar
+
+
 def annualized_sharpe(returns: pd.Series, periods_per_year: int, risk_free: float = 0.0) -> float:
     """Sharpe ratio annualized from a series of per-period returns."""
     excess = returns - risk_free / periods_per_year

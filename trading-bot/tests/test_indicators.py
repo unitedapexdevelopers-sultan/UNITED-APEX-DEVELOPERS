@@ -1,7 +1,8 @@
 import numpy as np
 import pandas as pd
+import pytest
 
-from tradingbot.indicators import atr, ema, max_drawdown, true_range
+from tradingbot.indicators import atr, ema, max_drawdown, periods_per_year_for_timeframe, true_range
 
 
 def test_ema_converges_to_constant_series():
@@ -47,3 +48,19 @@ def test_max_drawdown_known_curve():
 def test_max_drawdown_monotonic_up_is_zero():
     curve = pd.Series([100, 110, 120, 130])
     assert max_drawdown(curve) == 0.0
+
+
+def test_periods_per_year_daily():
+    assert periods_per_year_for_timeframe("1d") == 365.0
+
+
+def test_periods_per_year_4h_is_six_times_daily():
+    assert periods_per_year_for_timeframe("4h") == pytest.approx(365.0 * 6)
+
+
+def test_periods_per_year_1h_is_24_times_daily():
+    assert periods_per_year_for_timeframe("1h") == pytest.approx(365.0 * 24)
+
+
+def test_periods_per_year_weekly_is_one_seventh_daily():
+    assert periods_per_year_for_timeframe("1w") == pytest.approx(365.0 / 7)

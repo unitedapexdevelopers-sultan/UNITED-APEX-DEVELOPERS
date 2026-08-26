@@ -3,12 +3,22 @@
 # recommendation. Tune symbols, risk, and dates to whatever you actually validate.
 
 exchange: binance          # any ccxt-supported exchange with public OHLCV data
-timeframe: 1d               # candle size: 1h, 4h, 1d, ...
+timeframe: 4h               # candle size: 1h, 4h, 1d, ... -- 4h vs. 1d is the main lever
+                              # for more frequent trades (see note below); the strategy
+                              # rules are unchanged, so this is not the same thing as
+                              # loosening entry thresholds to force more signals.
 
-# Backtest window (ignored by paper trading, which always uses live data)
+# Backtest window (ignored by paper trading, which always uses live data).
+# NOTE on history depth: "10-15 years" of crypto data does not exist for this
+# symbol set. Binance itself only launched in Sept 2017; several of these
+# symbols (SOL, for one) were listed on Binance well after that. 2017-09-01
+# is the practical ceiling for BTC/ETH/BNB, not a choice -- newer symbols will
+# simply return however much history they actually have; ccxt/data.py handles
+# that gracefully (no error), it just means the dataset isn't rectangular
+# across symbols. ~9 years is the real maximum available here, not 10-15.
 backtest:
-  start: "2020-01-01"
-  end: "2025-01-01"
+  start: "2017-09-01"
+  end: "2026-08-01"
   starting_equity: 10000
   fee_rate: 0.0004          # taker fee, as a fraction (0.0004 = 4 bps)
   slippage_bps: 5            # assumed slippage per fill, in basis points

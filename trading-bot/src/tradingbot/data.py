@@ -6,7 +6,7 @@ for fetching candles.
 
 from __future__ import annotations
 
-import os
+import json
 import time
 from pathlib import Path
 
@@ -21,6 +21,10 @@ COLUMNS = ["timestamp", "open", "high", "low", "close", "volume"]
 def _cache_path(exchange_id: str, symbol: str, timeframe: str) -> Path:
     safe_symbol = symbol.replace("/", "-")
     return CACHE_DIR / f"{exchange_id}_{safe_symbol}_{timeframe}.csv"
+
+
+def _meta_path(cache_path: Path) -> Path:
+    return cache_path.with_suffix(".meta.json")
 
 
 def _make_exchange(exchange_id: str):
@@ -70,29 +74,48 @@ def get_historical(
     end: str,
     use_cache: bool = True,
 ) -> pd.DataFrame:
-    """Get historical OHLCV for [start, end), using a local CSV cache when available."""
+    """Get historical OHLCV for [start, end), using a local CSV cache when available.
+
+    Cache sufficiency is judged against what was actually *requested* on the
+    fetch that created it (recorded in a sidecar .meta.json), not against the
+    earliest timestamp present in the data. Those differ for any symbol
+    listed after the requested start (e.g. asking for SOL/USDT from
+    2017-09-01 when it was only listed on the exchange in 2020) -- comparing
+    against the data's own min would make such a symbol's cache look
+    "incomplete" forever and force a full network refetch on every call.
+    """
     CACHE_DIR.mkdir(parents=True, exist_ok=True)
     path = _cache_path(exchange_id, symbol, timeframe)
+    meta_path = _meta_path(path)
     start_ts = pd.Timestamp(start, tz="UTC")
     end_ts = pd.Timestamp(end, tz="UTC")
+    start_ms = int(start_ts.timestamp() * 1000)
 
-    if use_cache and path.exists():
-        cached = pd.read_csv(path, parse_dates=["timestamp"])
-        cached["timestamp"] = pd.to_datetime(cached["timestamp"], utc=True)
-        if not cached.empty and cached["timestamp"].min() <= start_ts and cached["timestamp"].max() >= end_ts:
-            mask = (cached["timestamp"] >= start_ts) & (cached["timestamp"] <= end_ts)
-            return cached.loc[mask].reset_index(drop=True)
+    if use_cache and path.exists() and meta_path.exists():
+        try:
+            requested_since_ms = json.loads(meta_path.read_text()).get("requested_since_ms")
+        except (json.JSONDecodeError, OSError):
+            requested_since_ms = None
+        if requested_since_ms is not None and requested_since_ms <= start_ms:
+            cached = pd.read_csv(path, parse_dates=["timestamp"])
+            cached["timestamp"] = pd.to_datetime(cached["timestamp"], utc=True)
+            if not cached.empty and cached["timestamp"].max() >= end_ts:
+                mask = (cached["timestamp"] >= start_ts) & (cached["timestamp"] <= end_ts)
+                return cached.loc[mask].reset_index(drop=True)
 
     df = fetch_ohlcv(
         exchange_id,
         symbol,
         timeframe,
-        since_ms=int(start_ts.timestamp() * 1000),
+        since_ms=start_ms,
         until_ms=int(end_ts.timestamp() * 1000),
     )
     if use_cache and not df.empty:
         df.to_csv(path, index=False)
-    return df
+        meta_path.write_text(json.dumps({"requested_since_ms": start_ms}))
+
+    mask = (df["timestamp"] >= start_ts) & (df["timestamp"] <= end_ts)
+    return df.loc[mask].reset_index(drop=True)
 
 
 def get_latest_candles(exchange_id: str, symbol: str, timeframe: str, limit: int = 300) -> pd.DataFrame:
