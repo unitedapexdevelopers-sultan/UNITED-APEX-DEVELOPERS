@@ -1,5 +1,11 @@
 #!/usr/bin/env python3
-"""Run the backtest over the symbols/date range in config.yaml and print a report.
+"""Run the multi-sleeve backtest defined in config.yaml and print a report.
+
+Each sleeve is its own capital allocation + strategy (see config.yaml's
+`sleeves` list). This script runs each sleeve independently, then combines
+them into a portfolio-level result to show whether/how much running multiple
+regime-complementary strategies smooths the combined month-to-month P&L
+compared to any single sleeve alone.
 
 Usage:
     python scripts/run_backtest.py [--config config.yaml] [--no-cache]
@@ -11,6 +17,7 @@ import argparse
 import sys
 from pathlib import Path
 
+import pandas as pd
 import yaml
 from tabulate import tabulate
 
@@ -18,10 +25,40 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
 
 from tradingbot import data as data_mod  # noqa: E402
+from tradingbot import mean_reversion  # noqa: E402
 from tradingbot import metrics  # noqa: E402
+from tradingbot import strategy as strat  # noqa: E402
 from tradingbot.backtest import run_backtest  # noqa: E402
 from tradingbot.risk import RiskParams  # noqa: E402
-from tradingbot.strategy import StrategyParams  # noqa: E402
+
+STRATEGY_BUILDERS = {
+    "trend_following": lambda params_cfg: strat.make_adapter(strat.StrategyParams.from_config(params_cfg)),
+    "mean_reversion": lambda params_cfg: mean_reversion.make_adapter(
+        mean_reversion.MeanReversionParams.from_config(params_cfg)
+    ),
+}
+
+
+def build_risk_params(cfg: dict, sleeve: dict) -> RiskParams:
+    merged = {**cfg["risk"], **sleeve.get("risk_overrides", {})}
+    return RiskParams.from_config(merged)
+
+
+def print_report(title: str, result, starting_equity: float) -> None:
+    stats = metrics.summarize(result, starting_equity)
+    monthly = metrics.monthly_pnl_table(result)
+
+    print(f"\n=== {title}: Summary ===")
+    print(tabulate(stats.as_dict().items(), tablefmt="simple"))
+
+    if not monthly.empty:
+        pct_green = metrics.pct_months_green(monthly)
+        stdev = metrics.monthly_pnl_stdev(monthly)
+        print(f"\n=== {title}: Monthly P&L ({pct_green:.0f}% of active months closed green, "
+              f"monthly P&L stdev = {stdev:,.2f}) ===")
+        print(tabulate(monthly, headers="keys", tablefmt="simple", showindex=False, floatfmt=",.2f"))
+    else:
+        print(f"\n{title}: no trades were taken.")
 
 
 def main() -> int:
@@ -33,58 +70,85 @@ def main() -> int:
     with open(args.config) as f:
         cfg = yaml.safe_load(f)
 
-    strategy_params = StrategyParams.from_config(cfg["strategy"])
-    risk_params = RiskParams.from_config(cfg["risk"])
     bt_cfg = cfg["backtest"]
-
-    print(f"Fetching historical data from {cfg['exchange']} ({cfg['timeframe']}) "
-          f"for {len(cfg['symbols'])} symbols, {bt_cfg['start']} -> {bt_cfg['end']} ...")
-
-    price_data = {}
-    for symbol in cfg["symbols"]:
-        df = data_mod.get_historical(
-            cfg["exchange"], symbol, cfg["timeframe"], bt_cfg["start"], bt_cfg["end"],
-            use_cache=not args.no_cache,
-        )
-        if df.empty:
-            print(f"  WARNING: no data returned for {symbol}, skipping")
-            continue
-        print(f"  {symbol}: {len(df)} candles")
-        price_data[symbol] = df
-
-    if not price_data:
-        print("No data available for any symbol -- aborting.")
-        return 1
-
-    result = run_backtest(
-        data=price_data,
-        strategy_params=strategy_params,
-        risk_params=risk_params,
-        starting_equity=bt_cfg["starting_equity"],
-        fee_rate=bt_cfg["fee_rate"],
-        slippage_bps=bt_cfg["slippage_bps"],
-    )
-
-    stats = metrics.summarize(result, bt_cfg["starting_equity"])
-    monthly = metrics.monthly_pnl_table(result)
-
-    print("\n=== Summary ===")
-    print(tabulate(stats.as_dict().items(), tablefmt="simple"))
-
-    if not monthly.empty:
-        pct_green = metrics.pct_months_green(monthly)
-        print(f"\n=== Monthly P&L ({pct_green:.0f}% of months closed green) ===")
-        print(tabulate(monthly, headers="keys", tablefmt="simple", showindex=False, floatfmt=",.2f"))
-    else:
-        print("\nNo trades were taken -- nothing to show monthly.")
+    total_equity = bt_cfg["starting_equity"]
 
     out_dir = ROOT / "state"
     out_dir.mkdir(exist_ok=True)
-    result.equity_curve.to_csv(out_dir / "backtest_equity_curve.csv", header=["equity"])
-    import pandas as pd
-    pd.DataFrame([vars(t) for t in result.trades]).to_csv(out_dir / "backtest_trades.csv", index=False)
-    print(f"\nSaved equity curve and trade log to {out_dir}/")
 
+    sleeve_results = []
+    for sleeve in cfg["sleeves"]:
+        name = sleeve["name"]
+        symbols = sleeve["symbols"]
+        allocation_pct = sleeve["capital_allocation_pct"]
+        sleeve_equity = total_equity * allocation_pct / 100.0
+
+        print(f"\nFetching data for sleeve '{name}' ({sleeve['type']}, {allocation_pct}% = "
+              f"{sleeve_equity:,.0f} of {total_equity:,.0f}) -- {len(symbols)} symbols ...")
+
+        price_data = {}
+        for symbol in symbols:
+            df = data_mod.get_historical(
+                cfg["exchange"], symbol, cfg["timeframe"], bt_cfg["start"], bt_cfg["end"],
+                use_cache=not args.no_cache,
+            )
+            if df.empty:
+                print(f"  WARNING: no data returned for {symbol}, skipping")
+                continue
+            print(f"  {symbol}: {len(df)} candles")
+            price_data[symbol] = df
+
+        if not price_data:
+            print(f"  No data available for sleeve '{name}' -- skipping it.")
+            continue
+
+        builder = STRATEGY_BUILDERS[sleeve["type"]]
+        adapter = builder(sleeve["params"])
+        risk_params = build_risk_params(cfg, sleeve)
+
+        result = run_backtest(
+            data=price_data,
+            adapter=adapter,
+            risk_params=risk_params,
+            starting_equity=sleeve_equity,
+            fee_rate=bt_cfg["fee_rate"],
+            slippage_bps=bt_cfg["slippage_bps"],
+        )
+        sleeve_results.append((name, sleeve_equity, result))
+        print_report(f"Sleeve '{name}'", result, sleeve_equity)
+
+        result.equity_curve.to_csv(out_dir / f"{name}_equity_curve.csv", header=["equity"])
+        pd.DataFrame([vars(t) for t in result.trades]).to_csv(out_dir / f"{name}_trades.csv", index=False)
+
+    if not sleeve_results:
+        print("\nNo sleeve produced results -- aborting.")
+        return 1
+
+    if len(sleeve_results) > 1:
+        combined = metrics.combine_results([r for _, _, r in sleeve_results])
+        print_report("PORTFOLIO (combined)", combined, total_equity)
+
+        print("\n=== Smoothness comparison (lower monthly P&L stdev = smoother) ===")
+        rows = []
+        for name, equity, result in sleeve_results:
+            monthly = metrics.monthly_pnl_table(result)
+            rows.append([
+                name,
+                f"{metrics.pct_months_green(monthly):.0f}%",
+                f"{metrics.monthly_pnl_stdev(monthly):,.2f}",
+            ])
+        combined_monthly = metrics.monthly_pnl_table(combined)
+        rows.append([
+            "PORTFOLIO",
+            f"{metrics.pct_months_green(combined_monthly):.0f}%",
+            f"{metrics.monthly_pnl_stdev(combined_monthly):,.2f}",
+        ])
+        print(tabulate(rows, headers=["", "% months green", "monthly P&L stdev"], tablefmt="simple"))
+
+        combined.equity_curve.to_csv(out_dir / "portfolio_equity_curve.csv", header=["equity"])
+        pd.DataFrame([vars(t) for t in combined.trades]).to_csv(out_dir / "portfolio_trades.csv", index=False)
+
+    print(f"\nSaved equity curves and trade logs to {out_dir}/")
     return 0
 
 

@@ -16,6 +16,7 @@ from dataclasses import dataclass
 import pandas as pd
 
 from . import indicators as ind
+from .strategy_base import StrategyAdapter
 
 
 @dataclass
@@ -87,3 +88,12 @@ def initial_stop(entry_price: float, atr_value: float, direction: int, params: S
 def trailing_stop(current_price: float, atr_value: float, direction: int, params: StrategyParams) -> float:
     distance = atr_value * params.atr_trail_multiple
     return current_price - direction * distance
+
+
+def make_adapter(params: StrategyParams) -> StrategyAdapter:
+    return StrategyAdapter(
+        name="trend_following",
+        generate_signals=lambda df: generate_signals(df, params),
+        initial_stop=lambda entry_price, atr_value, direction: initial_stop(entry_price, atr_value, direction, params),
+        trailing_stop=lambda price, atr_value, direction: trailing_stop(price, atr_value, direction, params),
+    )

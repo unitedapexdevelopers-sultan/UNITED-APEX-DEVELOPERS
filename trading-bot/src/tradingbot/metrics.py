@@ -109,3 +109,34 @@ def pct_months_green(monthly: pd.DataFrame) -> float:
     if monthly.empty:
         return 0.0
     return float(monthly["closed_green"].mean() * 100)
+
+
+def monthly_pnl_stdev(monthly: pd.DataFrame) -> float:
+    """Standard deviation of month-to-month P&L -- a direct smoothness measure.
+
+    Lower is a smoother ride for the same total return; this is what
+    diversifying sleeves/symbols is meant to reduce.
+    """
+    if monthly.empty or len(monthly) < 2:
+        return 0.0
+    return float(monthly["pnl"].std(ddof=1))
+
+
+def combine_results(results: list["BacktestResult"]) -> "BacktestResult":
+    """Combine multiple sleeves' backtest results into one portfolio-level result:
+    equity curves are aligned and summed, trade logs are concatenated. Each
+    input result should already reflect that sleeve's own allocated capital
+    (its starting_equity), so the sum is a true portfolio equity curve.
+    """
+    results = [r for r in results if len(r.equity_curve)]
+    if not results:
+        return BacktestResult(equity_curve=pd.Series(dtype=float), trades=[])
+
+    all_index = sorted(set().union(*(r.equity_curve.index for r in results)))
+    aligned = [r.equity_curve.reindex(all_index).ffill().bfill() for r in results]
+    combined_curve = sum(aligned)
+
+    combined_trades = [t for r in results for t in r.trades]
+    combined_trades.sort(key=lambda t: t.exit_time)
+
+    return BacktestResult(equity_curve=combined_curve, trades=combined_trades)

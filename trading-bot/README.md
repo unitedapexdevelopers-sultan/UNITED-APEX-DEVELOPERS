@@ -1,10 +1,24 @@
-# Trading Bot (probability-based crypto trend follower)
+# Trading Bot (probability-based crypto multi-strategy)
 
-A backtest + paper-trading system for a rule-based crypto strategy. It is
-**not** designed to be "right" most of the time -- it is designed to have
-positive expectancy (average winners bigger than average losses) even with a
-minority win rate, and to survive long enough for that edge to compound. See
-"Honest limitations" below before risking any real capital.
+A backtest + paper-trading system that runs two complementary crypto
+strategies as separate capital sleeves:
+
+- **trend** -- EMA-crossover trend following with ATR stops. Structurally
+  expects a **minority win rate** with large winners (rare, big trending
+  moves) offsetting frequent small losses.
+- **mean_reversion** -- fades Bollinger Band extremes (RSI-confirmed), gated
+  to only fire when ADX shows the market is *not* trending, and takes profit
+  when price returns to the mean. Structurally expects a **high win rate**
+  with small wins and occasional larger losses when a "reversion" bet
+  actually turns into a trend.
+
+Those are opposite payoff shapes, active in different market regimes by
+design -- see "Sleeves & smoothing" below for why that's the point, and what
+it actually bought in this project's own testing.
+
+Neither sleeve is designed to be "right" most of the time in the same way;
+each is designed to have positive expectancy on its own terms. See "Honest
+limitations" below before risking any real capital.
 
 No live-broker/exchange order placement is implemented. Paper trading uses
 only public market-data endpoints (no API keys) and simulates fills against a
@@ -14,19 +28,21 @@ local virtual account.
 
 ```
 src/tradingbot/
-  indicators.py    EMA, ATR, Sharpe, max drawdown -- pure pandas/numpy
-  data.py          Historical + live OHLCV via ccxt, with CSV caching
-  strategy.py      EMA-crossover trend filter + ATR initial/trailing stop
-  risk.py          Position sizing from % equity risk; daily/monthly kill switches
-  backtest.py      Event-driven multi-symbol backtest engine
-  metrics.py       Win rate, expectancy, profit factor, Sharpe, drawdown, monthly P&L
-  paper_trade.py   Live polling loop -> simulated fills against persisted JSON state
+  indicators.py     EMA, ATR, Bollinger, RSI, ADX, Sharpe, max drawdown -- pure pandas/numpy
+  data.py           Historical + live OHLCV via ccxt, with CSV caching
+  strategy.py       Trend sleeve: EMA-crossover + trend filter + ATR stop/trail
+  mean_reversion.py Mean-reversion sleeve: Bollinger+RSI entries gated by ADX, exits at the mean
+  strategy_base.py  StrategyAdapter -- common interface so the engine doesn't care which strategy it's running
+  risk.py           Position sizing from % equity risk; daily/monthly kill switches
+  backtest.py       Event-driven multi-symbol backtest engine (stop-loss + target exits)
+  metrics.py        Win rate, expectancy, profit factor, Sharpe, drawdown, monthly P&L, portfolio combiner
+  paper_trade.py    Live polling loop -> simulated fills per sleeve, against persisted JSON state
 scripts/
-  run_backtest.py            Backtest against config.yaml's symbols/date range
-  run_paper.py               Paper-trading loop (--once for a single poll cycle)
-  demo_synthetic_backtest.py Runs the full pipeline on synthetic data (no network needed)
-tests/                       Deterministic unit tests, no network calls
-config.yaml                  Symbols, strategy params, risk params, backtest window
+  run_backtest.py            Runs every sleeve in config.yaml, then a combined portfolio report
+  run_paper.py               Paper-trading loop across all sleeves (--once for a single poll cycle)
+  demo_synthetic_backtest.py Runs the full multi-sleeve pipeline on synthetic data (no network needed)
+tests/                        Deterministic unit tests, no network calls
+config.yaml                   Sleeves (symbols + strategy params + capital split), shared risk defaults
 ```
 
 ## Setup
@@ -49,10 +65,13 @@ python3 -m venv .venv
 .venv/bin/python scripts/run_backtest.py
 ```
 
-Fetches historical daily candles for the symbols in `config.yaml` from
-Binance's public API (cached to `data/cache/` after the first run), runs the
-strategy, and prints a summary plus a month-by-month P&L table. Equity curve
-and full trade log are saved to `state/`.
+For each sleeve in `config.yaml`, fetches historical daily candles from
+Binance's public API (cached to `data/cache/` after the first run), runs that
+sleeve's strategy over its own allocated capital, and prints a summary plus a
+month-by-month P&L table. Then combines all sleeves into a portfolio-level
+report and a smoothness comparison table (% months green and monthly P&L
+standard deviation, per sleeve vs. combined). Equity curves and full trade
+logs are saved to `state/` (per sleeve and for the combined portfolio).
 
 If you're on a network that can't reach the exchange (as this sandbox
 currently can't -- outbound to `api.binance.com` is blocked by policy here),
@@ -62,55 +81,103 @@ verify the pipeline instead with:
 .venv/bin/python scripts/demo_synthetic_backtest.py
 ```
 
-This runs the identical strategy/risk/backtest/metrics code against generated
-price series (trend, downtrend, chop, high-volatility) so you can confirm
+This runs the identical strategy/risk/backtest/metrics/combiner code against
+generated price series (trending and mean-reverting) so you can confirm
 everything wires together without needing exchange access. **It is not a
-performance claim** -- the numbers it prints depend entirely on the random
-seed and prove nothing about real markets. Treat it as a smoke test, not a
-strategy result.
+performance claim** -- the numbers depend entirely on the random seed and the
+demo intentionally loosens the mean-reversion sleeve's thresholds (see the
+comment in the script) so a short synthetic run produces enough trades to be
+illustrative. Treat it as a smoke test of the mechanism, not a strategy result.
 
 ## Paper trading
 
 ```bash
-.venv/bin/python scripts/run_paper.py --once   # one poll cycle, for testing
+.venv/bin/python scripts/run_paper.py --once   # one poll cycle across all sleeves, for testing
 .venv/bin/python scripts/run_paper.py           # runs continuously, per paper.poll_seconds
 ```
 
-Maintains a virtual account in `state/paper_account.json` (starting equity
-from `config.yaml`) and appends closed trades to `state/paper_trades.csv`. No
-API keys, no real orders -- only public OHLCV endpoints are called. Delete the
-state file to reset the virtual account.
+Maintains a virtual account **per sleeve** in `state/paper_account.json`
+(each sleeve's starting equity = total starting equity x its
+`capital_allocation_pct`) and appends closed trades to
+`state/paper_trades.csv`, tagged by sleeve. No API keys, no real orders --
+only public OHLCV endpoints are called. Delete the state file to reset.
 
 ## Why win rate isn't the target
 
 Expectancy per trade = (win rate x avg win) - (loss rate x avg loss), after
-fees. This strategy enters on an EMA-crossover trend signal, cuts losers at a
-fixed ATR-multiple stop, and trails winners for as long as the trend holds --
-so it structurally expects a **win rate well under 50%** with average winners
-several times the size of average losses. `metrics.monthly_pnl_table()`
-reports the percentage of months that closed green *alongside* the trade win
-rate specifically so that distinction is visible in every run, rather than
-assumed.
+fees. The **trend** sleeve cuts losers at a fixed ATR-multiple stop and trails
+winners for as long as the trend holds, so it structurally expects a **win
+rate well under 50%** with average winners several times the size of average
+losses. `metrics.monthly_pnl_table()` reports the percentage of months that
+closed green *alongside* the trade win rate specifically so that distinction
+is visible in every run, rather than assumed.
 
 Whether a given market/period actually produces that payoff shape is an
 empirical question -- it depends on the underlying data having real trend
-persistence to capture. The synthetic demo above, for example, comes back
-**negative** (profit factor 0.67) on one random seed, because a pure random
-walk with light drift mostly doesn't have exploitable trend structure once
-fees and slippage are subtracted. That's the pipeline doing its job: it will
-tell you when a strategy has no edge instead of manufacturing a nice-looking
-number.
+persistence to capture. On this project's own synthetic demo, the trend
+sleeve alone came back **negative** (profit factor 0.67) on one early test,
+because a pure random walk with light drift mostly doesn't have exploitable
+trend structure once fees and slippage are subtracted. That's the pipeline
+doing its job: it will tell you when a strategy has no edge instead of
+manufacturing a nice-looking number.
+
+## Sleeves & smoothing
+
+Running one strategy over one pool of capital tends to produce a P&L stream
+that's profitable in aggregate but choppy month to month -- exactly what this
+project found when the trend sleeve alone was backtested against real Binance
+history: **39% trade win rate, but only 33% of active months closed green**,
+because almost the entire return was concentrated in 3 outsized trending
+months out of ~24 active ones. Mathematically fine (positive expectancy is
+positive expectancy); psychologically hard to sit through.
+
+The lever this project uses to address that is running a **second sleeve
+that's built to be active in the regime the first one sits out**:
+mean-reversion entries are explicitly gated to only fire when ADX shows the
+market is *not* trending -- the opposite condition the trend sleeve needs.
+Combining their equity curves is what actually smooths the portfolio, not
+just "having more than one strategy."
+
+This is a real, testable mechanism, not an assumption:
+`tests/test_portfolio_smoothing.py` constructs two negatively-correlated
+synthetic P&L streams and proves `metrics.combine_results()` produces a lower
+monthly standard deviation than either stream alone (with total return
+conserved -- smoothing redistributes the same return across time, it isn't
+free money). On the synthetic demo, the trend sleeve alone closed **38%** of
+active months green; combined with the mean-reversion sleeve, the portfolio
+closed **85%** green -- a large, genuine improvement, though the combined
+monthly P&L standard deviation didn't beat the mean-reversion sleeve's *own*
+(already very smooth, at 90% green) number. **Smoothing isn't automatic** --
+it depends on the two sleeves actually being uncorrelated in practice, which
+is an empirical question for real market data, not something config.yaml can
+guarantee. Run `run_backtest.py` with real history and look at the
+smoothness comparison table it prints before trusting this for your markets.
+
+One implementation detail worth knowing: the mean-reversion sleeve's real
+edge comes from taking profit when price **returns to the mean** (the moving
+Bollinger mid-band), not from a trailing stop. An earlier version of this
+project reused the trend sleeve's trailing-stop-only exit for mean-reversion
+too, which quietly destroyed its edge (19.7% win rate, profit factor 0.27) --
+`tests/test_mean_reversion.py::test_backtest_exits_via_target_not_just_stop`
+is a regression test for that specific bug.
 
 ## Configuration (`config.yaml`)
 
-- `strategy.*` -- EMA periods, ATR stop/trail multiples, whether shorts are allowed.
-- `risk.risk_per_trade_pct` -- % of equity risked (at the stop) per trade. This
-  is the single biggest lever on both drawdown depth and long-run growth rate.
-- `risk.max_open_positions` / `max_symbol_exposure_pct` -- diversification and
-  concentration caps.
+- `sleeves` -- a list of independent capital allocations, each with its own
+  `type` (`trend_following` or `mean_reversion`), `symbols`,
+  `capital_allocation_pct`, and strategy `params`. Add a sleeve's own
+  `risk_overrides` to diverge from the shared defaults (e.g.
+  mean-reversion's default config allows more concurrent positions than
+  trend, since its trades are smaller and shorter-lived).
+- `risk.risk_per_trade_pct` -- % of a sleeve's equity risked (at the stop)
+  per trade. This is the single biggest lever on both drawdown depth and
+  long-run growth rate.
+- `risk.max_open_positions` / `max_symbol_exposure_pct` -- diversification
+  and concentration caps, per sleeve.
 - `risk.daily_loss_kill_switch_pct` / `monthly_loss_kill_switch_pct` -- new
-  entries are blocked once realized+unrealized loss for the day/month exceeds
-  these thresholds. Existing positions still manage their own stops.
+  entries for that sleeve are blocked once its realized+unrealized loss for
+  the day/month exceeds these thresholds. Existing positions still manage
+  their own stops.
 - `backtest.fee_rate` / `slippage_bps` -- must reflect your actual venue's
   taker fee and realistic slippage, or the backtest will be optimistic.
 
@@ -123,16 +190,18 @@ number.
 - **No walk-forward/out-of-sample validation harness yet.** Running
   `run_backtest.py` once over a fixed window and looking at good numbers is
   how people fool themselves; before trusting any result, split the date
-  range and check the strategy holds up out-of-sample, and be skeptical of
+  range and check each sleeve holds up out-of-sample, and be skeptical of
   parameter choices that were tuned to that same window.
 - **Backtest is not paper trading is not live trading.** Slippage and fills
   get progressively less forgiving at each step. Treat backtest results as
   an upper bound, paper-trading results as a more honest (but still
   optimistic, since no real order book impact) estimate.
-- **No portfolio-level correlation control.** `max_open_positions` and
-  `max_symbol_exposure_pct` limit position count and single-symbol size, but
-  four crypto pairs can still move together in a crash -- the diversification
-  benefit is weaker than the position count suggests.
+- **Sleeve diversification is not portfolio-level correlation control.**
+  Mean-reversion's ADX gate makes it *structurally* less likely to be active
+  exactly when trend is, but in a real market crash most crypto pairs move
+  together regardless of which strategy is watching -- verify the
+  smoothness benefit on real history for your actual symbol set rather than
+  assuming the synthetic demo's numbers carry over.
 - **This is not financial advice, and nothing here guarantees profitability.**
   A rule-based system with sound risk management can be *survivable* and can
   have a real statistical edge; it cannot guarantee any given month, or any

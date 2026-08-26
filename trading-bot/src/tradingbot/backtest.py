@@ -19,8 +19,8 @@ from dataclasses import dataclass, field
 
 import pandas as pd
 
-from . import strategy as strat
 from .risk import KillSwitchTracker, RiskParams, capped_quantity, position_size
+from .strategy_base import StrategyAdapter
 
 
 @dataclass
@@ -36,6 +36,7 @@ class Trade:
     pnl: float
     equity_at_entry: float
     exit_reason: str
+    strategy_name: str = ""
 
     @property
     def pnl_pct_of_equity(self) -> float:
@@ -67,14 +68,15 @@ def _apply_slippage(price: float, direction: int, slippage_bps: float, is_entry:
 
 def run_backtest(
     data: dict[str, pd.DataFrame],
-    strategy_params: strat.StrategyParams,
+    adapter: StrategyAdapter,
     risk_params: RiskParams,
     starting_equity: float,
     fee_rate: float,
     slippage_bps: float,
 ) -> BacktestResult:
-    """data: symbol -> DataFrame with columns from strategy.generate_signals()."""
-    signaled = {sym: strat.generate_signals(df, strategy_params) for sym, df in data.items()}
+    """data: symbol -> OHLCV DataFrame. adapter: a StrategyAdapter (see strategy_base.py),
+    e.g. strategy.make_adapter(params) or mean_reversion.make_adapter(params)."""
+    signaled = {sym: adapter.generate_signals(df) for sym, df in data.items()}
     for df in signaled.values():
         df.set_index("timestamp", inplace=True)
 
@@ -101,7 +103,7 @@ def run_backtest(
             atr_value = float(bar["atr"])
             if pd.isna(atr_value) or atr_value <= 0:
                 continue
-            stop_price = strat.initial_stop(entry_price, atr_value, direction, strategy_params)
+            stop_price = adapter.initial_stop(entry_price, atr_value, direction)
 
             equity_now = cash + _unrealized_pnl(open_positions, signaled, ts)
             qty = position_size(equity_now, entry_price, stop_price, risk_params.risk_per_trade_pct)
@@ -150,14 +152,44 @@ def run_backtest(
                         pnl=pnl,
                         equity_at_entry=pos.equity_at_entry,
                         exit_reason="stop",
+                        strategy_name=adapter.name,
                     )
                 )
                 del open_positions[symbol]
                 continue
 
+            if "target" in df.columns and not pd.isna(bar["target"]):
+                target_price = float(bar["target"])
+                target_reached = (pos.direction == 1 and float(bar["high"]) >= target_price) or (
+                    pos.direction == -1 and float(bar["low"]) <= target_price
+                )
+                if target_reached:
+                    exit_price = _apply_slippage(target_price, pos.direction, slippage_bps, is_entry=False)
+                    fee = exit_price * pos.quantity * fee_rate
+                    pnl = pos.direction * (exit_price - pos.entry_price) * pos.quantity - fee
+                    cash += pnl
+                    trades.append(
+                        Trade(
+                            symbol=symbol,
+                            direction=pos.direction,
+                            entry_time=pos.entry_time,
+                            entry_price=pos.entry_price,
+                            exit_time=ts,
+                            exit_price=exit_price,
+                            quantity=pos.quantity,
+                            fees=fee,
+                            pnl=pnl,
+                            equity_at_entry=pos.equity_at_entry,
+                            exit_reason="target",
+                            strategy_name=adapter.name,
+                        )
+                    )
+                    del open_positions[symbol]
+                    continue
+
             atr_value = float(bar["atr"])
             if not pd.isna(atr_value) and atr_value > 0:
-                new_stop = strat.trailing_stop(float(bar["close"]), atr_value, pos.direction, strategy_params)
+                new_stop = adapter.trailing_stop(float(bar["close"]), atr_value, pos.direction)
                 if pos.direction == 1:
                     pos.stop_price = max(pos.stop_price, new_stop)
                 else:
@@ -203,6 +235,7 @@ def run_backtest(
                     pnl=pnl,
                     equity_at_entry=pos.equity_at_entry,
                     exit_reason="end_of_backtest",
+                    strategy_name=adapter.name,
                 )
             )
             equity_curve[last_ts] = cash
