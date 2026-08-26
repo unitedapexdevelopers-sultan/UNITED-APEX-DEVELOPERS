@@ -11,7 +11,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#060810">
+<meta name="theme-color" content="#FAFAF9">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="United Apex Developers">
 <meta property="og:title" content="About — United Apex Developers">
@@ -25,7 +25,7 @@
 <meta name="twitter:title" content="About — United Apex Developers">
 <meta name="twitter:description" content="United Apex Developers is a remote AI business automation agency building AI receptionists, websites, and custom apps for clients across the US, UK, Canada, and Europe.">
 <meta name="twitter:image" content="https://unitedapexdevelopers.com/assets/og-image.png">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -46,433 +46,342 @@
 </script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--blue:#2B7FFF;--blue-dark:#1A5FCC;--blue-glow:rgba(43,127,255,0.22);--black:#060810;--dark:#0C1120;--card:#101828;--border:rgba(43,127,255,0.18);--text:#E8EEF8;--muted:#7A8BA8}
+:root{
+  --ink:#0F172A; --muted:#475569; --faint:#94A3B8;
+  --bg:#FAFAF9; --bg-2:#F1F1EF; --line:#E2E2DD;
+  --blue:#1D4ED8; --blue-dim:rgba(29,78,216,.08);
+  --serif:'Newsreader',serif; --sans:'Inter',sans-serif;
+}
 html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--black);color:var(--text);overflow-x:hidden}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1280px;margin:0 auto;padding:0 2.5rem}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+*:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1rem 5rem;background:rgba(6,8,16,0.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-.nav-brand{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);text-decoration:none}.nav-brand span{color:var(--blue)}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{text-decoration:none;color:var(--muted);font-size:.8rem;font-weight:400;transition:color .2s}
-.nav-links a:hover,.nav-links a.active{color:var(--blue)}
-.nav-cta{background:var(--blue)!important;color:white!important;padding:.5rem 1.3rem;border-radius:8px;font-weight:500!important}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.3rem;background:none;border:none}
-.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
-.mobile-menu{display:none;position:fixed;top:70px;left:0;right:0;background:rgba(6,8,16,0.98);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:1.5rem 2rem;z-index:199;flex-direction:column;gap:1.2rem}
+/* ===== NAV ===== */
+nav{position:sticky;top:0;z-index:200;background:rgba(250,250,249,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:var(--serif);font-weight:600;font-size:1.2rem;letter-spacing:-.01em;cursor:pointer}
+.brand em{font-style:normal;color:var(--blue)}
+.brand-mark{width:32px;height:auto;flex-shrink:0;display:block}
+.nav-links{display:flex;gap:2.2rem;list-style:none;font-size:.85rem;color:var(--muted)}
+.nav-links a{cursor:pointer;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--ink)}
+.nav-cta{border:1px solid var(--ink);padding:.55rem 1.3rem;border-radius:2px;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.nav-cta:hover{background:var(--ink);color:var(--bg)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.3rem;background:none;border:none;flex-shrink:0}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
+.mobile-menu{display:none;position:fixed;top:76px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:1.2rem 2rem 1.6rem;z-index:199;flex-direction:column;gap:0}
 .mobile-menu.open{display:flex}
-.mobile-menu a{text-decoration:none;color:var(--muted);font-size:.9rem;padding:.4rem 0;border-bottom:1px solid var(--border)}
+.mobile-menu a{text-decoration:none;color:var(--muted);font-size:.92rem;padding:.8rem 0;border-bottom:1px solid var(--line)}
+@media(max-width:900px){.nav-links{display:none}.nav-cta{display:none}.hamburger{display:flex}}
+@media(max-width:480px){.nav-inner{padding:0 1.2rem}.brand{font-size:1rem;gap:.4rem}.brand-mark{width:24px}}
 
-/* PAGE HEADER */
-.page-hero{padding:10rem 5rem 5rem;text-align:center;position:relative;overflow:hidden}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(43,127,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(43,127,255,.04) 1px,transparent 1px);background-size:60px 60px}
-.hero-glow{position:absolute;top:20%;left:50%;transform:translateX(-50%);width:600px;height:300px;background:radial-gradient(ellipse,rgba(43,127,255,.12) 0%,transparent 70%);pointer-events:none}
-.page-hero-content{position:relative;z-index:1;max-width:750px;margin:0 auto}
-.sec-tag{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:.9rem;display:inline-flex;align-items:center;gap:.6rem;justify-content:center}
-.gradient{background:linear-gradient(135deg,#2B7FFF,#60A5FA,#A8C8FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.sec-title{font-family:'Syne',sans-serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:800;line-height:1.1;color:var(--text);margin-bottom:1.2rem;letter-spacing:-.02em}
-.sec-sub{font-size:.9rem;color:var(--muted);line-height:1.85;font-weight:300}
+/* section head reused */
+.sec-head{display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;margin-bottom:3.5rem;align-items:end}
+.sec-tag{grid-column:1/13;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:1rem}
+.sec-title{grid-column:1/8;font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,2.8vw,2.4rem);line-height:1.18;letter-spacing:-.01em}
+.sec-sub{grid-column:8/13;font-size:.86rem;color:var(--muted);line-height:1.75;align-self:end}
+@media(max-width:900px){.sec-title{grid-column:1/13}.sec-sub{grid-column:1/13;margin-top:1rem}}
 
-/* STORY SECTION */
-.story{padding:6rem 5rem;background:var(--dark);display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center}
-.story-text .label{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem}
-.story-text .label::before{content:'';display:block;width:20px;height:2px;background:var(--blue)}
-.story-text h2{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,2.5vw,2.4rem);font-weight:700;line-height:1.15;color:var(--text);margin-bottom:1.5rem;letter-spacing:-.01em}
-.story-text h2 span{color:var(--blue)}
-.story-text p{font-size:.85rem;line-height:1.95;color:var(--muted);margin-bottom:1.2rem;font-weight:300}
-.story-visual{position:relative}
-.story-card-stack{display:flex;flex-direction:column;gap:1rem}
-.story-stat-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.6rem 2rem;display:flex;align-items:center;gap:1.5rem;transition:border-color .3s}
-.story-stat-card:hover{border-color:rgba(43,127,255,.4)}
-.stat-icon{width:48px;height:48px;background:rgba(43,127,255,.12);border:1px solid rgba(43,127,255,.28);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
-.stat-val{font-family:'Syne',sans-serif;font-size:1.6rem;font-weight:700;color:var(--blue);line-height:1}
-.stat-desc{font-size:.75rem;color:var(--muted);margin-top:.2rem}
+.sec-head.center{text-align:center}
+.sec-head.center .sec-tag{grid-column:1/13}
+.sec-head.center .sec-title{grid-column:3/11}
+.sec-head.center .sec-sub{grid-column:3/11;margin-top:1rem}
+@media(max-width:900px){.sec-head.center .sec-title,.sec-head.center .sec-sub{grid-column:1/13}}
 
-/* MISSION / VALUES */
-.mission{padding:7rem 5rem;background:var(--black)}
-.mission-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:4rem}
-.mission-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2rem 1.8rem;transition:all .3s;position:relative;overflow:hidden}
-.mission-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),transparent);transform:scaleX(0);transition:transform .4s;transform-origin:left}
-.mission-card:hover::before{transform:scaleX(1)}
-.mission-card:hover{background:#131d30;border-color:rgba(43,127,255,.3)}
-.mission-icon{font-size:1.8rem;margin-bottom:1rem}
-.mission-title{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.6rem}
-.mission-desc{font-size:.8rem;line-height:1.8;color:var(--muted)}
+.btn-primary{background:var(--ink);color:var(--bg);padding:.85rem 1.6rem;border-radius:2px;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem;border:none}
+.btn-primary:hover{background:var(--blue)}
+.btn-secondary{border:1px solid var(--line);color:var(--ink);padding:.85rem 1.6rem;border-radius:2px;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;background:var(--bg)}
+.btn-secondary:hover{border-color:var(--ink)}
 
-/* TEAM */
-.team{padding:7rem 5rem;background:var(--dark)}
-.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;margin-top:4rem}
-.team-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2rem 1.5rem;text-align:center;transition:all .3s}
-.team-card:hover{border-color:rgba(43,127,255,.3);transform:translateY(-4px)}
-.team-avatar{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,rgba(43,127,255,.25),rgba(43,127,255,.08));border:2px solid rgba(43,127,255,.3);display:flex;align-items:center;justify-content:center;font-size:1.8rem;margin:0 auto 1.2rem}
-.team-role-badge{display:inline-block;background:rgba(43,127,255,.12);border:1px solid rgba(43,127,255,.25);color:var(--blue);font-size:.62rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;padding:.25rem .7rem;border-radius:100px;margin-bottom:.8rem}
-.team-name{font-family:'Syne',sans-serif;font-size:1rem;font-weight:700;color:var(--text);margin-bottom:.4rem}
-.team-desc{font-size:.75rem;line-height:1.7;color:var(--muted)}
+/* ===== PAGE HERO ===== */
+.page-hero{padding:5.5rem 0 4.5rem;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.hero-cols{position:absolute;inset:0;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;padding:0 2.5rem;pointer-events:none;z-index:0}
+.hero-cols i{border-left:1px solid var(--line);height:100%;font-style:normal;opacity:.6}
+.page-hero-inner{position:relative;z-index:1;max-width:760px}
+.page-hero-inner .sec-tag{margin-bottom:1.4rem;display:flex;align-items:center;gap:.6rem}
+.page-hero-inner .sec-tag::before{content:'';width:28px;height:1px;background:var(--blue)}
+.page-hero-inner h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;letter-spacing:-.02em;margin-bottom:1.3rem}
+.page-hero-inner h1 em{font-style:italic;color:var(--blue)}
+.page-hero-inner p{font-size:.92rem;color:var(--muted);line-height:1.8;max-width:640px}
+@media(max-width:480px){.page-hero{padding:3rem 0 2.5rem}}
 
-/* GLOBAL REACH */
-.reach{padding:7rem 5rem;background:var(--black)}
-.reach-inner{max-width:900px;margin:0 auto}
-.reach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2rem;margin-top:3rem}
-.reach-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.8rem 1.5rem;text-align:center;transition:all .3s}
-.reach-card:hover{border-color:rgba(43,127,255,.3)}
-.reach-flag{font-size:2rem;margin-bottom:.8rem}
-.reach-country{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.3rem}
-.reach-desc{font-size:.72rem;color:var(--muted);line-height:1.6}
+/* ===== STORY ===== */
+.story{padding:5.5rem 0;border-bottom:1px solid var(--line)}
+.story-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2.5rem}
+.story-text{grid-column:1/7}
+.story-text p{font-size:.9rem;color:var(--muted);line-height:1.9;margin-bottom:1.2rem}
+.story-stats{grid-column:7/13;display:flex;flex-direction:column}
+.story-stat{display:flex;justify-content:space-between;align-items:baseline;padding:1.3rem 0;border-top:1px solid var(--line)}
+.story-stat:last-child{border-bottom:1px solid var(--line)}
+.story-stat b{font-family:var(--serif);font-weight:600;font-size:1.7rem;color:var(--ink)}
+.story-stat span{font-size:.78rem;color:var(--muted);text-align:right;max-width:220px}
+@media(max-width:900px){.story-text{grid-column:1/13}.story-stats{grid-column:1/13;margin-top:1.5rem}}
 
-/* WHY US */
-.why{padding:7rem 5rem;background:var(--dark)}
-.why-list{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;margin-top:3rem;max-width:900px;margin-left:auto;margin-right:auto}
-.why-item{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:1.6rem 1.8rem;display:flex;gap:1.2rem;align-items:flex-start;transition:border-color .3s}
-.why-item:hover{border-color:rgba(43,127,255,.3)}
-.why-check{width:32px;height:32px;background:rgba(43,127,255,.15);border:1px solid rgba(43,127,255,.3);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--blue);font-size:1rem;flex-shrink:0;margin-top:.1rem}
-.why-title{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:var(--text);margin-bottom:.35rem}
-.why-desc{font-size:.78rem;line-height:1.75;color:var(--muted)}
+/* ===== VALUES ===== */
+.values{padding:5.5rem 0;background:var(--bg-2);border-bottom:1px solid var(--line)}
+.values-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2rem}
+.value-card{border-top:2px solid var(--ink);padding-top:1.2rem}
+.value-num{font-family:var(--serif);font-size:1.6rem;color:var(--blue);margin-bottom:.6rem}
+.value-title{font-family:var(--serif);font-size:1.05rem;font-weight:600;margin-bottom:.5rem}
+.value-desc{font-size:.81rem;color:var(--muted);line-height:1.75}
+@media(max-width:900px){.values-grid{grid-template-columns:repeat(2,1fr);row-gap:2rem}}
+@media(max-width:560px){.values-grid{grid-template-columns:1fr}}
 
-/* CTA */
-.about-cta{padding:7rem 5rem;text-align:center;background:var(--black);position:relative;overflow:hidden}
-.cta-glow{position:absolute;top:30%;left:50%;transform:translateX(-50%);width:500px;height:250px;background:radial-gradient(ellipse,rgba(43,127,255,.1) 0%,transparent 70%);pointer-events:none}
-.about-cta h2{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;color:var(--text);margin-bottom:1rem;position:relative}
-.about-cta p{font-size:.88rem;color:var(--muted);margin-bottom:2.5rem;position:relative;max-width:500px;margin-left:auto;margin-right:auto}
-.btn-blue{background:var(--blue);color:white;padding:.9rem 2rem;border-radius:10px;border:none;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .3s}
-.btn-blue:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 8px 32px var(--blue-glow)}
-.btn-outline{background:transparent;color:var(--text);padding:.9rem 2rem;border-radius:10px;border:1px solid var(--border);font-family:'Inter',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .3s;margin-left:1rem}
-.btn-outline:hover{border-color:var(--blue);color:var(--blue)}
-.cta-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:.8rem;position:relative}
+/* ===== TEAM ===== */
+.team{padding:5.5rem 0;border-bottom:1px solid var(--line)}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:0}
+.team-card{border-top:1px solid var(--line);border-left:1px solid var(--line);padding:1.8rem 1.6rem}
+.team-card:last-child{border-right:1px solid var(--line)}
+.team-role{font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:.9rem}
+.team-name{font-family:var(--serif);font-size:1.1rem;font-weight:600;margin-bottom:.6rem}
+.team-desc{font-size:.79rem;color:var(--muted);line-height:1.7}
+@media(max-width:900px){.team-grid{grid-template-columns:repeat(2,1fr)}.team-card:nth-child(2){border-right:1px solid var(--line)}.team-card:last-child{border-right:none}.team-card:nth-child(3){border-left:1px solid var(--line)}}
+@media(max-width:560px){.team-grid{grid-template-columns:1fr}.team-card{border-right:1px solid var(--line) !important}}
 
-/* FOOTER */
-footer{background:var(--dark);border-top:1px solid var(--border);padding:4rem 5rem 2rem}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
-.footer-brand{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:.8rem}.footer-brand span{color:var(--blue)}
-.footer-about{font-size:.78rem;color:var(--muted);line-height:1.8;margin-bottom:1.2rem}
-.footer-col h4{font-family:'Syne',sans-serif;font-size:.8rem;font-weight:700;color:var(--text);margin-bottom:1rem;letter-spacing:.05em}
-.footer-col ul{list-style:none;display:flex;flex-direction:column;gap:.6rem}
-.footer-col ul a{text-decoration:none;color:var(--muted);font-size:.78rem;transition:color .2s}
-.footer-col ul a:hover{color:var(--blue)}
-.footer-bottom{border-top:1px solid var(--border);padding-top:1.8rem;display:flex;justify-content:space-between;align-items:center}
-.footer-copy{font-size:.72rem;color:var(--muted)}
+/* ===== REACH ===== */
+.reach{padding:5.5rem 0;background:var(--bg-2);border-bottom:1px solid var(--line)}
+.reach-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.reach-card{border-top:1px solid var(--line);padding-top:1.1rem}
+.reach-country{font-family:var(--serif);font-size:1rem;font-weight:600;margin-bottom:.4rem}
+.reach-desc{font-size:.78rem;color:var(--muted);line-height:1.65}
+@media(max-width:900px){.reach-grid{grid-template-columns:repeat(2,1fr);row-gap:1.6rem}}
 
-@media(max-width:1100px){
-  .team-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media(max-width:900px){
-  nav{padding:1rem 1.5rem}
-  .nav-links{display:none}
-  .hamburger{display:flex}
-  .page-hero{padding:8rem 1.5rem 3rem}
-  .story{padding:4rem 1.5rem;grid-template-columns:1fr;gap:3rem}
-  .mission{padding:4rem 1.5rem}
-  .mission-grid{grid-template-columns:1fr}
-  .team{padding:4rem 1.5rem}
-  .team-grid{grid-template-columns:1fr 1fr}
-  .reach{padding:4rem 1.5rem}
-  .reach-grid{grid-template-columns:repeat(2,1fr)}
-  .why{padding:4rem 1.5rem}
-  .why-list{grid-template-columns:1fr}
-  .about-cta{padding:4rem 1.5rem}
-  .footer-grid{grid-template-columns:1fr 1fr;gap:2rem}
-  .footer-bottom{flex-direction:column;gap:1rem;text-align:center}
-}
-@media(max-width:500px){
-  .footer-grid{grid-template-columns:1fr}
-  .team-grid{grid-template-columns:1fr}
-  .reach-grid{grid-template-columns:repeat(2,1fr)}
-}
+/* ===== PARTNERSHIP ===== */
+.partnership{padding:5.5rem 0;border-bottom:1px solid var(--line)}
+.partnership-body{grid-column:3/11}
+.partnership-body p{font-size:.9rem;color:var(--muted);line-height:1.85;text-align:center;max-width:720px;margin:0 auto}
+.partnership-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;max-width:760px;margin:3rem auto 0;text-align:center}
+.partnership-stat b{font-family:var(--serif);font-weight:600;font-size:2rem;color:var(--ink);display:block}
+.partnership-stat span{font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+.partnership-clients{display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-top:2.5rem;max-width:800px;margin-left:auto;margin-right:auto}
+.offer-chip{font-size:.76rem;color:var(--ink);border:1px solid var(--line);padding:.5rem 1rem;border-radius:100px;background:var(--bg)}
+@media(max-width:700px){.partnership-stats{grid-template-columns:repeat(2,1fr);row-gap:1.6rem}}
+
+/* ===== WHY ===== */
+.why{padding:5.5rem 0;background:var(--bg-2);border-bottom:1px solid var(--line)}
+.why-grid{display:grid;grid-template-columns:1fr 1fr;gap:0 3rem}
+.why-item{display:flex;gap:1.2rem;padding:1.3rem 0;border-top:1px solid var(--line)}
+.why-item:nth-last-child(-n+2){border-bottom:1px solid var(--line)}
+.why-num{font-family:var(--serif);color:var(--blue);font-size:1rem;flex-shrink:0;width:26px}
+.why-title{font-size:.92rem;font-weight:600;margin-bottom:.35rem}
+.why-desc{font-size:.8rem;color:var(--muted);line-height:1.7}
+@media(max-width:900px){.why-grid{grid-template-columns:1fr}.why-item:nth-last-child(-n+2){border-bottom:none}.why-item:last-child{border-bottom:1px solid var(--line)}}
+
+/* ===== CTA ===== */
+.cta{padding:5.5rem 0;text-align:center}
+.cta h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,3vw,2.4rem);letter-spacing:-.01em;margin-bottom:1rem}
+.cta p{font-size:.9rem;color:var(--muted);max-width:520px;margin:0 auto 2rem}
+.cta-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:.8rem}
+
+/* ===== FOOTER ===== */
+footer{padding:2.8rem 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.foot-brand{display:flex;align-items:center;gap:.5rem;font-family:var(--serif);font-weight:600;font-size:.95rem}
+.foot-brand em{font-style:normal;color:var(--blue)}
+.foot-txt{font-size:.72rem;color:var(--faint)}
+.foot-links{display:flex;gap:1.6rem;list-style:none}
+.foot-links a{color:var(--muted);text-decoration:none;font-size:.72rem;letter-spacing:.04em;transition:color .2s}
+.foot-links a:hover{color:var(--ink)}
+@media(max-width:700px){footer{flex-direction:column;text-align:center}.foot-links{justify-content:center;flex-wrap:wrap}}
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="nav-brand">United<span>Apex</span></a>
-  <ul class="nav-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="ai-agents.html">AI Receptionist</a></li>
-    <li><a href="app-development.html">App Development</a></li>
-    <li><a href="portfolio.html">Portfolio</a></li>
-    <li><a href="faq.html">FAQ</a></li>
-    <li><a href="about.html" class="active">About</a></li>
-    <li><a href="index.html#contact" class="nav-cta">Get Started</a></li>
-  </ul>
-  <button class="hamburger" onclick="document.querySelector('.mobile-menu').classList.toggle('open')" aria-label="Menu">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img class="brand-mark" src="assets/brand/uad-icon.png" alt="United Apex Developers">
+      United <em>Apex</em> Developers
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="ai-agents.html">AI Receptionist</a></li>
+      <li><a href="app-development.html">App Development</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+    </ul>
+    <a href="index.html#contact" class="nav-cta">Get Started</a>
+    <button class="hamburger" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
-<div class="mobile-menu">
+<div class="mobile-menu" id="mob">
   <a href="index.html">Home</a>
   <a href="ai-agents.html">AI Receptionist</a>
   <a href="app-development.html">App Development</a>
-  <a href="portfolio.html">Portfolio</a>
-  <a href="faq.html">FAQ</a>
   <a href="about.html">About</a>
+  <a href="faq.html">FAQ</a>
   <a href="index.html#contact">Get Started</a>
 </div>
 
 <!-- HERO -->
 <section class="page-hero">
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
-  <div class="page-hero-content">
-    <div class="sec-tag">Our Story</div>
-    <h1 class="sec-title">Built to Put <span class="gradient">AI, Web & Apps</span> Within Reach</h1>
-    <p class="sec-sub">We're a fully remote agency of AI specialists, web developers, and app developers on a mission to give every business — regardless of size — access to the intelligent automation and custom software that were once only available to enterprises.</p>
+  <div class="hero-cols" aria-hidden="true">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i style="border-right:1px solid var(--line)"></i>
+  </div>
+  <div class="wrap">
+    <div class="page-hero-inner">
+      <div class="sec-tag">Our Story</div>
+      <h1>Built to put AI, web, and apps <em>within reach</em>.</h1>
+      <p>We're a fully remote agency of AI specialists, web developers, and app developers on a mission to give every business — regardless of size — access to the intelligent automation and custom software that were once only available to enterprises.</p>
+    </div>
   </div>
 </section>
 
 <!-- STORY -->
 <section class="story">
-  <div class="story-text">
-    <div class="label">Who We Are</div>
-    <h2>A remote agency that builds <span>intelligent systems</span> for ambitious businesses</h2>
-    <p>United Apex Developers was founded by a team of AI engineers, web developers, and app developers who saw a gap: powerful automation and custom software existed, but most small and medium businesses had no practical way to access it. The tools were too complex, too expensive, or too poorly explained.</p>
-    <p>We exist to close that gap. We combine deep technical expertise with a clear, consultative approach — so you know exactly what you're getting, why it works, and what it will do for your business.</p>
-    <p>Every agent we build, every website we design, every app we launch, is created with one question in mind: does this make our client's business meaningfully better? If the answer isn't yes, we go back to the drawing board.</p>
-  </div>
-  <div class="story-visual">
-    <div class="story-card-stack">
-      <div class="story-stat-card">
-        <div class="stat-icon">🤖</div>
-        <div>
-          <div class="stat-val">50+</div>
-          <div class="stat-desc">AI agents deployed for clients globally</div>
-        </div>
+  <div class="wrap">
+    <div class="story-grid">
+      <div class="story-text">
+        <div class="sec-tag">Who We Are</div>
+        <p>United Apex Developers was founded by a team of AI engineers, web developers, and app developers who saw a gap: powerful automation and custom software existed, but most small and medium businesses had no practical way to access it. The tools were too complex, too expensive, or too poorly explained.</p>
+        <p>We exist to close that gap. We combine deep technical expertise with a clear, consultative approach — so you know exactly what you're getting, why it works, and what it will do for your business.</p>
+        <p>Every agent we build, every website we design, every app we launch, is created with one question in mind: does this make our client's business meaningfully better? If the answer isn't yes, we go back to the drawing board.</p>
       </div>
-      <div class="story-stat-card">
-        <div class="stat-icon">🌐</div>
-        <div>
-          <div class="stat-val">30+</div>
-          <div class="stat-desc">Websites built across 8+ industries</div>
-        </div>
-      </div>
-      <div class="story-stat-card">
-        <div class="stat-icon">⚡</div>
-        <div>
-          <div class="stat-val">24/7</div>
-          <div class="stat-desc">Every agent runs around the clock</div>
-        </div>
-      </div>
-      <div class="story-stat-card">
-        <div class="stat-icon">🌍</div>
-        <div>
-          <div class="stat-val">4</div>
-          <div class="stat-desc">Markets served: US, UK, Canada, Europe</div>
-        </div>
+      <div class="story-stats">
+        <div class="story-stat"><b>50+</b><span>AI agents deployed for clients globally</span></div>
+        <div class="story-stat"><b>30+</b><span>Websites built across 8+ industries</span></div>
+        <div class="story-stat"><b>24/7</b><span>Every agent runs around the clock</span></div>
+        <div class="story-stat"><b>4</b><span>Markets served — US, UK, Canada, Europe</span></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- MISSION & VALUES -->
-<section class="mission">
-  <div style="text-align:center;max-width:600px;margin:0 auto">
-    <div class="sec-tag" style="justify-content:center">Mission & Values</div>
-    <h2 class="sec-title" style="font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:700;line-height:1.15;color:var(--text);letter-spacing:-.01em">What drives everything <span style="color:var(--blue)">we do</span></h2>
-    <p style="font-size:.88rem;color:var(--muted);line-height:1.85;font-weight:300">Our mission is simple: make cutting-edge AI automation accessible to businesses of every size, delivered with transparency and built to last.</p>
-  </div>
-  <div class="mission-grid">
-    <div class="mission-card">
-      <div class="mission-icon">🚀</div>
-      <div class="mission-title">Innovation First</div>
-      <div class="mission-desc">We track the frontier of AI closely and bring proven new capabilities to our clients before they become mainstream. Early movers win — we make sure you're one of them.</div>
+<section class="values">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="sec-tag">Mission &amp; Values</div>
+      <h2 class="sec-title">What drives everything we do.</h2>
+      <p class="sec-sub">Our mission is simple: make cutting-edge AI automation accessible to businesses of every size, delivered with transparency and built to last.</p>
     </div>
-    <div class="mission-card">
-      <div class="mission-icon">🔒</div>
-      <div class="mission-title">Reliability</div>
-      <div class="mission-desc">An AI agent that breaks loses your customer's trust instantly. We engineer for uptime, test exhaustively, and monitor every deployment post-launch to catch issues before they escalate.</div>
-    </div>
-    <div class="mission-card">
-      <div class="mission-icon">🔍</div>
-      <div class="mission-title">Transparency</div>
-      <div class="mission-desc">No jargon, no black boxes. You'll always know what your agent can and can't do, how it's configured, and what happens when it reaches its limits. Clear communication is non-negotiable.</div>
-    </div>
-    <div class="mission-card">
-      <div class="mission-icon">🤝</div>
-      <div class="mission-title">Partnership</div>
-      <div class="mission-desc">We're not a vendor — we're a partner in your growth. When your business scales, your AI systems scale with it. We invest in long-term relationships, not one-off transactions.</div>
-    </div>
-    <div class="mission-card">
-      <div class="mission-icon">🎯</div>
-      <div class="mission-title">Results Over Output</div>
-      <div class="mission-desc">We don't measure success by lines of code or features shipped. We measure it by booked appointments, qualified leads, resolved tickets, and hours saved for your team.</div>
-    </div>
-    <div class="mission-card">
-      <div class="mission-icon">🌐</div>
-      <div class="mission-title">Global Perspective</div>
-      <div class="mission-desc">Operating across time zones and cultures means we understand diverse business environments. We build agents that work for users in London, New York, Dubai, and everywhere in between.</div>
+    <div class="values-grid">
+      <div class="value-card"><div class="value-num">01</div><div class="value-title">Innovation First</div><div class="value-desc">We track the frontier of AI closely and bring proven new capabilities to our clients before they become mainstream. Early movers win — we make sure you're one of them.</div></div>
+      <div class="value-card"><div class="value-num">02</div><div class="value-title">Reliability</div><div class="value-desc">An AI agent that breaks loses your customer's trust instantly. We engineer for uptime, test exhaustively, and monitor every deployment post-launch to catch issues before they escalate.</div></div>
+      <div class="value-card"><div class="value-num">03</div><div class="value-title">Transparency</div><div class="value-desc">No jargon, no black boxes. You'll always know what your agent can and can't do, how it's configured, and what happens when it reaches its limits.</div></div>
+      <div class="value-card"><div class="value-num">04</div><div class="value-title">Partnership</div><div class="value-desc">We're not a vendor — we're a partner in your growth. When your business scales, your AI systems scale with it. We invest in long-term relationships, not one-off transactions.</div></div>
+      <div class="value-card"><div class="value-num">05</div><div class="value-title">Results Over Output</div><div class="value-desc">We don't measure success by lines of code or features shipped. We measure it by booked appointments, qualified leads, resolved tickets, and hours saved for your team.</div></div>
+      <div class="value-card"><div class="value-num">06</div><div class="value-title">Global Perspective</div><div class="value-desc">Operating across time zones and cultures means we understand diverse business environments. We build agents that work for users across every market we serve.</div></div>
     </div>
   </div>
 </section>
 
 <!-- TEAM -->
 <section class="team">
-  <div style="text-align:center;max-width:600px;margin:0 auto">
-    <div class="sec-tag" style="justify-content:center">The Team</div>
-    <h2 class="sec-title" style="font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:700;line-height:1.15;color:var(--text);letter-spacing:-.01em">Our remote team of <span style="color:var(--blue)">specialists</span></h2>
-    <p style="font-size:.88rem;color:var(--muted);line-height:1.85;font-weight:300">A focused team of AI engineers, web developers, and automation specialists — working asynchronously across time zones to deliver for clients worldwide.</p>
-  </div>
-  <div class="team-grid">
-    <div class="team-card">
-      <div class="team-avatar">🤖</div>
-      <div class="team-role-badge">AI Engineering</div>
-      <div class="team-name">AI Systems Lead</div>
-      <div class="team-desc">Specializes in LLM prompt engineering, agent architecture, and multi-platform deployments. 4+ years in conversational AI.</div>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">The Team</div>
+      <h2 class="sec-title">Our remote team of specialists.</h2>
+      <p class="sec-sub">A focused team of AI engineers, web developers, and automation specialists — working asynchronously across time zones to deliver for clients worldwide.</p>
     </div>
-    <div class="team-card">
-      <div class="team-avatar">💻</div>
-      <div class="team-role-badge">Web & App Development</div>
-      <div class="team-name">Lead Developer</div>
-      <div class="team-desc">Full-stack specialist covering fast, accessible websites and custom mobile/web apps. Expert in React, Next.js, custom CMS, and scalable app architecture.</div>
-    </div>
-    <div class="team-card">
-      <div class="team-avatar">🔗</div>
-      <div class="team-role-badge">Integrations</div>
-      <div class="team-name">Automation Engineer</div>
-      <div class="team-desc">Connects AI agents to CRMs, calendars, email platforms, and third-party APIs. Makes automation actually work in real business environments.</div>
-    </div>
-    <div class="team-card">
-      <div class="team-avatar">📈</div>
-      <div class="team-role-badge">Strategy & SEO</div>
-      <div class="team-name">Growth Specialist</div>
-      <div class="team-desc">Oversees SEO, performance strategy, and client communications. Ensures every project is aligned with measurable business outcomes.</div>
+    <div class="team-grid">
+      <div class="team-card"><div class="team-role">AI Engineering</div><div class="team-name">AI Systems Lead</div><div class="team-desc">Specializes in LLM prompt engineering, agent architecture, and multi-platform deployments.</div></div>
+      <div class="team-card"><div class="team-role">Web &amp; App Development</div><div class="team-name">Lead Developer</div><div class="team-desc">Full-stack specialist covering fast, accessible websites and custom mobile/web apps.</div></div>
+      <div class="team-card"><div class="team-role">Integrations</div><div class="team-name">Automation Engineer</div><div class="team-desc">Connects AI agents to CRMs, calendars, email platforms, and third-party APIs.</div></div>
+      <div class="team-card"><div class="team-role">Strategy &amp; SEO</div><div class="team-name">Growth Specialist</div><div class="team-desc">Oversees SEO, performance strategy, and client communications.</div></div>
     </div>
   </div>
 </section>
 
 <!-- GLOBAL REACH -->
 <section class="reach">
-  <div class="reach-inner">
-    <div style="text-align:center;max-width:600px;margin:0 auto">
-      <div class="sec-tag" style="justify-content:center">Global Reach</div>
-      <h2 class="sec-title" style="font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:700;line-height:1.15;color:var(--text);letter-spacing:-.01em">Serving clients across <span style="color:var(--blue)">4 markets</span></h2>
-      <p style="font-size:.88rem;color:var(--muted);line-height:1.85;font-weight:300">Fully remote means we're never geographically limited. We've successfully delivered projects for clients across the US, UK, Canada, and Europe.</p>
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="sec-tag">Global Reach</div>
+      <h2 class="sec-title">Serving clients across 4 markets.</h2>
+      <p class="sec-sub">Fully remote means we're never geographically limited. We've delivered projects for clients across the US, UK, Canada, and Europe.</p>
     </div>
     <div class="reach-grid">
-      <div class="reach-card">
-        <div class="reach-flag">🇺🇸</div>
-        <div class="reach-country">United States</div>
-        <div class="reach-desc">Serving SMBs across all major US markets including New York, LA, Chicago, and Houston</div>
-      </div>
-      <div class="reach-card">
-        <div class="reach-flag">🇬🇧</div>
-        <div class="reach-country">United Kingdom</div>
-        <div class="reach-desc">Working with UK businesses from London, Manchester, Birmingham, and beyond</div>
-      </div>
-      <div class="reach-card">
-        <div class="reach-flag">🇨🇦</div>
-        <div class="reach-country">Canada</div>
-        <div class="reach-desc">Clients in Toronto, Vancouver, and Montreal across healthcare, legal, and real estate</div>
-      </div>
-      <div class="reach-card">
-        <div class="reach-flag">🇪🇺</div>
-        <div class="reach-country">Europe</div>
-        <div class="reach-desc">Projects spanning Italy, Germany, Spain, and the Netherlands across finance and hospitality</div>
-      </div>
+      <div class="reach-card"><div class="reach-country">United States</div><div class="reach-desc">Serving SMBs across major US markets including New York, LA, Chicago, and Houston.</div></div>
+      <div class="reach-card"><div class="reach-country">United Kingdom</div><div class="reach-desc">Working with UK businesses from London, Manchester, Birmingham, and beyond.</div></div>
+      <div class="reach-card"><div class="reach-country">Canada</div><div class="reach-desc">Clients in Toronto, Vancouver, and Montreal across healthcare, legal, and real estate.</div></div>
+      <div class="reach-card"><div class="reach-country">Europe</div><div class="reach-desc">Projects spanning Italy, Germany, Spain, and the Netherlands across finance and hospitality.</div></div>
     </div>
   </div>
 </section>
 
-<!-- WHY CHOOSE US -->
-<section class="why">
-  <div style="text-align:center;max-width:600px;margin:0 auto">
-    <div class="sec-tag" style="justify-content:center">Why Us</div>
-    <h2 class="sec-title" style="font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3vw,2.5rem);font-weight:700;line-height:1.15;color:var(--text);letter-spacing:-.01em">Why businesses choose <span style="color:var(--blue)">United Apex</span></h2>
+<!-- STRATEGIC PARTNERSHIP -->
+<section class="partnership">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="sec-tag">Strategic Partnership</div>
+      <h2 class="sec-title">Backed by real operational scale.</h2>
+    </div>
+    <div class="partnership-body">
+      <p>United Apex Developers operates in strategic joint venture with United Transport Services (UTS) — Pakistan's trusted transport and mobility partner since 1970, with contracts spanning UN agencies, government bodies, and major enterprise clients. This partnership gives our clients direct access to enterprise-scale operations and government-relations experience alongside our software delivery capability.</p>
+    </div>
+    <div class="partnership-stats">
+      <div class="partnership-stat"><b>55+</b><span>Years in Operation</span></div>
+      <div class="partnership-stat"><b>500+</b><span>Fleet Vehicles</span></div>
+      <div class="partnership-stat"><b>9</b><span>City Network</span></div>
+      <div class="partnership-stat"><b>25,000+</b><span>Clients Served</span></div>
+    </div>
+    <div class="partnership-clients">
+      <span class="offer-chip">World Food Programme (WFP)</span>
+      <span class="offer-chip">WHO</span>
+      <span class="offer-chip">FAO</span>
+      <span class="offer-chip">NUST University</span>
+      <span class="offer-chip">Ministry of Interior</span>
+      <span class="offer-chip">Telenor Pakistan</span>
+      <span class="offer-chip">National Bank of Pakistan</span>
+      <span class="offer-chip">PEMRA</span>
+      <span class="offer-chip">CDA Islamabad</span>
+      <span class="offer-chip">Diplomatic Missions</span>
+    </div>
   </div>
-  <div class="why-list">
-    <div class="why-item">
-      <div class="why-check">✓</div>
-      <div>
-        <div class="why-title">One partner, three core services</div>
-        <div class="why-desc">AI receptionists, websites, and custom apps — under one roof, built to work together instead of as disconnected vendors.</div>
-      </div>
+</section>
+
+<!-- WHY US -->
+<section class="why">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Why Us</div>
+      <h2 class="sec-title">Why businesses choose United Apex.</h2>
+      <p class="sec-sub">Six reasons clients pick us over a freelancer or a generic dev shop.</p>
     </div>
-    <div class="why-item">
-      <div class="why-check">✓</div>
-      <div>
-        <div class="why-title">Industry-trained agents</div>
-        <div class="why-desc">We don't use generic chatbot templates. Every agent is trained on your specific business, industry, and audience.</div>
-      </div>
-    </div>
-    <div class="why-item">
-      <div class="why-check">✓</div>
-      <div>
-        <div class="why-title">Fast delivery, real deadlines</div>
-        <div class="why-desc">Most agents are delivered in 5–14 days. We respect your time and communicate clearly when anything changes.</div>
-      </div>
-    </div>
-    <div class="why-item">
-      <div class="why-check">✓</div>
-      <div>
-        <div class="why-title">No technical knowledge needed</div>
-        <div class="why-desc">We handle everything from build to deployment. You review, approve, and launch — without touching a line of code.</div>
-      </div>
-    </div>
-    <div class="why-item">
-      <div class="why-check">✓</div>
-      <div>
-        <div class="why-title">Transparent pricing</div>
-        <div class="why-desc">No surprise fees. You get a clear proposal with itemized pricing before any work begins.</div>
-      </div>
-    </div>
-    <div class="why-item">
-      <div class="why-check">✓</div>
-      <div>
-        <div class="why-title">Ongoing partnership</div>
-        <div class="why-desc">Monthly maintenance plans mean your AI systems improve over time. We don't disappear after launch.</div>
-      </div>
+    <div class="why-grid">
+      <div class="why-item"><div class="why-num">01</div><div><div class="why-title">One partner, three core services</div><div class="why-desc">AI receptionists, websites, and custom apps — under one roof, built to work together instead of as disconnected vendors.</div></div></div>
+      <div class="why-item"><div class="why-num">02</div><div><div class="why-title">Industry-trained agents</div><div class="why-desc">We don't use generic chatbot templates. Every agent is trained on your specific business, industry, and audience.</div></div></div>
+      <div class="why-item"><div class="why-num">03</div><div><div class="why-title">Fast delivery, real deadlines</div><div class="why-desc">Most agents are delivered in 5–14 days. We respect your time and communicate clearly when anything changes.</div></div></div>
+      <div class="why-item"><div class="why-num">04</div><div><div class="why-title">No technical knowledge needed</div><div class="why-desc">We handle everything from build to deployment. You review, approve, and launch — without touching a line of code.</div></div></div>
+      <div class="why-item"><div class="why-num">05</div><div><div class="why-title">Transparent pricing</div><div class="why-desc">No surprise fees. You get a clear proposal with itemized pricing before any work begins.</div></div></div>
+      <div class="why-item"><div class="why-num">06</div><div><div class="why-title">Ongoing partnership</div><div class="why-desc">Monthly maintenance plans mean your AI systems improve over time. We don't disappear after launch.</div></div></div>
     </div>
   </div>
 </section>
 
 <!-- CTA -->
-<section class="about-cta">
-  <div class="cta-glow"></div>
-  <h2>Ready to automate your business?</h2>
-  <p>Tell us what you're looking to solve. We'll recommend the right solution and provide a clear quote — no obligation.</p>
-  <div class="cta-actions">
-    <a href="index.html#contact" class="btn-blue">Start a Project</a>
-    <a href="ai-agents.html" class="btn-outline">Explore AI Receptionist</a>
-    <a href="app-development.html" class="btn-outline">Explore App Development</a>
+<section class="cta">
+  <div class="wrap">
+    <h2>Ready to automate your business?</h2>
+    <p>Tell us what you're looking to solve. We'll recommend the right solution and provide a clear quote — no obligation.</p>
+    <div class="cta-actions">
+      <a href="index.html#contact" class="btn-primary">Start a Project →</a>
+      <a href="ai-agents.html" class="btn-secondary">Explore AI Receptionist</a>
+      <a href="app-development.html" class="btn-secondary">Explore App Development</a>
+    </div>
   </div>
 </section>
 
 <footer>
-  <div class="footer-grid">
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;width:100%">
     <div>
-      <div class="footer-brand">United<span>Apex</span> Developers</div>
-      <p class="footer-about">AI receptionist, web development, and app development agency serving businesses across the US, UK, Canada, and Europe. We build intelligent systems and products that work while you sleep.</p>
-      <p style="font-size:.72rem;color:var(--muted)">unitedapexdevelopers@gmail.com</p>
+      <div class="foot-brand">United <em>Apex</em> Developers</div>
+      <div class="foot-txt" style="margin-top:.3rem">Global AI Business Automation, Web &amp; App Development Agency</div>
     </div>
-    <div class="footer-col">
-      <h4>Services</h4>
-      <ul>
-        <li><a href="ai-agents.html">AI Receptionist</a></li>
-        <li><a href="index.html#services">Web Development</a></li>
-        <li><a href="app-development.html">App Development</a></li>
-        <li><a href="index.html#services">SEO & Ranking</a></li>
-        <li><a href="index.html#services">Maintenance</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>Company</h4>
-      <ul>
-        <li><a href="about.html">About Us</a></li>
-        <li><a href="portfolio.html">Portfolio</a></li>
-        <li><a href="faq.html">FAQ</a></li>
-        <li><a href="index.html#contact">Contact</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h4>AI Agents</h4>
-      <ul>
-        <li><a href="ai-agents.html">AI Receptionist</a></li>
-        <li><a href="ai-agents.html">AI Sales Agent</a></li>
-        <li><a href="ai-agents.html">AI Support Agent</a></li>
-        <li><a href="ai-agents.html">All Agents →</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="footer-bottom">
-    <span class="footer-copy">© 2025 United Apex Developers. All rights reserved.</span>
-    <span class="footer-copy">AI Receptionist · Web Development · App Development · Global Remote Agency</span>
+    <ul class="foot-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="ai-agents.html">AI Receptionist</a></li>
+      <li><a href="app-development.html">App Development</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+    </ul>
+    <div class="foot-txt">© 2026 United Apex Developers. All rights reserved.</div>
   </div>
 </footer>
 

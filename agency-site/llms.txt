@@ -24,6 +24,5 @@
 - Home: https://unitedapexdevelopers.com/
 - AI Receptionist & AI Agents: https://unitedapexdevelopers.com/ai-agents.html
 - App Development: https://unitedapexdevelopers.com/app-development.html
-- Portfolio: https://unitedapexdevelopers.com/portfolio.html
 - About: https://unitedapexdevelopers.com/about.html
 - FAQ: https://unitedapexdevelopers.com/faq.html

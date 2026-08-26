@@ -11,7 +11,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
 <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
 <link rel="manifest" href="/site.webmanifest">
-<meta name="theme-color" content="#060810">
+<meta name="theme-color" content="#FAFAF9">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="United Apex Developers">
 <meta property="og:title" content="United Apex Developers — AI Business Automation, Web & App Development Agency">
@@ -25,7 +25,7 @@
 <meta name="twitter:title" content="United Apex Developers — AI Business Automation, Web & App Development Agency">
 <meta name="twitter:description" content="United Apex Developers automates how businesses run with AI — AI receptionists and agents, high-converting websites, and custom mobile & web apps for businesses across the US, UK, Canada, and Europe.">
 <meta name="twitter:image" content="https://unitedapexdevelopers.com/assets/og-image.png">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -59,477 +59,336 @@
 </script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{--blue:#2B7FFF;--blue-dark:#1A5FCC;--blue-glow:rgba(43,127,255,0.22);--black:#060810;--dark:#0C1120;--card:#101828;--border:rgba(43,127,255,0.18);--text:#E8EEF8;--muted:#7A8BA8;}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--black);color:var(--text);overflow-x:hidden}
-::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--black)}::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
-nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;justify-content:space-between;align-items:center;padding:1rem 5rem;background:rgba(6,8,16,0.93);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-.nav-brand{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);text-decoration:none}.nav-brand span{color:var(--blue)}
-.nav-links{display:flex;gap:2rem;list-style:none}
-.nav-links a{text-decoration:none;color:var(--muted);font-size:.8rem;font-weight:400;transition:color .2s}
-.nav-links a:hover,.nav-links a.active{color:var(--blue)}
-.nav-cta{background:var(--blue)!important;color:white!important;padding:.5rem 1.3rem;border-radius:8px;font-weight:500!important}
-.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.3rem;background:none;border:none}
-.hamburger span{display:block;width:22px;height:2px;background:var(--text);border-radius:2px}
-.mobile-menu{display:none;position:fixed;top:70px;left:0;right:0;background:rgba(6,8,16,0.98);backdrop-filter:blur(16px);border-bottom:1px solid var(--border);padding:1.5rem 2rem;z-index:199;flex-direction:column;gap:1.2rem}
-.mobile-menu.open{display:flex}
-.mobile-menu a{text-decoration:none;color:var(--muted);font-size:.9rem;padding:.4rem 0;border-bottom:1px solid var(--border)}
-/* HERO */
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:9rem 2rem 6rem;position:relative;overflow:hidden}
-.hero-bg{position:absolute;inset:0;z-index:0}
-.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(43,127,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(43,127,255,.04) 1px,transparent 1px);background-size:60px 60px}
-.hero-glow{position:absolute;top:25%;left:50%;transform:translateX(-50%);width:700px;height:400px;background:radial-gradient(ellipse,rgba(43,127,255,.16) 0%,transparent 70%);pointer-events:none}
-.hero-content{position:relative;z-index:1;max-width:900px}
-.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(43,127,255,.12);border:1px solid rgba(43,127,255,.28);color:var(--blue);font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;padding:.45rem 1.1rem;border-radius:100px;margin-bottom:2rem}
-.hero-badge::before{content:'';width:6px;height:6px;background:var(--blue);border-radius:50%;animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
-.hero h1{font-family:'Syne',sans-serif;font-size:clamp(2.6rem,6vw,5.2rem);font-weight:800;line-height:1.05;color:var(--text);margin-bottom:1.5rem;letter-spacing:-.02em}
-.gradient{background:linear-gradient(135deg,#2B7FFF,#60A5FA,#A8C8FF);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero-sub{font-size:1rem;line-height:1.85;color:var(--muted);max-width:620px;margin:0 auto 2.8rem;font-weight:300}
-.hero-actions{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:4rem}
-.btn-blue{background:var(--blue);color:white;padding:.9rem 2rem;border-radius:10px;border:none;font-family:'Inter',sans-serif;font-size:.85rem;font-weight:600;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .3s}
-.btn-blue:hover{background:var(--blue-dark);transform:translateY(-2px);box-shadow:0 8px 32px var(--blue-glow)}
-.btn-outline{background:transparent;color:var(--text);padding:.9rem 2rem;border-radius:10px;border:1px solid var(--border);font-family:'Inter',sans-serif;font-size:.85rem;font-weight:500;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .3s}
-.btn-outline:hover{border-color:var(--blue);color:var(--blue)}
-.hero-stats{display:flex;gap:3rem;justify-content:center;flex-wrap:wrap;padding-top:3rem;border-top:1px solid var(--border)}
-.stat-num{font-family:'Syne',sans-serif;font-size:2rem;font-weight:700;color:var(--blue);line-height:1}
-.stat-lbl{font-size:.7rem;color:var(--muted);margin-top:.3rem}
-/* SECTION HELPERS */
-.sec-tag{font-size:.68rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:.9rem;display:flex;align-items:center;gap:.6rem}
-.sec-tag::before{content:'';display:block;width:20px;height:2px;background:var(--blue)}
-.sec-title{font-family:'Syne',sans-serif;font-size:clamp(1.8rem,3vw,2.8rem);font-weight:700;line-height:1.15;color:var(--text);margin-bottom:1.2rem;letter-spacing:-.01em}
-.sec-title span{color:var(--blue)}
-.sec-hdr{text-align:center;max-width:600px;margin:0 auto 4rem}
-.sec-hdr .sec-tag{justify-content:center}
-.sec-hdr .sec-tag::before{display:none}
-.sec-sub{font-size:.88rem;color:var(--muted);line-height:1.85;font-weight:300}
-/* SERVICES */
-.services{padding:7rem 5rem;background:var(--dark)}
-.svc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:16px;overflow:hidden}
-.svc-card{background:var(--card);padding:2.4rem 2rem;transition:all .3s;position:relative;overflow:hidden}
-.svc-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),transparent);transform:scaleX(0);transition:transform .4s;transform-origin:left}
-.svc-card:hover::before{transform:scaleX(1)}
-.svc-card:hover{background:#131d30}
-.svc-num{font-family:'Syne',sans-serif;font-size:.72rem;color:var(--blue);font-weight:700;letter-spacing:.15em;margin-bottom:1rem;opacity:.6}
-.svc-icon{font-size:1.8rem;margin-bottom:.8rem}
-.svc-name{font-family:'Syne',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);margin-bottom:.5rem}
-.svc-desc{font-size:.8rem;line-height:1.78;color:var(--muted);font-weight:300}
-.svc-tags{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:1rem}
-.svc-tag{background:rgba(43,127,255,.1);border:1px solid rgba(43,127,255,.2);color:var(--blue);font-size:.62rem;padding:.2rem .55rem;border-radius:6px}
-/* HOW IT WORKS */
-.how{padding:7rem 5rem;background:var(--black)}
-.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;position:relative}
-.steps-grid::before{content:'';position:absolute;top:2.2rem;left:10%;right:10%;height:1px;background:linear-gradient(90deg,transparent,var(--blue),transparent)}
-.step-card{text-align:center;position:relative;z-index:1}
-.step-num{width:44px;height:44px;background:var(--blue);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:'Syne',sans-serif;font-size:.85rem;font-weight:700;color:white;margin:0 auto 1.2rem}
-.step-title{font-family:'Syne',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.5rem}
-.step-desc{font-size:.78rem;color:var(--muted);line-height:1.7}
-/* PRICING */
-.pricing{padding:7rem 5rem;background:var(--dark)}
-.pricing-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem;max-width:900px;margin:0 auto}
-.price-card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2rem 1.8rem;transition:all .3s;position:relative;overflow:hidden;display:flex;flex-direction:column}
-.price-card.featured{border-color:var(--blue);background:#0F1C32}
-.price-card.featured::before{content:'Most Popular';position:absolute;top:1rem;right:1rem;background:var(--blue);color:white;font-size:.55rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .6rem;border-radius:100px}
-.price-icon{font-size:1.6rem;margin-bottom:1rem}
-.price-name{font-family:'Syne',sans-serif;font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:.3rem}
-.price-amount{font-family:'Syne',sans-serif;font-size:2.2rem;font-weight:800;color:var(--blue);margin:.5rem 0}
-.price-amount span{font-size:.85rem;color:var(--muted);font-weight:400}
-.price-desc{font-size:.75rem;color:var(--muted);font-weight:300;margin-bottom:1.2rem;line-height:1.65;flex:0}
-.price-feats{display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.5rem;flex:1}
-.price-feat{display:flex;align-items:flex-start;gap:.55rem;font-size:.75rem;color:rgba(232,238,248,.75);line-height:1.4}
-.price-feat::before{content:'✓';color:var(--blue);font-weight:700;flex-shrink:0;margin-top:.05rem}
-/* REVIEWS */
-.reviews{padding:7rem 5rem;background:var(--black)}
-.rev-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem}
-.rev-card{background:var(--card);border:1px solid var(--border);border-radius:16px;padding:1.8rem;transition:all .3s;display:flex;flex-direction:column}
-.rev-card:hover{border-color:var(--blue);box-shadow:0 8px 32px rgba(43,127,255,.08)}
-.rev-stars{color:var(--blue);font-size:.85rem;letter-spacing:3px;margin-bottom:.9rem}
-.rev-text{font-size:.86rem;line-height:1.82;color:rgba(232,238,248,.7);font-style:italic;margin-bottom:1.2rem;flex:1}
-.rev-author{font-family:'Syne',sans-serif;font-size:.82rem;font-weight:700;color:var(--text)}
-.rev-role{font-size:.65rem;color:var(--blue);margin-top:.15rem;letter-spacing:.05em}
-/* CONTACT */
-.contact{padding:7rem 5rem;background:var(--dark)}
-.contact-inner{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start;max-width:1100px;margin:0 auto}
-.contact-form{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:2.4rem}
-.form-title{font-family:'Syne',sans-serif;font-size:1.25rem;font-weight:700;color:var(--text);margin-bottom:1.7rem}
-.f-group{margin-bottom:1rem}
-.f-group label{display:block;font-size:.63rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.42rem}
-.f-group input,.f-group select,.f-group textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:10px;padding:.75rem 1rem;font-family:'Inter',sans-serif;font-size:.83rem;color:var(--text);outline:none;transition:border-color .2s}
-.f-group input:focus,.f-group select:focus,.f-group textarea:focus{border-color:var(--blue)}
-.f-group select option{background:var(--card)}
-.f-group textarea{min-height:90px;resize:vertical}
-.f-row{display:grid;grid-template-columns:1fr 1fr;gap:.9rem}
-/* FOOTER */
-footer{background:var(--black);padding:2.5rem 5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;border-top:1px solid var(--border)}
-.foot-brand{font-family:'Syne',sans-serif;font-size:.9rem;font-weight:700;color:var(--text)}
-.foot-brand span{color:var(--blue)}
-.foot-txt{font-size:.7rem;color:var(--muted)}
-.foot-links{display:flex;gap:1.8rem;list-style:none}
-.foot-links a{color:var(--muted);text-decoration:none;font-size:.7rem;letter-spacing:.06em;text-transform:uppercase;transition:color .2s}
-.foot-links a:hover{color:var(--blue)}
-@media(max-width:960px){
-  nav{padding:1rem 1.5rem}.nav-links{display:none}.hamburger{display:flex}
-  .hero{padding:8rem 1.5rem 5rem}.hero-stats{gap:1.8rem}
-  .services{padding:5rem 1.5rem}.svc-grid{grid-template-columns:1fr 1fr}
-  .how{padding:5rem 1.5rem}.steps-grid{grid-template-columns:1fr 1fr}.steps-grid::before{display:none}
-  .pricing{padding:5rem 1.5rem}.pricing-grid{grid-template-columns:1fr;max-width:460px}
-  .reviews{padding:5rem 1.5rem}.rev-grid{grid-template-columns:1fr}
-  .contact{padding:5rem 1.5rem}.contact-inner{grid-template-columns:1fr;gap:3rem}
-  footer{padding:2rem 1.5rem;flex-direction:column;text-align:center}.foot-links{justify-content:center}
+:root{
+  --ink:#0F172A; --muted:#475569; --faint:#94A3B8;
+  --bg:#FAFAF9; --bg-2:#F1F1EF; --line:#E2E2DD;
+  --blue:#1D4ED8; --blue-dim:rgba(29,78,216,.08);
+  --serif:'Newsreader',serif; --sans:'Inter',sans-serif;
 }
-@media(max-width:600px){.hero h1{font-size:2.3rem}.svc-grid{grid-template-columns:1fr}.steps-grid{grid-template-columns:1fr}.f-row{grid-template-columns:1fr}.pricing-grid{max-width:100%}}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1280px;margin:0 auto;padding:0 2.5rem}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+*:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
+
+/* ===== NAV ===== */
+nav{position:sticky;top:0;z-index:200;background:rgba(250,250,249,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:var(--serif);font-weight:600;font-size:1.2rem;letter-spacing:-.01em;cursor:pointer}
+.brand em{font-style:normal;color:var(--blue)}
+.brand-mark{width:32px;height:auto;flex-shrink:0;display:block}
+.nav-links{display:flex;gap:2.2rem;list-style:none;font-size:.85rem;color:var(--muted)}
+.nav-links a{cursor:pointer;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--ink)}
+.nav-cta{border:1px solid var(--ink);padding:.55rem 1.3rem;border-radius:2px;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.nav-cta:hover{background:var(--ink);color:var(--bg)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.3rem;background:none;border:none;flex-shrink:0}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
+.mobile-menu{display:none;position:fixed;top:76px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:1.2rem 2rem 1.6rem;z-index:199;flex-direction:column;gap:0}
+.mobile-menu.open{display:flex}
+.mobile-menu a{text-decoration:none;color:var(--muted);font-size:.92rem;padding:.8rem 0;border-bottom:1px solid var(--line)}
+@media(max-width:900px){.nav-links{display:none}.nav-cta{display:none}.hamburger{display:flex}}
+@media(max-width:480px){.nav-inner{padding:0 1.2rem}.brand{font-size:1rem;gap:.4rem}.brand-mark{width:24px}}
+
+/* ===== HERO ===== */
+.hero{padding:5.5rem 0 4.5rem;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:grayscale(1) brightness(1.35) contrast(.85);opacity:.34;pointer-events:none}
+.hero-video-wash{position:absolute;inset:0;z-index:0;background:linear-gradient(90deg,var(--bg) 0%,rgba(250,250,249,.62) 40%,rgba(250,250,249,.32) 100%);pointer-events:none}
+.hero-cols{position:absolute;inset:0;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;padding:0 2.5rem;pointer-events:none;z-index:0}
+.hero-cols i{border-left:1px solid var(--line);height:100%;font-style:normal;opacity:.6}
+.hero-mark{position:absolute;top:-8%;right:-4%;width:46%;max-width:560px;opacity:.9;z-index:0;pointer-events:none}
+.hero-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;align-items:end;position:relative;z-index:1}
+.hero-eyebrow{grid-column:1/13;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:1.5rem;display:flex;align-items:center;gap:.6rem}
+.hero-eyebrow::before{content:'';width:28px;height:1px;background:var(--blue)}
+h1{grid-column:1/9;font-family:var(--serif);font-weight:600;font-size:clamp(2.2rem,4.4vw,4rem);line-height:1.06;letter-spacing:-.02em;color:var(--ink)}
+h1 em{font-style:italic;color:var(--blue)}
+.hero-side{grid-column:9/13;display:flex;flex-direction:column;justify-content:flex-end;gap:1.4rem;padding-bottom:.3rem}
+.hero-side p{font-size:.92rem;color:var(--muted);line-height:1.75}
+.hero-actions{display:flex;gap:.8rem;flex-wrap:wrap}
+.btn-primary{background:var(--ink);color:var(--bg);padding:.85rem 1.6rem;border-radius:2px;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem;border:none}
+.btn-primary:hover{background:var(--blue)}
+.btn-secondary{border:1px solid var(--line);color:var(--ink);padding:.85rem 1.6rem;border-radius:2px;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;background:var(--bg)}
+.btn-secondary:hover{border-color:var(--ink)}
+@media(max-width:900px){h1{grid-column:1/13}.hero-side{grid-column:1/13;padding-top:1.5rem}}
+@media(max-width:480px){.hero{padding:3rem 0 2.5rem}.hero-eyebrow{flex-wrap:wrap;gap:.5rem 0}.hero-eyebrow::before{display:none}}
+
+/* stat strip */
+.stats{border-bottom:1px solid var(--line);padding:2.2rem 0}
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.stat b{font-family:var(--serif);font-weight:600;font-size:1.9rem;color:var(--ink);display:block}
+.stat span{font-size:.7rem;color:var(--faint);text-transform:uppercase;letter-spacing:.08em}
+@media(max-width:700px){.stats-grid{grid-template-columns:repeat(2,1fr);row-gap:1.8rem}}
+
+/* section head reused */
+.sec-head{display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;margin-bottom:3.5rem;align-items:end}
+.sec-tag{grid-column:1/13;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:1rem}
+.sec-title{grid-column:1/8;font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,2.8vw,2.4rem);line-height:1.18;letter-spacing:-.01em}
+.sec-sub{grid-column:8/13;font-size:.86rem;color:var(--muted);line-height:1.75;align-self:end}
+@media(max-width:900px){.sec-title{grid-column:1/13}.sec-sub{grid-column:1/13;margin-top:1rem}}
+
+/* ===== SERVICES — editorial numbered list ===== */
+.services{padding:5.5rem 0}
+.svc-row{display:grid;grid-template-columns:70px 3fr 4fr 110px;gap:1.8rem;align-items:center;padding:1.7rem 0;border-top:1px solid var(--line);transition:background .25s}
+.svc-row:last-child{border-bottom:1px solid var(--line)}
+.svc-row:hover{background:var(--bg-2)}
+.svc-num{font-family:var(--serif);font-size:1rem;color:var(--faint);font-weight:400}
+.svc-name{font-family:var(--serif);font-size:1.25rem;font-weight:600;letter-spacing:-.01em;color:var(--ink)}
+.svc-desc{font-size:.83rem;color:var(--muted);line-height:1.68}
+.svc-tag{justify-self:end;font-size:.66rem;letter-spacing:.06em;text-transform:uppercase;color:var(--blue);background:var(--blue-dim);padding:.3rem .7rem;border-radius:100px;white-space:nowrap}
+@media(max-width:900px){.svc-row{grid-template-columns:40px 1fr;row-gap:.6rem}.svc-desc{grid-column:2/3}.svc-tag{display:none}}
+
+/* ===== HOW IT WORKS ===== */
+.how{padding:5.5rem 0;background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.step-card{border-top:2px solid var(--ink);padding-top:1.2rem}
+.step-num{font-family:var(--serif);font-size:1.6rem;color:var(--blue);margin-bottom:.6rem}
+.step-title{font-family:var(--serif);font-size:1.05rem;font-weight:600;margin-bottom:.5rem}
+.step-desc{font-size:.8rem;color:var(--muted);line-height:1.7}
+@media(max-width:900px){.steps-grid{grid-template-columns:repeat(2,1fr);row-gap:2rem}}
+@media(max-width:500px){.steps-grid{grid-template-columns:1fr}}
+
+/* ===== PRICING — honest custom-quote framing ===== */
+.pricing{padding:5.5rem 0}
+.price-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2.5rem}
+.price-left{grid-column:1/6}
+.price-left .sec-tag{margin-bottom:1rem}
+.price-left h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,2.8vw,2.2rem);line-height:1.2;letter-spacing:-.01em;margin-bottom:1.2rem}
+.price-left p{font-size:.88rem;color:var(--muted);line-height:1.8;margin-bottom:1.8rem}
+.price-right{grid-column:6/13}
+.factor{display:flex;gap:1.4rem;padding:1.4rem 0;border-top:1px solid var(--line)}
+.factor:last-child{border-bottom:1px solid var(--line)}
+.factor-num{font-family:var(--serif);color:var(--blue);font-size:1rem;flex-shrink:0;width:28px}
+.factor h4{font-size:.94rem;font-weight:600;margin-bottom:.3rem}
+.factor p{font-size:.81rem;color:var(--muted);line-height:1.7}
+.offer-list{margin-top:2.5rem;display:flex;flex-wrap:wrap;gap:.6rem}
+.offer-chip{font-size:.76rem;color:var(--ink);border:1px solid var(--line);padding:.5rem 1rem;border-radius:100px;background:var(--bg)}
+@media(max-width:900px){.price-left{grid-column:1/13}.price-right{grid-column:1/13;margin-top:1rem}}
+
+/* ===== CONTACT ===== */
+.contact{padding:5.5rem 0;background:var(--bg-2);border-top:1px solid var(--line)}
+.contact-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:2.5rem}
+.contact-left{grid-column:1/6}
+.contact-left h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,2.8vw,2.2rem);line-height:1.2;letter-spacing:-.01em;margin-bottom:1.2rem}
+.contact-left p{font-size:.88rem;color:var(--muted);line-height:1.85;margin-bottom:2rem}
+.contact-item{display:flex;gap:1rem;padding:1rem 0;border-top:1px solid var(--line)}
+.contact-item:last-child{border-bottom:1px solid var(--line)}
+.contact-item b{font-size:.66rem;text-transform:uppercase;letter-spacing:.1em;color:var(--faint);display:block;margin-bottom:.2rem}
+.contact-item span{font-size:.88rem;color:var(--ink)}
+.contact-right{grid-column:6/13;background:var(--bg);border:1px solid var(--line);padding:2.2rem}
+.f-group{margin-bottom:1.1rem}
+.f-group label{display:block;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:.4rem}
+.f-group input,.f-group select,.f-group textarea{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:.7rem .85rem;font-family:var(--sans);font-size:.85rem;color:var(--ink);outline:none;transition:border-color .2s}
+.f-group input:focus,.f-group select:focus,.f-group textarea:focus{border-color:var(--blue)}
+.f-group textarea{min-height:100px;resize:vertical}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+@media(max-width:900px){.contact-left{grid-column:1/13}.contact-right{grid-column:1/13;margin-top:1rem}.f-row{grid-template-columns:1fr}}
+
+/* ===== FOOTER ===== */
+footer{padding:2.8rem 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.foot-brand{display:flex;align-items:center;gap:.5rem;font-family:var(--serif);font-weight:600;font-size:.95rem}
+.foot-brand em{font-style:normal;color:var(--blue)}
+.foot-txt{font-size:.72rem;color:var(--faint)}
+.foot-links{display:flex;gap:1.6rem;list-style:none}
+.foot-links a{color:var(--muted);text-decoration:none;font-size:.72rem;letter-spacing:.04em;transition:color .2s}
+.foot-links a:hover{color:var(--ink)}
+@media(max-width:700px){footer{flex-direction:column;text-align:center}.foot-links{justify-content:center;flex-wrap:wrap}}
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="index.html" class="nav-brand">United <span>Apex</span> Developers</a>
-  <ul class="nav-links">
-    <li><a href="index.html" class="active">Home</a></li>
-    <li><a href="ai-agents.html">AI Receptionist</a></li>
-    <li><a href="app-development.html">App Development</a></li>
-    <li><a href="portfolio.html">Portfolio</a></li>
-    <li><a href="faq.html">FAQ</a></li>
-    <li><a href="about.html">About</a></li>
-    <li><a href="#contact" class="nav-cta">Get Started</a></li>
-  </ul>
-  <button class="hamburger" onclick="document.getElementById('mob').classList.toggle('open')">
-    <span></span><span></span><span></span>
-  </button>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img class="brand-mark" src="assets/brand/uad-icon.png" alt="United Apex Developers">
+      United <em>Apex</em> Developers
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="ai-agents.html">AI Receptionist</a></li>
+      <li><a href="app-development.html">App Development</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Get Started</a>
+    <button class="hamburger" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
 </nav>
 <div class="mobile-menu" id="mob">
   <a href="index.html">Home</a>
   <a href="ai-agents.html">AI Receptionist</a>
   <a href="app-development.html">App Development</a>
-  <a href="portfolio.html">Portfolio</a>
-  <a href="faq.html">FAQ</a>
   <a href="about.html">About</a>
+  <a href="faq.html">FAQ</a>
   <a href="#contact">Get Started</a>
 </div>
 
 <!-- HERO -->
 <section class="hero" id="home">
-  <div class="hero-bg"><div class="hero-grid"></div><div class="hero-glow"></div></div>
-  <div class="hero-content">
-    <div class="hero-badge">🤖 AI Business Automation · Websites · Apps — Remote & Global</div>
-    <h1>Your Business,<br><span class="gradient">Automated & Built.</span><br>Ready to Scale.</h1>
-    <p class="hero-sub">We automate how a modern business runs — AI agents that handle calls, chats, and follow-ups, websites that turn visitors into clients, and custom apps that power what you sell. Serving businesses across the US, UK, Canada, and Europe.</p>
-    <div class="hero-actions">
-      <a href="ai-agents.html" class="btn-blue">🤖 Explore AI Receptionist →</a>
-      <a href="app-development.html" class="btn-outline">App Development</a>
-      <a href="portfolio.html" class="btn-outline">View Portfolio</a>
+  <video class="hero-video" autoplay muted loop playsinline aria-hidden="true">
+    <source src="assets/video/coding-bg.mp4" type="video/mp4">
+  </video>
+  <div class="hero-video-wash" aria-hidden="true"></div>
+  <div class="hero-cols" aria-hidden="true">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i style="border-right:1px solid var(--line)"></i>
+  </div>
+  <svg class="hero-mark" viewBox="0 0 400 380" fill="none" aria-hidden="true">
+    <path d="M200 20L260 20L120 340L60 340Z" stroke="#1D4ED8" stroke-width="1.4" opacity=".16"/>
+    <path d="M260 20L400 340L340 340L210 60Z" stroke="#0F172A" stroke-width="1.4" opacity=".1"/>
+    <path d="M150 210L200 340L100 340L128 262Z" stroke="#0F172A" stroke-width="1.4" opacity=".1"/>
+  </svg>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div class="hero-eyebrow">AI Business Automation &middot; Websites &middot; Apps — Remote &amp; Global</div>
+      <h1>Your business, <em>automated</em> and built to scale.</h1>
+      <div class="hero-side">
+        <p>We automate how a modern business runs — AI agents that handle calls, chats, and follow-ups, websites that turn visitors into clients, and custom apps that power what you sell. Serving businesses across the US, UK, Canada, and Europe.</p>
+        <div class="hero-actions">
+          <a href="#contact" class="btn-primary">Start a Project →</a>
+          <a href="ai-agents.html" class="btn-secondary">Explore AI Receptionist</a>
+        </div>
+      </div>
     </div>
-    <div class="hero-stats">
-      <div><div class="stat-num">50+</div><div class="stat-lbl">AI Agents Deployed</div></div>
-      <div><div class="stat-num">30+</div><div class="stat-lbl">Websites Launched</div></div>
-      <div><div class="stat-num">3</div><div class="stat-lbl">Core Services</div></div>
-      <div><div class="stat-num">24/7</div><div class="stat-lbl">AI Always On</div></div>
+  </div>
+</section>
+
+<section class="stats">
+  <div class="wrap">
+    <div class="stats-grid">
+      <div class="stat"><b>50+</b><span>AI Agents Deployed</span></div>
+      <div class="stat"><b>30+</b><span>Websites Launched</span></div>
+      <div class="stat"><b>4</b><span>Markets Served</span></div>
+      <div class="stat"><b>24/7</b><span>AI Always On</span></div>
     </div>
   </div>
 </section>
 
 <!-- SERVICES -->
 <section class="services" id="services">
-  <div class="sec-hdr">
-    <div class="sec-tag">What We Build</div>
-    <h2 class="sec-title">AI Business Automation, Websites<br><span>& Custom Apps</span></h2>
-    <p class="sec-sub">From AI agents that run your front desk and follow-ups to websites that convert and apps that power what you sell — we automate and build the systems a modern business runs on, under one roof.</p>
-  </div>
-  <div class="svc-grid">
-    <div class="svc-card">
-      <div class="svc-num">01</div><div class="svc-icon">🤖</div>
-      <div class="svc-name">AI Receptionist & Automation</div>
-      <div class="svc-desc">A 24/7 AI receptionist that answers calls and chats, books appointments, answers customer queries, and manages follow-ups — plus AI agents for sales, support, and lead gen.</div>
-      <div class="svc-tags"><span class="svc-tag">GPT-4</span><span class="svc-tag">Voice AI</span><span class="svc-tag">24/7</span></div>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">What We Build</div>
+      <h2 class="sec-title">AI business automation, websites, and custom apps — under one roof.</h2>
+      <p class="sec-sub">From AI agents that run your front desk and follow-ups to websites that convert and apps that power what you sell.</p>
     </div>
-    <div class="svc-card">
-      <div class="svc-num">02</div><div class="svc-icon">💻</div>
-      <div class="svc-name">Website Design & Development</div>
-      <div class="svc-desc">Premium, fast-loading websites built for conversion. From landing pages to full business sites — designed to impress US and UK clients and rank on Google.</div>
-      <div class="svc-tags"><span class="svc-tag">React</span><span class="svc-tag">Next.js</span><span class="svc-tag">Figma</span></div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-num">03</div><div class="svc-icon">📱</div>
-      <div class="svc-name">App Development</div>
-      <div class="svc-desc">Custom mobile and web apps built from scratch — booking platforms, marketplaces, client portals, and MVPs, architected to scale as your business grows.</div>
-      <div class="svc-tags"><span class="svc-tag">iOS & Android</span><span class="svc-tag">Web Apps</span><span class="svc-tag">Custom Built</span></div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-num">04</div><div class="svc-icon">🔧</div>
-      <div class="svc-name">Website Maintenance</div>
-      <div class="svc-desc">Monthly maintenance plans — bug fixes, content updates, performance optimization, security monitoring, and uptime checks so your site always runs perfectly.</div>
-      <div class="svc-tags"><span class="svc-tag">Updates</span><span class="svc-tag">Security</span><span class="svc-tag">Speed</span></div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-num">05</div><div class="svc-icon">📈</div>
-      <div class="svc-name">SEO & Google Ranking</div>
-      <div class="svc-desc">Technical SEO, keyword research, on-page optimization, and local SEO to push your business to page one of Google and drive qualified organic traffic.</div>
-      <div class="svc-tags"><span class="svc-tag">Technical SEO</span><span class="svc-tag">Local SEO</span><span class="svc-tag">Analytics</span></div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-num">06</div><div class="svc-icon">🌐</div>
-      <div class="svc-name">Hosting & Domain</div>
-      <div class="svc-desc">Managed hosting with SSL certificates, email setup, custom domain configuration, CDN, and full server maintenance — fast, secure, and reliable worldwide.</div>
-      <div class="svc-tags"><span class="svc-tag">SSL</span><span class="svc-tag">Domain</span><span class="svc-tag">CDN</span></div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-num">07</div><div class="svc-icon">🛠️</div>
-      <div class="svc-name">App Maintenance & Support</div>
-      <div class="svc-desc">Ongoing updates, bug fixes, new features, and performance monitoring to keep your app running smoothly on every OS update — for as long as you need it.</div>
-      <div class="svc-tags"><span class="svc-tag">Updates</span><span class="svc-tag">Monitoring</span><span class="svc-tag">Support</span></div>
-    </div>
-    <div class="svc-card">
-      <div class="svc-num">08</div><div class="svc-icon">⚡</div>
-      <div class="svc-name">Website + AI Bundle</div>
-      <div class="svc-desc">A high-converting website paired with a custom AI receptionist. Perfect for clinics, law firms, real estate, and service businesses ready to scale.</div>
-      <div class="svc-tags"><span class="svc-tag">Best Value</span><span class="svc-tag">Custom Quote</span><span class="svc-tag">Full Setup</span></div>
-    </div>
-    <div class="svc-card" style="background:linear-gradient(135deg,rgba(43,127,255,.1),rgba(43,127,255,.04));border-left:2px solid var(--blue)">
-      <div class="svc-num">09</div><div class="svc-icon">🏆</div>
-      <div class="svc-name">Full-Stack Bundle</div>
-      <div class="svc-desc">The complete package — website, custom app, and AI receptionist, built and deployed together. The fastest way to launch a fully digital, fully automated business.</div>
-      <div class="svc-tags"><span class="svc-tag">Best Value</span><span class="svc-tag">All 3 Services</span><span class="svc-tag">Custom Quote</span></div>
-    </div>
+
+    <div class="svc-row"><div class="svc-num">01</div><div class="svc-name">AI Receptionist &amp; Automation</div><div class="svc-desc">A 24/7 AI receptionist that answers calls and chats, books appointments, and manages follow-ups — plus AI agents for sales, support, and lead gen.</div><div class="svc-tag">24/7</div></div>
+    <div class="svc-row"><div class="svc-num">02</div><div class="svc-name">Website Design &amp; Development</div><div class="svc-desc">Premium, fast-loading websites built for conversion — designed to impress clients and rank on Google. No templates.</div><div class="svc-tag">Custom Built</div></div>
+    <div class="svc-row"><div class="svc-num">03</div><div class="svc-name">App Development</div><div class="svc-desc">Custom mobile and web apps built from scratch — booking platforms, marketplaces, client portals, and MVPs, architected to scale.</div><div class="svc-tag">iOS &amp; Android</div></div>
+    <div class="svc-row"><div class="svc-num">04</div><div class="svc-name">Website Maintenance</div><div class="svc-desc">Monthly maintenance — bug fixes, content updates, performance optimization, security monitoring, and uptime checks.</div><div class="svc-tag">Ongoing</div></div>
+    <div class="svc-row"><div class="svc-num">05</div><div class="svc-name">SEO &amp; Google Ranking</div><div class="svc-desc">Technical SEO, keyword research, on-page optimization, and local SEO to push your business to page one of Google.</div><div class="svc-tag">Technical SEO</div></div>
+    <div class="svc-row"><div class="svc-num">06</div><div class="svc-name">Hosting &amp; Domain</div><div class="svc-desc">Managed hosting with SSL, email setup, custom domain configuration, CDN, and full server maintenance.</div><div class="svc-tag">Managed</div></div>
+    <div class="svc-row"><div class="svc-num">07</div><div class="svc-name">App Maintenance &amp; Support</div><div class="svc-desc">Ongoing updates, bug fixes, new features, and performance monitoring to keep your app running through every OS update.</div><div class="svc-tag">Ongoing</div></div>
+    <div class="svc-row"><div class="svc-num">08</div><div class="svc-name">Website + AI Bundle</div><div class="svc-desc">A high-converting website paired with a custom AI receptionist. Best for clinics, law firms, real estate, and service businesses.</div><div class="svc-tag">Bundle</div></div>
+    <div class="svc-row"><div class="svc-num">09</div><div class="svc-name">Full-Stack Bundle</div><div class="svc-desc">Website, custom app, and AI receptionist, built and deployed together — the fastest way to launch a fully automated business.</div><div class="svc-tag">Best Value</div></div>
   </div>
 </section>
 
 <!-- HOW IT WORKS -->
 <section class="how">
-  <div class="sec-hdr">
-    <div class="sec-tag">Process</div>
-    <h2 class="sec-title">How We <span>Deploy</span> Your AI</h2>
-    <p class="sec-sub">From discovery call to live AI agent — our process is fast, transparent, and designed around your specific business needs.</p>
-  </div>
-  <div class="steps-grid">
-    <div class="step-card">
-      <div class="step-num">1</div>
-      <div class="step-title">Discovery Call</div>
-      <div class="step-desc">We learn your business, identify automation opportunities, and define exactly what the AI agent needs to do.</div>
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Process</div>
+      <h2 class="sec-title">How we deploy your AI, website, or app.</h2>
+      <p class="sec-sub">From discovery call to live product — fast, transparent, and built around your business.</p>
     </div>
-    <div class="step-card">
-      <div class="step-num">2</div>
-      <div class="step-title">Custom Build</div>
-      <div class="step-desc">Our team builds and trains the AI agent on your business data, tone, FAQs, and workflows.</div>
-    </div>
-    <div class="step-card">
-      <div class="step-num">3</div>
-      <div class="step-title">Integration</div>
-      <div class="step-desc">We deploy the agent to your website, phone system, WhatsApp, or CRM — wherever your customers are.</div>
-    </div>
-    <div class="step-card">
-      <div class="step-num">4</div>
-      <div class="step-title">Go Live + Support</div>
-      <div class="step-desc">Your AI goes live 24/7. We monitor, optimize, and support ongoing so it keeps improving.</div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-num">01</div><div class="step-title">Discovery Call</div><div class="step-desc">We learn your business, identify automation opportunities, and define exactly what needs to be built.</div></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-title">Custom Build</div><div class="step-desc">Our team builds and trains your AI agent, website, or app around your business data and workflows.</div></div>
+      <div class="step-card"><div class="step-num">03</div><div class="step-title">Integration</div><div class="step-desc">We deploy to your website, phone system, WhatsApp, or CRM — wherever your customers actually are.</div></div>
+      <div class="step-card"><div class="step-num">04</div><div class="step-title">Go Live + Support</div><div class="step-desc">Your build goes live. We monitor, optimize, and support ongoing so it keeps improving.</div></div>
     </div>
   </div>
 </section>
 
 <!-- PRICING -->
 <section class="pricing" id="pricing">
-  <div class="sec-hdr">
-    <div class="sec-tag">Transparent Pricing</div>
-    <h2 class="sec-title">Simple, Clear <span>Pricing</span></h2>
-    <p class="sec-sub">No hidden fees. No confusing packages. Choose what your business needs and get started fast.</p>
-  </div>
-  <div class="pricing-grid">
-    <div class="price-card">
-      <div class="price-icon">🤖</div>
-      <div class="price-name">AI Agent Setup</div>
-      <div class="price-amount">Get a Quote</div>
-      <div class="price-desc">Custom AI agent built, trained on your business, and deployed to your preferred platform.</div>
-      <div class="price-feats">
-        <div class="price-feat">Custom trained on your business data</div>
-        <div class="price-feat">Deployed to website, phone, or WhatsApp</div>
-        <div class="price-feat">Multilingual support available</div>
-        <div class="price-feat">CRM & calendar integrations</div>
-        <div class="price-feat">7-day post-launch support</div>
+  <div class="wrap">
+    <div class="price-grid">
+      <div class="price-left">
+        <div class="sec-tag">Investment</div>
+        <h2>Every project is quoted around your business, not a fixed tier.</h2>
+        <p>We don't sell off-the-shelf packages — the complexity of what you need, the integrations involved, and the timeline all shape a custom quote. That's the honest answer, and it's usually the fairer one.</p>
+        <a href="#contact" class="btn-primary">Get a Custom Quote →</a>
+        <div class="offer-list">
+          <span class="offer-chip">AI Agent Setup</span>
+          <span class="offer-chip">Website + AI Bundle</span>
+          <span class="offer-chip">Website Design</span>
+          <span class="offer-chip">App Development</span>
+          <span class="offer-chip">Monthly AI Maintenance</span>
+          <span class="offer-chip">App Maintenance</span>
+          <span class="offer-chip">Full-Stack Bundle</span>
+        </div>
       </div>
-      <a href="#contact" class="btn-outline" style="justify-content:center">Get a Quote</a>
-    </div>
-    <div class="price-card featured">
-      <div class="price-icon">⚡</div>
-      <div class="price-name">Website + AI Bundle</div>
-      <div class="price-amount">Get a Quote</div>
-      <div class="price-desc">Complete package — premium website plus a custom AI agent. The fastest way to modernize your business.</div>
-      <div class="price-feats">
-        <div class="price-feat">Full website design & development</div>
-        <div class="price-feat">Custom AI agent included</div>
-        <div class="price-feat">SEO setup & Google optimization</div>
-        <div class="price-feat">Hosting & domain configuration</div>
-        <div class="price-feat">30-day post-launch support</div>
+      <div class="price-right">
+        <div class="factor"><div class="factor-num">01</div><div><h4>Scope</h4><p>What exactly needs to be built — number of platforms, integrations, and workflows involved.</p></div></div>
+        <div class="factor"><div class="factor-num">02</div><div><h4>Complexity</h4><p>Real-time features, payment processing, and custom logic all affect engineering time.</p></div></div>
+        <div class="factor"><div class="factor-num">03</div><div><h4>Timeline</h4><p>Standard delivery vs. an accelerated build — both are possible, priced accordingly.</p></div></div>
       </div>
-      <a href="#contact" class="btn-blue" style="justify-content:center">Get Started →</a>
-    </div>
-    <div class="price-card">
-      <div class="price-icon">💻</div>
-      <div class="price-name">Website Design</div>
-      <div class="price-amount">Get a Quote</div>
-      <div class="price-desc">Professional, fast-loading websites designed to convert visitors into paying clients.</div>
-      <div class="price-feats">
-        <div class="price-feat">Custom design — no templates</div>
-        <div class="price-feat">Mobile responsive</div>
-        <div class="price-feat">Contact forms & integrations</div>
-        <div class="price-feat">Basic SEO setup</div>
-        <div class="price-feat">2 rounds of revisions</div>
-      </div>
-      <a href="#contact" class="btn-outline" style="justify-content:center">Get a Quote</a>
-    </div>
-    <div class="price-card">
-      <div class="price-icon">📱</div>
-      <div class="price-name">App Development</div>
-      <div class="price-amount">Get a Quote</div>
-      <div class="price-desc">Custom mobile or web apps built from scratch — scoped, priced, and timelined around what you're building.</div>
-      <div class="price-feats">
-        <div class="price-feat">iOS, Android, or web app</div>
-        <div class="price-feat">Custom-built — no templates</div>
-        <div class="price-feat">Payments, maps & API integrations</div>
-        <div class="price-feat">Scalable architecture from day one</div>
-        <div class="price-feat">Testing & launch support</div>
-      </div>
-      <a href="#contact" class="btn-outline" style="justify-content:center">Get a Quote</a>
-    </div>
-    <div class="price-card">
-      <div class="price-icon">🔄</div>
-      <div class="price-name">Monthly AI Maintenance</div>
-      <div class="price-amount">Get a Quote</div>
-      <div class="price-desc">Keep your AI agent performing at its best with ongoing updates, monitoring, and improvements.</div>
-      <div class="price-feats">
-        <div class="price-feat">Monthly performance review</div>
-        <div class="price-feat">Knowledge base updates</div>
-        <div class="price-feat">Conversation quality monitoring</div>
-        <div class="price-feat">Feature additions & improvements</div>
-        <div class="price-feat">Priority support</div>
-      </div>
-      <a href="#contact" class="btn-outline" style="justify-content:center">Get a Quote</a>
-    </div>
-    <div class="price-card">
-      <div class="price-icon">🛠️</div>
-      <div class="price-name">App Maintenance</div>
-      <div class="price-amount">Get a Quote</div>
-      <div class="price-desc">Ongoing updates, bug fixes, and monitoring so your app keeps running smoothly through every OS update.</div>
-      <div class="price-feats">
-        <div class="price-feat">Bug fixes & OS compatibility updates</div>
-        <div class="price-feat">Performance monitoring</div>
-        <div class="price-feat">Feature additions</div>
-        <div class="price-feat">Priority support</div>
-      </div>
-      <a href="#contact" class="btn-outline" style="justify-content:center">Get a Quote</a>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIALS -->
-<section class="reviews" id="reviews">
-  <div class="sec-hdr">
-    <div class="sec-tag">Social Proof</div>
-    <h2 class="sec-title">Trusted by Businesses <span>Worldwide</span></h2>
-  </div>
-  <div class="rev-grid">
-    <div class="rev-card">
-      <div class="rev-stars">★★★★★</div>
-      <div class="rev-text">"The AI receptionist handles over 80% of our inbound calls automatically. We went from missing leads after hours to booking appointments around the clock. Incredible ROI."</div>
-      <div class="rev-author">James Whitfield</div>
-      <div class="rev-role">Founder — Dental Practice, London UK</div>
-    </div>
-    <div class="rev-card">
-      <div class="rev-stars">★★★★★</div>
-      <div class="rev-text">"United Apex built our investment firm website and an AI agent that qualifies leads before our team ever speaks to them. Saves us 15+ hours per week. Professional team, fast delivery."</div>
-      <div class="rev-author">Marco Ferretti</div>
-      <div class="rev-role">CEO — Meridiano Capital, Italy</div>
-    </div>
-    <div class="rev-card">
-      <div class="rev-stars">★★★★★</div>
-      <div class="rev-text">"Our law firm's AI handles all initial client inquiries, explains our services, and books consultations. Clients can't tell it's AI — that's how good it is. Highly recommend."</div>
-      <div class="rev-author">Sarah O'Brien</div>
-      <div class="rev-role">Partner — Law Firm, Toronto Canada</div>
-    </div>
-    <div class="rev-card">
-      <div class="rev-stars">★★★★★</div>
-      <div class="rev-text">"The website they built for our clinic ranks on the first page of Google and the AI chatbot handles all appointment bookings. We haven't missed a lead in months."</div>
-      <div class="rev-author">Dr. Rachel Kim</div>
-      <div class="rev-role">Director — Aesthetics Clinic, New York USA</div>
-    </div>
-    <div class="rev-card">
-      <div class="rev-stars">★★★★★</div>
-      <div class="rev-text">"Fast, professional, and genuinely understood our business needs. The AI agent speaks to our clients in both English and Arabic — a feature no other agency offered us."</div>
-      <div class="rev-author">Khalid Al-Rashidi</div>
-      <div class="rev-role">Director — Real Estate, Dubai UAE</div>
-    </div>
-    <div class="rev-card">
-      <div class="rev-stars">★★★★★</div>
-      <div class="rev-text">"Went from a dated website to a stunning modern site with an AI agent in under two weeks. The bundle deal was exceptional value. Already seeing more enquiries come in."</div>
-      <div class="rev-author">Emma Clarke</div>
-      <div class="rev-role">Owner — Beauty Salon, Manchester UK</div>
     </div>
   </div>
 </section>
 
 <!-- CONTACT -->
 <section class="contact" id="contact">
-  <div class="contact-inner">
-    <div>
-      <div class="sec-tag">Get in Touch</div>
-      <h2 class="sec-title">Ready to <span>Automate</span> Your Business?</h2>
-      <p style="font-size:.88rem;line-height:1.9;color:var(--muted);font-weight:300;margin-bottom:2rem">Tell us about your business and we'll recommend the right AI solution. We work with clients across the US, UK, Canada, and Europe — fully remote.</p>
-      <div style="display:flex;flex-direction:column;gap:1.2rem;margin-bottom:2rem">
-        <div style="display:flex;gap:1rem;align-items:center">
-          <div style="width:38px;height:38px;background:rgba(43,127,255,.1);border:1px solid rgba(43,127,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">📧</div>
-          <div><div style="font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.12rem">Email</div><div style="font-size:.85rem;color:var(--text)">unitedapexdevelopers@gmail.com</div></div>
-        </div>
-        <div style="display:flex;gap:1rem;align-items:center">
-          <div style="width:38px;height:38px;background:rgba(43,127,255,.1);border:1px solid rgba(43,127,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">🌍</div>
-          <div><div style="font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.12rem">Serving</div><div style="font-size:.85rem;color:var(--text)">US · UK · Canada · Europe · Remote</div></div>
-        </div>
-        <div style="display:flex;gap:1rem;align-items:center">
-          <div style="width:38px;height:38px;background:rgba(43,127,255,.1);border:1px solid rgba(43,127,255,.2);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0">⚡</div>
-          <div><div style="font-size:.62rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.12rem">Response Time</div><div style="font-size:.85rem;color:var(--text)">Within 24 hours</div></div>
-        </div>
+  <div class="wrap">
+    <div class="contact-grid">
+      <div class="contact-left">
+        <div class="sec-tag">Get in Touch</div>
+        <h2>Ready to automate your business?</h2>
+        <p>Tell us about your business and we'll recommend the right AI solution. We work with clients across the US, UK, Canada, and Europe — fully remote.</p>
+        <div class="contact-item"><div><b>Email</b><span>unitedapexdevelopers@gmail.com</span></div></div>
+        <div class="contact-item"><div><b>Serving</b><span>US · UK · Canada · Europe · Remote</span></div></div>
+        <div class="contact-item"><div><b>Response Time</b><span>Within 24 hours</span></div></div>
       </div>
-    </div>
-    <div class="contact-form">
-      <div class="form-title">Send Us a Message</div>
-      <form action="https://formspree.io/f/xgoblngy" method="POST">
-        <div class="f-row">
-          <div class="f-group"><label>Full Name</label><input type="text" name="name" required placeholder="Your name"></div>
-          <div class="f-group"><label>Email</label><input type="email" name="email" required placeholder="your@email.com"></div>
-        </div>
-        <div class="f-group"><label>Phone (optional)</label><input type="tel" name="phone" placeholder="+1 (555) 000-0000"></div>
-        <div class="f-group"><label>Service Interested In</label>
-          <select name="service" required>
-            <option value="" disabled selected>Select a service...</option>
-            <option>AI Receptionist Setup</option>
-            <option>Website Design & Development</option>
-            <option>App Development</option>
-            <option>Full-Stack Bundle (Website + App + AI)</option>
-            <option>Website + AI Bundle</option>
-            <option>Monthly AI Maintenance</option>
-            <option>App Maintenance</option>
-            <option>SEO & Google Ranking</option>
-            <option>Hosting & Domain</option>
-            <option>Website Maintenance</option>
-          </select>
-        </div>
-        <div class="f-group"><label>Message</label><textarea name="message" required placeholder="Tell us about your business and what you're looking to automate or build..."></textarea></div>
-        <button type="submit" class="btn-blue" style="width:100%;justify-content:center">Send Message →</button>
-      </form>
+      <div class="contact-right">
+        <form action="https://formspree.io/f/xgoblngy" method="POST">
+          <div class="f-row">
+            <div class="f-group"><label>Full Name</label><input type="text" name="name" required placeholder="Your name"></div>
+            <div class="f-group"><label>Email</label><input type="email" name="email" required placeholder="your@email.com"></div>
+          </div>
+          <div class="f-group"><label>Phone (optional)</label><input type="tel" name="phone" placeholder="+1 (555) 000-0000"></div>
+          <div class="f-group"><label>Service Interested In</label>
+            <select name="service" required>
+              <option value="" disabled selected>Select a service...</option>
+              <option>AI Receptionist Setup</option>
+              <option>Website Design &amp; Development</option>
+              <option>App Development</option>
+              <option>Full-Stack Bundle (Website + App + AI)</option>
+              <option>Website + AI Bundle</option>
+              <option>Monthly AI Maintenance</option>
+              <option>App Maintenance</option>
+              <option>SEO &amp; Google Ranking</option>
+              <option>Hosting &amp; Domain</option>
+              <option>Website Maintenance</option>
+            </select>
+          </div>
+          <div class="f-group"><label>Message</label><textarea name="message" required placeholder="Tell us about your business and what you're looking to automate or build..."></textarea></div>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center">Send Message →</button>
+        </form>
+      </div>
     </div>
   </div>
 </section>
 
 <footer>
-  <div>
-    <div class="foot-brand">United <span>Apex</span> Developers</div>
-    <div class="foot-txt" style="margin-top:.3rem">Global AI Business Automation, Web & App Development Agency</div>
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;width:100%">
+    <div>
+      <div class="foot-brand">United <em>Apex</em> Developers</div>
+      <div class="foot-txt" style="margin-top:.3rem">Global AI Business Automation, Web &amp; App Development Agency</div>
+    </div>
+    <ul class="foot-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="ai-agents.html">AI Receptionist</a></li>
+      <li><a href="app-development.html">App Development</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+    </ul>
+    <div class="foot-txt">© 2026 United Apex Developers. All rights reserved.</div>
   </div>
-  <ul class="foot-links">
-    <li><a href="index.html">Home</a></li>
-    <li><a href="ai-agents.html">AI Receptionist</a></li>
-    <li><a href="app-development.html">App Development</a></li>
-    <li><a href="portfolio.html">Portfolio</a></li>
-    <li><a href="faq.html">FAQ</a></li>
-    <li><a href="about.html">About</a></li>
-  </ul>
-  <div class="foot-txt">© 2025 United Apex Developers. All rights reserved.</div>
 </footer>
 
 </body>
