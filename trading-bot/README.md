@@ -46,6 +46,7 @@ src/tradingbot/
 scripts/
   run_backtest.py            Runs every sleeve in config.yaml, then a combined portfolio report
   run_paper.py               Paper-trading loop across all sleeves (--once for a single poll cycle)
+  paper_status.py            Read-only snapshot of the paper account -- safe to run alongside run_paper.py
   demo_synthetic_backtest.py Runs the full multi-sleeve pipeline on synthetic data (no network needed)
 tests/                        Deterministic unit tests, no network calls
 config.yaml                   Sleeves (symbols + strategy params + capital split), shared risk defaults
@@ -113,6 +114,18 @@ Maintains a virtual account **per sleeve** in `state/paper_account.json`
 `capital_allocation_pct`) and appends closed trades to
 `state/paper_trades.csv`, tagged by sleeve. No API keys, no real orders --
 only public OHLCV endpoints are called. Delete the state file to reset.
+
+Since `run_paper.py` is meant to be left running (and prints nothing between
+fills), check on it from a second terminal without interrupting it:
+
+```bash
+.venv/bin/python scripts/paper_status.py                 # fetches live prices for unrealized P&L
+.venv/bin/python scripts/paper_status.py --no-live-prices # faster, works without hitting the network
+```
+
+Shows current equity, open positions (with live mark-to-market P&L), today's
+drawdown against the kill-switch threshold, and closed-trade stats so far --
+read-only, it never writes to the state file.
 
 ## Why win rate isn't the target
 
