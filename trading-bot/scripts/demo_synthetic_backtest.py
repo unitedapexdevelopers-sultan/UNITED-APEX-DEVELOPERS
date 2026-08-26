@@ -19,12 +19,14 @@ from tabulate import tabulate
 
 ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT / "src"))
+sys.path.insert(0, str(ROOT / "scripts"))
 
 from tradingbot import mean_reversion  # noqa: E402
 from tradingbot import metrics  # noqa: E402
 from tradingbot import strategy as strat  # noqa: E402
 from tradingbot.backtest import run_backtest  # noqa: E402
 from tradingbot.risk import RiskParams  # noqa: E402
+from run_backtest import print_consistency_check  # noqa: E402
 
 
 def make_trending_symbol(seed: int, n: int, drift: float, vol: float, start: str = "2021-01-01") -> pd.DataFrame:
@@ -141,6 +143,7 @@ def main() -> int:
 
     combined = metrics.combine_results([trend_result, mr_result])
     print_report("PORTFOLIO (combined)", combined, total_equity)
+    print_consistency_check("PORTFOLIO (combined)", combined, n_periods=4)
 
     print("\n=== Smoothness comparison (lower monthly P&L stdev = smoother) ===")
     rows = []

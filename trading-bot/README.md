@@ -35,7 +35,7 @@ src/tradingbot/
   strategy_base.py  StrategyAdapter -- common interface so the engine doesn't care which strategy it's running
   risk.py           Position sizing from % equity risk; daily/monthly kill switches
   backtest.py       Event-driven multi-symbol backtest engine (stop-loss + target exits)
-  metrics.py        Win rate, expectancy, profit factor, Sharpe, drawdown, monthly P&L, portfolio combiner
+  metrics.py        Win rate, expectancy, profit factor, Sharpe, drawdown, monthly P&L, portfolio combiner, period-consistency split
   paper_trade.py    Live polling loop -> simulated fills per sleeve, against persisted JSON state
 scripts/
   run_backtest.py            Runs every sleeve in config.yaml, then a combined portfolio report
@@ -72,6 +72,12 @@ month-by-month P&L table. Then combines all sleeves into a portfolio-level
 report and a smoothness comparison table (% months green and monthly P&L
 standard deviation, per sleeve vs. combined). Equity curves and full trade
 logs are saved to `state/` (per sleeve and for the combined portfolio).
+
+Each result (per sleeve and the combined portfolio) also gets a
+period-by-period consistency check (`--periods N`, default 4): win rate,
+expectancy, profit factor, and % green months for each calendar segment of
+the backtest, side by side, with a warning if any segment was net-losing.
+See "Sleeves & smoothing" below for what this is (and isn't).
 
 If you're on a network that can't reach the exchange (as this sandbox
 currently can't -- outbound to `api.binance.com` is blocked by policy here),
@@ -187,11 +193,19 @@ is a regression test for that specific bug.
   notional P&L against cash (perpetual-futures style), which is fine for
   strategy validation but doesn't model funding rate carry or liquidation
   risk on leveraged/short positions.
-- **No walk-forward/out-of-sample validation harness yet.** Running
-  `run_backtest.py` once over a fixed window and looking at good numbers is
-  how people fool themselves; before trusting any result, split the date
-  range and check each sleeve holds up out-of-sample, and be skeptical of
-  parameter choices that were tuned to that same window.
+- **Consistency check exists; walk-forward optimization does not.**
+  `run_backtest.py` (default `--periods 4`) splits each sleeve's result into
+  calendar segments and prints win rate/expectancy/profit factor/% green
+  months per segment, so you can see whether the full-period number was
+  earned consistently or concentrated in one segment -- on this project's own
+  synthetic demo, profit factor visibly decayed from 7.93 in the first
+  quarter of the backtest to 1.66-1.76 in the later ones, which the single
+  aggregate number completely hid. What this does **not** do is re-fit
+  strategy parameters per segment (there's no optimizer in this project,
+  deliberately -- optimizing against a backtest is how people overfit).
+  Consistency across segments is evidence the edge isn't a fluke of one
+  period; it is not proof the parameters are optimal or will hold going
+  forward.
 - **Backtest is not paper trading is not live trading.** Slippage and fills
   get progressively less forgiving at each step. Treat backtest results as
   an upper bound, paper-trading results as a more honest (but still

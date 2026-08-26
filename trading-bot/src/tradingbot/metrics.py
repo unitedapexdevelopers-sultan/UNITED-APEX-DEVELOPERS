@@ -140,3 +140,53 @@ def combine_results(results: list["BacktestResult"]) -> "BacktestResult":
     combined_trades.sort(key=lambda t: t.exit_time)
 
     return BacktestResult(equity_curve=combined_curve, trades=combined_trades)
+
+
+@dataclass
+class PeriodSegment:
+    start: pd.Timestamp
+    end: pd.Timestamp
+    result: BacktestResult
+    starting_equity: float
+
+
+def split_by_period(result: BacktestResult, n_periods: int) -> list[PeriodSegment]:
+    """Split one backtest result into n_periods equal calendar segments, each
+    re-based to its own starting equity, so summarize()/monthly_pnl_table()
+    can be run per segment and compared.
+
+    This is NOT walk-forward optimization -- nothing here re-fits strategy
+    parameters per segment, because this project doesn't have a parameter
+    optimizer (deliberately: optimizing on a backtest is how people overfit).
+    It's a consistency check on a single already-run, fixed-parameter
+    backtest: was the result spread across the whole history, or did one or
+    two segments carry everything? A strategy whose profit factor is only
+    >1 in one segment out of four is a different (weaker) claim than one
+    that's consistently >1 in all four, even if the total-period number
+    looks identical.
+    """
+    curve = result.equity_curve
+    if curve.empty or n_periods < 1:
+        return []
+
+    start, end = curve.index.min(), curve.index.max()
+    total = end - start
+
+    segments = []
+    for i in range(n_periods):
+        seg_start = start + total * i / n_periods
+        seg_end = end if i == n_periods - 1 else start + total * (i + 1) / n_periods
+
+        seg_curve = curve.loc[(curve.index >= seg_start) & (curve.index <= seg_end)]
+        if seg_curve.empty:
+            continue
+        seg_trades = [t for t in result.trades if seg_start <= pd.Timestamp(t.exit_time) <= seg_end]
+        segments.append(
+            PeriodSegment(
+                start=seg_start,
+                end=seg_end,
+                result=BacktestResult(equity_curve=seg_curve, trades=seg_trades),
+                starting_equity=float(seg_curve.iloc[0]),
+            )
+        )
+    return segments

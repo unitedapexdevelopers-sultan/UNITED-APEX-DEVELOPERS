@@ -61,10 +61,54 @@ def print_report(title: str, result, starting_equity: float) -> None:
         print(f"\n{title}: no trades were taken.")
 
 
+def print_consistency_check(title: str, result, n_periods: int) -> None:
+    """Splits one already-run backtest into N calendar segments and prints
+    per-segment stats side by side. This is a consistency check, not
+    walk-forward optimization -- no parameters get re-fit per segment (this
+    project has no optimizer). The question it answers: was the full-period
+    result spread across the whole history, or concentrated in one or two
+    segments that happen to look good in aggregate?
+    """
+    segments = metrics.split_by_period(result, n_periods)
+    if len(segments) < 2:
+        return
+
+    rows = []
+    losing_segments = 0
+    for seg in segments:
+        stats = metrics.summarize(seg.result, seg.starting_equity)
+        monthly = metrics.monthly_pnl_table(seg.result)
+        label = f"{seg.start.date()} -> {seg.end.date()}"
+        if stats.profit_factor < 1.0 and stats.total_trades > 0:
+            losing_segments += 1
+        rows.append([
+            label,
+            stats.total_trades,
+            f"{stats.win_rate_pct:.0f}%",
+            f"{stats.expectancy:,.1f}",
+            f"{stats.profit_factor:.2f}",
+            f"{metrics.pct_months_green(monthly):.0f}%",
+            f"{stats.max_drawdown_pct:.1f}%",
+        ])
+
+    print(f"\n=== {title}: consistency across {len(segments)} periods "
+          f"(NOT walk-forward optimization -- same fixed parameters throughout) ===")
+    print(tabulate(rows, headers=["period", "trades", "win rate", "expectancy", "profit factor",
+                                   "% months green", "max DD"], tablefmt="simple"))
+    if losing_segments:
+        print(f"NOTE: {losing_segments}/{len(segments)} period(s) had a profit factor below 1.0 "
+              f"(net losing) even though the full-period number may look fine -- the edge was not "
+              f"consistent across the whole history.")
+
+
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default=str(ROOT / "config.yaml"))
     parser.add_argument("--no-cache", action="store_true")
+    parser.add_argument("--periods", type=int, default=4,
+                         help="Split each result into this many calendar segments for a "
+                              "consistency check (was the edge spread across the whole "
+                              "history, or concentrated in one segment). 1 disables it.")
     args = parser.parse_args()
 
     with open(args.config) as f:
@@ -116,6 +160,7 @@ def main() -> int:
         )
         sleeve_results.append((name, sleeve_equity, result))
         print_report(f"Sleeve '{name}'", result, sleeve_equity)
+        print_consistency_check(f"Sleeve '{name}'", result, args.periods)
 
         result.equity_curve.to_csv(out_dir / f"{name}_equity_curve.csv", header=["equity"])
         pd.DataFrame([vars(t) for t in result.trades]).to_csv(out_dir / f"{name}_trades.csv", index=False)
@@ -127,6 +172,7 @@ def main() -> int:
     if len(sleeve_results) > 1:
         combined = metrics.combine_results([r for _, _, r in sleeve_results])
         print_report("PORTFOLIO (combined)", combined, total_equity)
+        print_consistency_check("PORTFOLIO (combined)", combined, args.periods)
 
         print("\n=== Smoothness comparison (lower monthly P&L stdev = smoother) ===")
         rows = []
