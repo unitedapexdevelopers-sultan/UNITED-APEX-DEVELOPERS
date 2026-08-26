@@ -40,6 +40,8 @@ def build_sleeves(cfg: dict) -> list[Sleeve]:
     total_equity = cfg["backtest"]["starting_equity"]
     sleeves = []
     for sleeve_cfg in cfg["sleeves"]:
+        if sleeve_cfg["capital_allocation_pct"] <= 0:
+            continue  # disabled sleeve -- don't poll its symbols
         adapter, warmup = STRATEGY_BUILDERS[sleeve_cfg["type"]](sleeve_cfg["params"])
         risk_cfg = {**cfg["risk"], **sleeve_cfg.get("risk_overrides", {})}
         sleeves.append(

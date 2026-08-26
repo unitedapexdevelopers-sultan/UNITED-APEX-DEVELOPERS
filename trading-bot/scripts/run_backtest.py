@@ -127,6 +127,11 @@ def main() -> int:
         name = sleeve["name"]
         symbols = sleeve["symbols"]
         allocation_pct = sleeve["capital_allocation_pct"]
+
+        if allocation_pct <= 0:
+            print(f"\nSleeve '{name}': 0% allocation -- disabled, skipping (no data fetched).")
+            continue
+
         sleeve_equity = total_equity * allocation_pct / 100.0
 
         print(f"\nFetching data for sleeve '{name}' ({sleeve['type']}, {allocation_pct}% = "

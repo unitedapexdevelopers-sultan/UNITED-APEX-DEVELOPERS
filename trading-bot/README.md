@@ -1,7 +1,9 @@
 # Trading Bot (probability-based crypto multi-strategy)
 
-A backtest + paper-trading system that runs two complementary crypto
-strategies as separate capital sleeves:
+A backtest + paper-trading system built to run two complementary crypto
+strategies as separate capital sleeves. As shipped, only one is actually
+allocated capital (see the note below) -- the architecture supports both,
+but the second hasn't earned a place in the portfolio yet:
 
 - **trend** -- EMA-crossover trend following with ATR stops. Structurally
   expects a **minority win rate** with large winners (rare, big trending
@@ -13,8 +15,12 @@ strategies as separate capital sleeves:
   actually turns into a trend.
 
 Those are opposite payoff shapes, active in different market regimes by
-design -- see "Sleeves & smoothing" below for why that's the point, and what
-it actually bought in this project's own testing.
+design -- see "Sleeves & smoothing" below for why that's the point, and why
+`config.yaml` currently ships with **mean_reversion at 0% capital
+allocation** (trend at 100%): on real 4h/9-year data, mean-reversion's
+default thresholds had a negative edge and were hurting the combined
+portfolio more than helping it. The sleeve, its tests, and its config are
+still there for tuning -- just not holding capital until it's proven.
 
 Neither sleeve is designed to be "right" most of the time in the same way;
 each is designed to have positive expectancy on its own terms. See "Honest
@@ -174,6 +180,23 @@ smoothing benefit than they gave back. That's a real cost for a real but
 modest benefit -- not yet a clear improvement, and a sign the mean-reversion
 sleeve's thresholds need tuning against real data (not the synthetic demo's
 loosened ones) before its capital allocation is justified as-is.
+
+**That tuning need got confirmed, harder, on the follow-up 4h/9-year run.**
+With 4h candles and the full available history, mean-reversion got a much
+larger sample (256 trades, up from 19) -- enough to say with real confidence,
+not just "too few trades to know," that these thresholds have a negative
+edge: profit factor 0.65, expectancy -4.11/trade, -27.8% return, and a 29.7%
+max drawdown that's *worse* than trend's own (23.8%). Combined, the
+portfolio traded 171 points of return for 1.6 points of drawdown reduction
+(trend alone: 399.7% return / 23.8% max DD; 60/40 portfolio: 228.7% / 22.2%)
+-- a bad trade by any measure. **`config.yaml` currently ships with
+mean-reversion at 0% capital allocation** (trend at 100%) as a result: an
+unproven, currently-losing strategy has no business holding capital just
+because the architecture supports it. The sleeve's code, tests, and config
+block are still there, commented with these exact numbers, so it's a
+one-line change (`capital_allocation_pct`) to bring it back once its
+thresholds are actually retuned against real data and shown to have an
+independent edge -- not before.
 
 One implementation detail worth knowing: the mean-reversion sleeve's real
 edge comes from taking profit when price **returns to the mean** (the moving
