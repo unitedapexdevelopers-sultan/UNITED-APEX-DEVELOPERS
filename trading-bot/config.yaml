@@ -1,0 +1,46 @@
+# Trading bot configuration.
+# Everything here is a starting point for research/paper trading, not a live-money
+# recommendation. Tune symbols, risk, and dates to whatever you actually validate.
+
+exchange: binance          # any ccxt-supported exchange with public OHLCV data
+timeframe: 1d               # candle size: 1h, 4h, 1d, ...
+symbols:
+  - BTC/USDT
+  - ETH/USDT
+  - SOL/USDT
+  - BNB/USDT
+
+# Backtest window (ignored by paper trading, which always uses live data)
+backtest:
+  start: "2020-01-01"
+  end: "2025-01-01"
+  starting_equity: 10000
+  fee_rate: 0.0004          # taker fee, as a fraction (0.0004 = 4 bps)
+  slippage_bps: 5            # assumed slippage per fill, in basis points
+
+# Strategy: EMA-crossover trend filter + ATR-based volatility stop/trail.
+# Deliberately not trying to be "right" most of the time -- it's built so a
+# minority-win-rate strategy can still have positive expectancy, because
+# average winners are structurally allowed to run further than average losers.
+strategy:
+  fast_ema: 20
+  slow_ema: 55
+  trend_filter_ema: 200      # only take longs above this, shorts below it
+  atr_period: 14
+  atr_stop_multiple: 2.5     # initial stop distance = N * ATR
+  atr_trail_multiple: 3.0    # trailing stop distance once in profit
+  allow_shorts: true
+
+# Risk management: this is what actually determines whether months close green,
+# not the win rate. Risk is sized so no single trade materially damages equity.
+risk:
+  risk_per_trade_pct: 0.75   # % of current equity risked on a trade's stop distance
+  max_open_positions: 4
+  max_symbol_exposure_pct: 30    # cap notional exposure to one symbol
+  daily_loss_kill_switch_pct: 3   # stop opening new trades if today's loss exceeds this
+  monthly_loss_kill_switch_pct: 8 # stop opening new trades if this month's loss exceeds this
+
+paper:
+  poll_seconds: 60
+  state_file: "state/paper_account.json"
+  trade_log: "state/paper_trades.csv"
