@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>App Development — United Apex Developers</title>
+<meta name="description" content="Custom mobile and web app development — booking platforms, marketplaces, client portals, and MVPs. Built from scratch and architected to scale by United Apex Developers.">
+<link rel="canonical" href="https://unitedapexdevelopers.com/app-development.html">
+<link rel="icon" type="image/x-icon" href="/assets/favicon.ico">
+<link rel="icon" type="image/png" sizes="32x32" href="/assets/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/assets/favicon-16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#FAFAF9">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="United Apex Developers">
+<meta property="og:title" content="App Development — United Apex Developers">
+<meta property="og:description" content="Custom mobile and web app development — booking platforms, marketplaces, client portals, and MVPs. Built from scratch and architected to scale by United Apex Developers.">
+<meta property="og:url" content="https://unitedapexdevelopers.com/app-development.html">
+<meta property="og:image" content="https://unitedapexdevelopers.com/assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="App Development — United Apex Developers">
+<meta name="twitter:description" content="Custom mobile and web app development — booking platforms, marketplaces, client portals, and MVPs.">
+<meta name="twitter:image" content="https://unitedapexdevelopers.com/assets/og-image.png">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "@id": "https://unitedapexdevelopers.com/#organization",
+  "name": "United Apex Developers",
+  "url": "https://unitedapexdevelopers.com/",
+  "description": "United Apex Developers is a remote AI business automation agency. We build AI receptionists and AI agents, high-converting websites, and custom mobile & web apps for businesses across the US, UK, Canada, and Europe.",
+  "email": "unitedapexdevelopers@gmail.com",
+  "areaServed": [
+    {"@type": "Country", "name": "United States"},
+    {"@type": "Country", "name": "United Kingdom"},
+    {"@type": "Country", "name": "Canada"},
+    {"@type": "Place", "name": "Europe"}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "App Development",
+  "provider": {"@type": "Organization", "name": "United Apex Developers", "url": "https://unitedapexdevelopers.com/"},
+  "areaServed": ["United States", "United Kingdom", "Canada", "Europe"],
+  "description": "Custom mobile and web app development — booking platforms, marketplaces, client portals, and MVPs, built from scratch and architected to scale.",
+  "url": "https://unitedapexdevelopers.com/app-development.html"
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://unitedapexdevelopers.com/"},
+    {"@type": "ListItem", "position": 2, "name": "App Development", "item": "https://unitedapexdevelopers.com/app-development.html"}
+  ]
+}
+</script>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0F172A; --muted:#475569; --faint:#94A3B8;
+  --bg:#FAFAF9; --bg-2:#F1F1EF; --line:#E2E2DD;
+  --blue:#1D4ED8; --blue-dim:rgba(29,78,216,.08);
+  --serif:'Newsreader',serif; --sans:'Inter',sans-serif;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.wrap{max-width:1280px;margin:0 auto;padding:0 2.5rem}
+a{color:inherit;text-decoration:none}
+img{max-width:100%}
+*:focus-visible{outline:2px solid var(--blue);outline-offset:3px}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
+
+/* ===== NAV ===== */
+nav{position:sticky;top:0;z-index:200;background:rgba(250,250,249,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.nav-inner{max-width:1280px;margin:0 auto;padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;height:76px}
+.brand{display:flex;align-items:center;gap:.6rem;font-family:var(--serif);font-weight:600;font-size:1.2rem;letter-spacing:-.01em;cursor:pointer}
+.brand em{font-style:normal;color:var(--blue)}
+.brand-mark{width:32px;height:auto;flex-shrink:0;display:block}
+.nav-links{display:flex;gap:2.2rem;list-style:none;font-size:.85rem;color:var(--muted)}
+.nav-links a{cursor:pointer;transition:color .2s}
+.nav-links a:hover,.nav-links a.active{color:var(--ink)}
+.nav-cta{border:1px solid var(--ink);padding:.55rem 1.3rem;border-radius:2px;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;white-space:nowrap;flex-shrink:0}
+.nav-cta:hover{background:var(--ink);color:var(--bg)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:.3rem;background:none;border:none;flex-shrink:0}
+.hamburger span{display:block;width:22px;height:2px;background:var(--ink);border-radius:2px}
+.mobile-menu{display:none;position:fixed;top:76px;left:0;right:0;background:var(--bg);border-bottom:1px solid var(--line);padding:1.2rem 2rem 1.6rem;z-index:199;flex-direction:column;gap:0}
+.mobile-menu.open{display:flex}
+.mobile-menu a{text-decoration:none;color:var(--muted);font-size:.92rem;padding:.8rem 0;border-bottom:1px solid var(--line)}
+@media(max-width:900px){.nav-links{display:none}.nav-cta{display:none}.hamburger{display:flex}}
+@media(max-width:480px){.nav-inner{padding:0 1.2rem}.brand{font-size:1rem;gap:.4rem}.brand-mark{width:24px}}
+
+.sec-head{display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;margin-bottom:3.5rem;align-items:end}
+.sec-tag{grid-column:1/13;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:1rem}
+.sec-title{grid-column:1/8;font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,2.8vw,2.4rem);line-height:1.18;letter-spacing:-.01em}
+.sec-sub{grid-column:8/13;font-size:.86rem;color:var(--muted);line-height:1.75;align-self:end}
+@media(max-width:900px){.sec-title{grid-column:1/13}.sec-sub{grid-column:1/13;margin-top:1rem}}
+.sec-head.center{text-align:center}
+.sec-head.center .sec-title{grid-column:3/11}
+.sec-head.center .sec-sub{grid-column:3/11;margin-top:1rem}
+@media(max-width:900px){.sec-head.center .sec-title,.sec-head.center .sec-sub{grid-column:1/13}}
+
+.btn-primary{background:var(--ink);color:var(--bg);padding:.85rem 1.6rem;border-radius:2px;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;display:inline-flex;align-items:center;gap:.5rem;border:none}
+.btn-primary:hover{background:var(--blue)}
+.btn-secondary{border:1px solid var(--line);color:var(--ink);padding:.85rem 1.6rem;border-radius:2px;font-size:.82rem;font-weight:500;cursor:pointer;transition:all .2s;background:var(--bg)}
+.btn-secondary:hover{border-color:var(--ink)}
+
+/* ===== PAGE HERO ===== */
+.page-hero{padding:5.5rem 0 4.5rem;border-bottom:1px solid var(--line);position:relative;overflow:hidden}
+.hero-cols{position:absolute;inset:0;max-width:1280px;margin:0 auto;display:grid;grid-template-columns:repeat(12,1fr);gap:1.5rem;padding:0 2.5rem;pointer-events:none;z-index:0}
+.hero-cols i{border-left:1px solid var(--line);height:100%;font-style:normal;opacity:.6}
+.page-hero-inner{position:relative;z-index:1;max-width:760px}
+.page-hero-inner .sec-tag{margin-bottom:1.4rem;display:flex;align-items:center;gap:.6rem}
+.page-hero-inner .sec-tag::before{content:'';width:28px;height:1px;background:var(--blue)}
+.page-hero-inner h1{font-family:var(--serif);font-weight:600;font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;letter-spacing:-.02em;margin-bottom:1.3rem}
+.page-hero-inner h1 em{font-style:italic;color:var(--blue)}
+.page-hero-inner p{font-size:.92rem;color:var(--muted);line-height:1.8;max-width:640px;margin-bottom:2rem}
+.hero-actions{display:flex;gap:.8rem;flex-wrap:wrap}
+@media(max-width:480px){.page-hero{padding:3rem 0 2.5rem}}
+
+/* ===== APPS GRID ===== */
+.apps{padding:5.5rem 0}
+.apps-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:0}
+.app-card{border-top:1px solid var(--line);border-left:1px solid var(--line);padding:1.8rem 1.7rem;display:flex;flex-direction:column}
+.app-card:nth-child(3n){border-right:1px solid var(--line)}
+.app-card:nth-last-child(-n+2){border-bottom:1px solid var(--line)}
+.app-name{font-family:var(--serif);font-size:1.12rem;font-weight:600;margin-bottom:.3rem}
+.app-for{font-size:.66rem;letter-spacing:.08em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:.9rem}
+.app-desc{font-size:.81rem;color:var(--muted);line-height:1.7;margin-bottom:1.1rem}
+.app-features{display:flex;flex-direction:column;gap:.4rem;margin-top:auto}
+.app-feat{font-size:.73rem;color:var(--muted);display:flex;gap:.5rem;align-items:flex-start;line-height:1.5}
+.app-feat::before{content:'—';color:var(--blue);flex-shrink:0}
+@media(max-width:900px){.apps-grid{grid-template-columns:1fr 1fr}.app-card:nth-child(3n){border-right:none}.app-card:nth-child(2n){border-right:1px solid var(--line)}.app-card:nth-last-child(-n+2){border-bottom:none}.app-card:nth-last-child(-n+2):nth-child(odd),.app-card:nth-last-child(-n+2):nth-child(even){border-bottom:1px solid var(--line)}}
+@media(max-width:600px){.apps-grid{grid-template-columns:1fr}.app-card{border-right:1px solid var(--line) !important}.app-card:last-child{border-bottom:1px solid var(--line) !important}}
+
+/* ===== PROCESS ===== */
+.how{padding:5.5rem 0;background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.steps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2rem}
+.step-card{border-top:2px solid var(--ink);padding-top:1.2rem}
+.step-num{font-family:var(--serif);font-size:1.6rem;color:var(--blue);margin-bottom:.6rem}
+.step-title{font-family:var(--serif);font-size:1.05rem;font-weight:600;margin-bottom:.5rem}
+.step-desc{font-size:.8rem;color:var(--muted);line-height:1.7}
+@media(max-width:900px){.steps-grid{grid-template-columns:repeat(2,1fr);row-gap:2rem}}
+@media(max-width:500px){.steps-grid{grid-template-columns:1fr}}
+
+/* ===== DEMO CHAT ===== */
+.demo{padding:5.5rem 0}
+.chat-wrapper{max-width:640px;margin:0 auto}
+.chat-box{background:var(--bg);border:1px solid var(--line)}
+.chat-header{padding:1.1rem 1.5rem;display:flex;align-items:center;gap:.9rem;border-bottom:1px solid var(--line)}
+.chat-avatar{width:38px;height:38px;background:var(--ink);color:var(--bg);border-radius:50%;display:flex;align-items:center;justify-content:center;font-family:var(--serif);font-size:.95rem;flex-shrink:0}
+.chat-agent-name{font-family:var(--serif);font-size:.95rem;font-weight:600}
+.chat-agent-status{font-size:.68rem;color:var(--muted);display:flex;align-items:center;gap:.4rem}
+.chat-agent-status::before{content:'';width:6px;height:6px;background:#16A34A;border-radius:50%}
+.chat-messages{height:320px;overflow-y:auto;padding:1.3rem;display:flex;flex-direction:column;gap:1rem}
+.msg{max-width:82%;display:flex;flex-direction:column;gap:.3rem}
+.msg.bot{align-self:flex-start}.msg.user{align-self:flex-end}
+.msg-bubble{padding:.7rem .95rem;border-radius:3px;font-size:.82rem;line-height:1.6}
+.msg.bot .msg-bubble{background:var(--bg-2);border:1px solid var(--line);color:var(--ink)}
+.msg.user .msg-bubble{background:var(--ink);color:var(--bg)}
+.msg-time{font-size:.62rem;color:var(--faint)}.msg.user .msg-time{text-align:right}
+.chat-suggestions{padding:.5rem 1.3rem 1rem;display:flex;gap:.5rem;flex-wrap:wrap}
+.sugg-btn{background:var(--bg);border:1px solid var(--line);color:var(--ink);font-size:.72rem;padding:.35rem .8rem;border-radius:100px;cursor:pointer;transition:all .2s;font-family:var(--sans)}
+.sugg-btn:hover{border-color:var(--ink)}
+.chat-input-row{padding:1rem 1.3rem;border-top:1px solid var(--line);display:flex;gap:.7rem;align-items:center}
+.chat-input{flex:1;background:var(--bg);border:1px solid var(--line);border-radius:2px;padding:.65rem .9rem;font-family:var(--sans);font-size:.83rem;color:var(--ink);outline:none;transition:border-color .2s}
+.chat-input:focus{border-color:var(--blue)}
+.chat-send{background:var(--ink);color:var(--bg);border:none;border-radius:2px;width:40px;height:38px;cursor:pointer;font-size:.95rem;transition:all .2s;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.chat-send:hover{background:var(--blue)}
+.typing-indicator{display:flex;gap:4px;align-items:center;padding:.7rem .95rem}
+.typing-dot{width:6px;height:6px;background:var(--blue);border-radius:50%;animation:typing .8s ease-in-out infinite}
+.typing-dot:nth-child(2){animation-delay:.15s}.typing-dot:nth-child(3){animation-delay:.3s}
+@keyframes typing{0%,60%,100%{transform:translateY(0);opacity:.5}30%{transform:translateY(-6px);opacity:1}}
+
+/* ===== CTA ===== */
+.cta{padding:5.5rem 0;text-align:center;background:var(--bg-2);border-top:1px solid var(--line)}
+.cta h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,3vw,2.4rem);letter-spacing:-.01em;margin-bottom:1rem}
+.cta p{font-size:.9rem;color:var(--muted);max-width:520px;margin:0 auto 2rem}
+.cta-actions{display:flex;justify-content:center;flex-wrap:wrap;gap:.8rem}
+
+/* ===== FOOTER ===== */
+footer{padding:2.8rem 0;border-top:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+.foot-brand{display:flex;align-items:center;gap:.5rem;font-family:var(--serif);font-weight:600;font-size:.95rem}
+.foot-brand em{font-style:normal;color:var(--blue)}
+.foot-txt{font-size:.72rem;color:var(--faint)}
+.foot-links{display:flex;gap:1.6rem;list-style:none}
+.foot-links a{color:var(--muted);text-decoration:none;font-size:.72rem;letter-spacing:.04em;transition:color .2s}
+.foot-links a:hover{color:var(--ink)}
+@media(max-width:700px){footer{flex-direction:column;text-align:center}.foot-links{justify-content:center;flex-wrap:wrap}}
+
+.breadcrumbs{padding:.9rem 0;border-bottom:1px solid var(--line);font-size:.78rem;color:var(--muted)}
+.breadcrumbs a{color:var(--muted);transition:color .2s}
+.breadcrumbs a:hover{color:var(--blue)}
+.breadcrumbs span{margin:0 .5rem;color:var(--faint)}
+.breadcrumbs .current{color:var(--ink)}
+
+.mobile-cta{display:none}
+@media(max-width:900px){
+  .mobile-cta{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:300;background:var(--ink);padding:.8rem 1rem;padding-bottom:calc(.8rem + env(safe-area-inset-bottom));box-shadow:0 -4px 20px rgba(0,0,0,.12)}
+  .mobile-cta a{flex:1;text-align:center;color:var(--bg);font-size:.85rem;font-weight:600;padding:.75rem;border-radius:2px}
+  body{padding-bottom:64px}
+}
+</style>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-H12MK18N7X"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-H12MK18N7X');
+</script>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="brand">
+      <img class="brand-mark" src="assets/brand/uad-icon.png" alt="United Apex Developers">
+      United <em>Apex</em> Developers
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="ai-agents.html">AI Receptionist</a></li>
+      <li><a href="app-development.html" class="active">App Development</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+    </ul>
+    <a href="index.html#contact" class="nav-cta">Get Started</a>
+    <button class="hamburger" onclick="document.getElementById('mob').classList.toggle('open')" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mob">
+  <a href="index.html">Home</a>
+  <a href="ai-agents.html">AI Receptionist</a>
+  <a href="app-development.html">App Development</a>
+  <a href="about.html">About</a>
+  <a href="faq.html">FAQ</a>
+  <a href="index.html#contact">Get Started</a>
+</div>
+
+<div class="breadcrumbs">
+  <div class="wrap">
+    <a href="index.html">Home</a><span>/</span><span class="current">App Development</span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="page-hero">
+  <div class="hero-cols" aria-hidden="true">
+    <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i style="border-right:1px solid var(--line)"></i>
+  </div>
+  <div class="wrap">
+    <div class="page-hero-inner">
+      <div class="sec-tag">Custom App Development</div>
+      <h1>Apps built to <em>launch and scale</em>.</h1>
+      <p>We design, build, and deploy custom mobile and web apps — from focused MVPs to full marketplace platforms. Built from scratch, architected to scale, and documented so your app never depends on one person to maintain it.</p>
+      <div class="hero-actions">
+        <a href="index.html#contact" class="btn-primary">Start Your App →</a>
+        <a href="#demo" class="btn-secondary">Try the Demo</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- APPS -->
+<section class="apps" id="apps">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">What We Build</div>
+      <h2 class="sec-title">App types we build.</h2>
+      <p class="sec-sub">Every app is scoped around what your business actually needs — no bloated builds, no unnecessary complexity. Just the right product, shipped well.</p>
+    </div>
+    <div class="apps-grid">
+
+      <div class="app-card">
+        <div class="app-name">Mobile Apps</div>
+        <div class="app-for">For Consumer &amp; Business Apps</div>
+        <div class="app-desc">Native-quality iOS and Android apps built from a single codebase — fast, polished, and ready for the App Store and Google Play.</div>
+        <div class="app-features">
+          <div class="app-feat">iOS &amp; Android from one build</div>
+          <div class="app-feat">Push notifications &amp; offline support</div>
+          <div class="app-feat">App Store &amp; Play Store submission</div>
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-name">Web Applications &amp; SaaS Platforms</div>
+        <div class="app-for">For Startups, SaaS Products, Internal Tools</div>
+        <div class="app-desc">Browser-based applications — dashboards, subscription products, and internal tools — built for speed, no install required.</div>
+        <div class="app-features">
+          <div class="app-feat">User accounts &amp; subscription billing</div>
+          <div class="app-feat">Real-time data &amp; dashboards</div>
+          <div class="app-feat">Scalable cloud architecture</div>
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-name">E-Commerce &amp; Booking Apps</div>
+        <div class="app-for">For Retailers, Service Businesses, Rental Operators</div>
+        <div class="app-desc">Apps that let customers browse, book, and pay — whether you're selling products, appointments, or packaged services.</div>
+        <div class="app-features">
+          <div class="app-feat">Product/service catalog &amp; search</div>
+          <div class="app-feat">Stripe, PayPal &amp; other payment integration</div>
+          <div class="app-feat">Booking &amp; scheduling flows</div>
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-name">Marketplace &amp; Two-Sided Platforms</div>
+        <div class="app-for">For On-Demand Services, Provider Networks</div>
+        <div class="app-desc">Platforms connecting customers with providers — booking, quoting, live tracking, and payouts, built for both sides of the transaction.</div>
+        <div class="app-features">
+          <div class="app-feat">Customer &amp; provider apps</div>
+          <div class="app-feat">Split payments &amp; provider payouts</div>
+          <div class="app-feat">Live tracking &amp; in-app chat</div>
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-name">Business &amp; Internal Tools</div>
+        <div class="app-for">For Growing Teams, Operations</div>
+        <div class="app-desc">Custom internal dashboards, inventory systems, and workflow tools that replace spreadsheets with one built-for-you system.</div>
+        <div class="app-features">
+          <div class="app-feat">Role-based staff access</div>
+          <div class="app-feat">Custom workflows &amp; reporting</div>
+          <div class="app-feat">Integrates with your existing tools</div>
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-name">MVP Development for Startups</div>
+        <div class="app-for">For Founders Validating a New Idea</div>
+        <div class="app-desc">A lean, focused build that proves your core idea works — fast enough to get in front of users or investors without overbuilding.</div>
+        <div class="app-features">
+          <div class="app-feat">Scoped to core value proposition only</div>
+          <div class="app-feat">Fast build, phased roadmap after</div>
+          <div class="app-feat">Investor-ready demo quality</div>
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-name">Client &amp; Admin Portals</div>
+        <div class="app-for">For Agencies, Service Providers, Multi-Role Businesses</div>
+        <div class="app-desc">Secure, role-based portals where clients, staff, and admins each see exactly what they need — nothing more, nothing less.</div>
+        <div class="app-features">
+          <div class="app-feat">Multi-role access control</div>
+          <div class="app-feat">Secure authentication</div>
+          <div class="app-feat">Custom dashboards per role</div>
+        </div>
+      </div>
+
+      <div class="app-card">
+        <div class="app-name">API &amp; Third-Party Integrations</div>
+        <div class="app-for">For Existing Apps Needing New Capabilities</div>
+        <div class="app-desc">Connect your app to payments, maps, CRMs, and other platforms — or expose your own API for partners and integrations.</div>
+        <div class="app-features">
+          <div class="app-feat">Payment gateway integration</div>
+          <div class="app-feat">Maps, notifications &amp; third-party APIs</div>
+          <div class="app-feat">Custom API development</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="how">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Process</div>
+      <h2 class="sec-title">How we build your app.</h2>
+      <p class="sec-sub">A clear, phased process — so you always know what's being built, why, and when it ships.</p>
+    </div>
+    <div class="steps-grid">
+      <div class="step-card"><div class="step-num">01</div><div class="step-title">Discovery &amp; Scope</div><div class="step-desc">We learn your business and users, define the core features that matter first, and agree a phased build plan.</div></div>
+      <div class="step-card"><div class="step-num">02</div><div class="step-title">Design</div><div class="step-desc">We design the user experience and screens before writing code, so you approve the product before it's built.</div></div>
+      <div class="step-card"><div class="step-num">03</div><div class="step-title">Build &amp; Test</div><div class="step-desc">We build in phases with regular check-ins, testing continuously rather than all at once at the end.</div></div>
+      <div class="step-card"><div class="step-num">04</div><div class="step-title">Launch + Support</div><div class="step-desc">We handle store submission and deployment, then stay on for support and the next phase of features.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO CHAT -->
+<section class="demo" id="demo">
+  <div class="wrap">
+    <div class="sec-head center">
+      <div class="sec-tag">Live Demo</div>
+      <h2 class="sec-title">Ask about your app idea.</h2>
+      <p class="sec-sub">Ask this AI agent what kind of app fits your idea, how long it might take, or how we scope a project.</p>
+    </div>
+    <div class="chat-wrapper">
+      <div class="chat-box">
+        <div class="chat-header">
+          <div class="chat-avatar">A</div>
+          <div>
+            <div class="chat-agent-name">Apex App Advisor</div>
+            <div class="chat-agent-status">Online</div>
+          </div>
+        </div>
+        <div class="chat-messages" id="chatMessages">
+          <div class="msg bot">
+            <div class="msg-bubble">Hi! I'm your App Advisor. Tell me about the app idea you have in mind and I'll help you think through what type of app it is, roughly how it should be scoped, and what to expect. What are you looking to build?</div>
+            <div class="msg-time">Just now</div>
+          </div>
+        </div>
+        <div class="chat-suggestions">
+          <button class="sugg-btn" onclick="sendSuggestion(this)">I want to build a marketplace app</button>
+          <button class="sugg-btn" onclick="sendSuggestion(this)">I need an MVP for my startup</button>
+          <button class="sugg-btn" onclick="sendSuggestion(this)">Website vs app — which do I need?</button>
+          <button class="sugg-btn" onclick="sendSuggestion(this)">How long does app development take?</button>
+        </div>
+        <div class="chat-input-row">
+          <input type="text" class="chat-input" id="chatInput" placeholder="Describe your app idea or ask a question..." onkeydown="if(event.key==='Enter')sendMessage()">
+          <button class="chat-send" onclick="sendMessage()">→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta">
+  <div class="wrap">
+    <h2>Ready to build your app?</h2>
+    <p>Tell us about your idea and we'll come back with a phased scope and timeline — not just a guess.</p>
+    <div class="cta-actions">
+      <a href="index.html#contact" class="btn-primary">Get Started — Free Consultation →</a>
+      <a href="ai-agents.html" class="btn-secondary">Also Need an AI Receptionist?</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap" style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem;width:100%">
+    <div>
+      <div class="foot-brand">United <em>Apex</em> Developers</div>
+      <div class="foot-txt" style="margin-top:.3rem">Global AI Business Automation, Web &amp; App Development Agency</div>
+    </div>
+    <ul class="foot-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="ai-agents.html">AI Receptionist</a></li>
+      <li><a href="app-development.html">App Development</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="faq.html">FAQ</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
+    </ul>
+    <div class="foot-txt">© 2026 United Apex Developers. All rights reserved.</div>
+  </div>
+</footer>
+
+<div class="mobile-cta">
+  <a href="index.html#contact">Get Started →</a>
+</div>
+
+<script>
+const SYSTEM_PROMPT = `You are the App Advisor for United Apex Developers. Help visitors think through what kind of app fits their idea.
+
+App types we build:
+- Mobile Apps (iOS & Android, single codebase)
+- Web Applications & SaaS Platforms
+- E-Commerce & Booking Apps
+- Marketplace & Two-Sided Platforms (customer + provider apps)
+- Business & Internal Tools
+- MVP Development for Startups
+- Client & Admin Portals (role-based access)
+- API & Third-Party Integrations
+
+Tech approach: apps are custom-built (not templated) and architected to scale, with phased delivery and clear milestones.
+Timeline: varies by scope — a focused MVP is much faster than a full marketplace platform. Always recommend a discovery call for a real phased timeline rather than a single guess.
+Pricing: Custom quotes based on scope and complexity. Do not state or estimate specific dollar figures — direct pricing questions to the contact form.
+Contact: unitedapexdevelopers@gmail.com
+
+When someone describes their idea, help them understand what type of app it is, flag if a website or AI receptionist might actually suit them better, and explain briefly what a sensible first phase would look like. Keep responses under 150 words. Be honest and helpful, not salesy.`;
+
+async function sendMessage() {
+  const input = document.getElementById('chatInput');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+  appendMessage(msg, 'user');
+  showTyping();
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYSTEM_PROMPT,messages:[{role:'user',content:msg}]})
+    });
+    const data = await res.json();
+    hideTyping();
+    appendMessage(data.content?.[0]?.text || "Please email unitedapexdevelopers@gmail.com and we'll help you scope your app idea!", 'bot');
+  } catch(e) {
+    hideTyping();
+    appendMessage("Please email unitedapexdevelopers@gmail.com and we'll help you scope your app idea!", 'bot');
+  }
+}
+function sendSuggestion(btn){document.getElementById('chatInput').value=btn.textContent;sendMessage()}
+function appendMessage(text,sender){const box=document.getElementById('chatMessages');const d=document.createElement('div');d.className=`msg ${sender}`;const now=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'});d.innerHTML=`<div class="msg-bubble">${text}</div><div class="msg-time">${now}</div>`;box.appendChild(d);box.scrollTop=box.scrollHeight}
+let typingEl=null;
+function showTyping(){const box=document.getElementById('chatMessages');typingEl=document.createElement('div');typingEl.className='msg bot';typingEl.id='typingIndicator';typingEl.innerHTML='<div class="msg-bubble"><div class="typing-indicator"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';box.appendChild(typingEl);box.scrollTop=box.scrollHeight}
+function hideTyping(){const el=document.getElementById('typingIndicator');if(el)el.remove()}
+</script>
+</body>
+</html>
