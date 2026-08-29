@@ -66,6 +66,16 @@
   ]
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://unitedapexdevelopers.com/"},
+    {"@type": "ListItem", "position": 2, "name": "FAQ", "item": "https://unitedapexdevelopers.com/faq.html"}
+  ]
+}
+</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{
@@ -155,6 +165,19 @@ footer{padding:2.8rem 0;border-top:1px solid var(--line);display:flex;justify-co
 .foot-links a{color:var(--muted);text-decoration:none;font-size:.72rem;letter-spacing:.04em;transition:color .2s}
 .foot-links a:hover{color:var(--ink)}
 @media(max-width:700px){footer{flex-direction:column;text-align:center}.foot-links{justify-content:center;flex-wrap:wrap}}
+
+.breadcrumbs{padding:.9rem 0;border-bottom:1px solid var(--line);font-size:.78rem;color:var(--muted)}
+.breadcrumbs a{color:var(--muted);transition:color .2s}
+.breadcrumbs a:hover{color:var(--blue)}
+.breadcrumbs span{margin:0 .5rem;color:var(--faint)}
+.breadcrumbs .current{color:var(--ink)}
+
+.mobile-cta{display:none}
+@media(max-width:900px){
+  .mobile-cta{display:flex;position:fixed;bottom:0;left:0;right:0;z-index:300;background:var(--ink);padding:.8rem 1rem;padding-bottom:calc(.8rem + env(safe-area-inset-bottom));box-shadow:0 -4px 20px rgba(0,0,0,.12)}
+  .mobile-cta a{flex:1;text-align:center;color:var(--bg);font-size:.85rem;font-weight:600;padding:.75rem;border-radius:2px}
+  body{padding-bottom:64px}
+}
 </style>
 </head>
 <body>
@@ -185,6 +208,12 @@ footer{padding:2.8rem 0;border-top:1px solid var(--line);display:flex;justify-co
   <a href="about.html">About</a>
   <a href="faq.html">FAQ</a>
   <a href="index.html#contact">Get Started</a>
+</div>
+
+<div class="breadcrumbs">
+  <div class="wrap">
+    <a href="index.html">Home</a><span>/</span><span class="current">FAQ</span>
+  </div>
 </div>
 
 <!-- HERO -->
@@ -475,10 +504,15 @@ footer{padding:2.8rem 0;border-top:1px solid var(--line);display:flex;justify-co
       <li><a href="app-development.html">App Development</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="faq.html">FAQ</a></li>
+      <li><a href="privacy-policy.html">Privacy Policy</a></li>
     </ul>
     <div class="foot-txt">© 2026 United Apex Developers. All rights reserved.</div>
   </div>
 </footer>
+
+<div class="mobile-cta">
+  <a href="index.html#contact">Get Started →</a>
+</div>
 
 <script>
 function toggleFAQ(id) {
