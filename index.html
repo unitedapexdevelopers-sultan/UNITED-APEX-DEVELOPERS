@@ -73,6 +73,23 @@ section{position:relative}
 .btn-outline-dark:hover{border-color:var(--blue);color:var(--blue);transform:translateY(-3px)}
 .btn-sm{padding:11px 22px;font-size:.85rem}
 
+/* ---- label-slide + icon-swap hover effect (applied to every .btn by btn-fx.js) ---- */
+.btn-label{position:relative;display:inline-block;overflow:hidden;vertical-align:middle;white-space:nowrap}
+.btn-label-ghost{visibility:hidden;display:block}
+.btn-label-up,.btn-label-down{position:absolute;left:0;top:0;display:block;white-space:nowrap;transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.btn-label-down{transform:translateY(100%)}
+.btn:hover .btn-label-up,.btn:focus-visible .btn-label-up{transform:translateY(-100%)}
+.btn:hover .btn-label-down,.btn:focus-visible .btn-label-down{transform:translateY(0)}
+.btn-ic{position:relative;width:15px;height:15px;flex-shrink:0;display:inline-flex;vertical-align:middle;overflow:hidden}
+.btn-ic svg{width:100%;height:100%;display:block}
+.btn-ic-out,.btn-ic-in{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:transform .25s ease,opacity .25s ease}
+.btn-ic-in{opacity:0;transform:translate(-7px,7px)}
+.btn:hover .btn-ic-out,.btn:focus-visible .btn-ic-out{opacity:0;transform:translate(7px,-7px)}
+.btn:hover .btn-ic-in,.btn:focus-visible .btn-ic-in{opacity:1;transform:translate(0,0)}
+@media (prefers-reduced-motion: reduce){
+  .btn-label-up,.btn-label-down,.btn-ic-out,.btn-ic-in{transition:none}
+}
+
 /* ============ HEADER ============ */
 header{
   position:fixed;top:0;left:0;right:0;z-index:1000;
@@ -1684,6 +1701,52 @@ window.addEventListener('DOMContentLoaded',()=>{
   setHeaderState();initCounters();
   setTimeout(initCounters,400);
 });
+
+/* ===================== BUTTON FX (label-slide + icon-swap, every .btn) ===================== */
+(function(){
+  function defaultArrow(){
+    return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7"/><path d="M7 7h10v10"/></svg>';
+  }
+  function enhanceButton(btn){
+    if(!btn || btn.dataset.fx || btn.classList.contains('filter-btn')) return;
+    var nodes=Array.prototype.slice.call(btn.childNodes);
+    var svgEl=btn.querySelector('svg');
+    var label='';
+    var textIdx=-1;
+    nodes.forEach(function(n,i){
+      if(n.nodeType===3){
+        label+=n.textContent;
+        if(textIdx===-1 && n.textContent.trim()) textIdx=i;
+      }
+    });
+    label=label.trim();
+    if(!label) return; // icon-only button — leave it alone
+    var svgIsFirst=false;
+    if(svgEl){
+      var svgIdx=nodes.indexOf(svgEl);
+      svgIsFirst = textIdx===-1 ? true : svgIdx<textIdx;
+    }
+    btn.dataset.fx='1';
+    var labelHtml='<span class="btn-label"><span class="btn-label-ghost">'+label+'</span><span class="btn-label-up">'+label+'</span><span class="btn-label-down">'+label+'</span></span>';
+    var glyph=svgEl?svgEl.outerHTML:defaultArrow();
+    var iconHtml='<span class="btn-ic"><span class="btn-ic-out">'+glyph+'</span><span class="btn-ic-in">'+glyph+'</span></span>';
+    btn.innerHTML = svgIsFirst ? (iconHtml+labelHtml) : (labelHtml+iconHtml);
+  }
+  function enhanceAll(root){
+    (root||document).querySelectorAll('.btn').forEach(enhanceButton);
+  }
+  enhanceAll();
+  var fxObserver=new MutationObserver(function(muts){
+    muts.forEach(function(m){
+      m.addedNodes.forEach(function(n){
+        if(n.nodeType!==1) return;
+        if(n.classList && n.classList.contains('btn')) enhanceButton(n);
+        if(n.querySelectorAll) n.querySelectorAll('.btn').forEach(enhanceButton);
+      });
+    });
+  });
+  fxObserver.observe(document.body,{childList:true,subtree:true});
+})();
 </script>
 </body>
 </html>
