@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>UTS · Create tracking link</title>
+<link rel="stylesheet" href="/assets/uts-track.css">
+</head>
+<body>
+<div class="top"><div><b>Create a tracking link</b><span>Staff only · you won't see the vehicle's location</span></div></div>
+<div class="wrap">
+  <div class="card" id="form">
+    <h2>Share one vehicle's live location</h2>
+    <p>The link works only for this vehicle and stops working after the time you choose. Send it to the customer or student, or paste it back into the UTS app.</p>
+    <label for="plate">Vehicle plate</label>
+    <input id="plate" placeholder="e.g. RIS-3590" autocomplete="off">
+    <label for="hours">Link valid for</label>
+    <select id="hours">
+      <option value="12">12 hours</option><option value="24">1 day</option><option value="48" selected>2 days</option>
+      <option value="168">1 week</option><option value="720">1 month</option><option value="2880">4 months (term)</option>
+    </select>
+    <label for="pw">Admin tracking password</label>
+    <input type="password" id="pw" placeholder="Admin password" autocomplete="current-password">
+    <div class="err" id="err"></div>
+    <button class="btn primary" id="go">Create tracking link</button>
+  </div>
+  <div class="card hide" id="done">
+    <h2 id="doneTitle">Tracking link ready</h2>
+    <p id="doneText"></p>
+    <div class="linkbox" id="link"></div>
+    <button class="btn primary" id="copy">Copy link</button>
+    <a class="btn green" id="wa" target="_blank" rel="noopener">Send on WhatsApp</a>
+    <button class="btn ghost" id="again">Create another</button>
+  </div>
+</div>
+<script src="/assets/uts-track.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const q = new URLSearchParams(location.search);
+if(q.get('plate')) $('plate').value = q.get('plate');
+if(q.get('hours')){
+  const h = Number(q.get('hours'));
+  if(![...$('hours').options].some(o => +o.value === h) && h > 0){ $('hours').add(new Option('Until the trip ends (' + Math.round(h/24*10)/10 + ' days)', h, true, true)); }
+  else $('hours').value = h;
+}
+const saved = UTS.ss.get('uts:adm'); if(saved) $('pw').value = saved;
+function err(m){ $('err').textContent = m || ''; $('err').style.display = m ? 'block' : 'none'; }
+$('go').onclick = async () => {
+  const plate = $('plate').value.trim(), pw = $('pw').value;
+  if(!plate){ err('Enter the vehicle plate.'); return; }
+  if(!pw){ err('Enter the admin password.'); return; }
+  err(''); $('go').textContent = 'Creating…';
+  try{
+    const { status, body } = await UTS.post('/api/share/create', { password: pw, plate, hours: +$('hours').value, label: q.get('for') === 'student' ? 'Student' : 'Booking' });
+    if(status === 401){ UTS.ss.del('uts:adm'); err('Wrong password.'); return; }
+    if(status === 404){ err('No tracker found for ' + plate + ' — check the plate number.'); return; }
+    if(status !== 200){ err(body.error || 'Tracker unavailable — try again shortly.'); return; }
+    UTS.ss.set('uts:adm', pw);
+    const url = location.origin + '/track.html?pass=' + encodeURIComponent(body.pass);
+    const until = new Date(body.expiresAt).toLocaleString('en-PK', { timeZone: 'Asia/Karachi', day: 'numeric', month: 'short', hour: 'numeric', minute: '2-digit' });
+    $('doneText').textContent = 'Live location of ' + body.plate + ', valid until ' + until + '. Copy it into the booking in the UTS app (paste box under “Share live location”), or send it directly.';
+    $('link').textContent = url;
+    $('wa').href = 'https://wa.me/?text=' + encodeURIComponent('Track your UTS vehicle (' + body.plate + ') live: ' + url);
+    $('form').classList.add('hide'); $('done').classList.remove('hide');
+  }catch(e){ err('No connection — try again.'); }
+  finally{ $('go').textContent = 'Create tracking link'; }
+};
+$('copy').onclick = async () => {
+  try{ await navigator.clipboard.writeText($('link').textContent); $('copy').textContent = 'Copied ✓'; }
+  catch(e){ const r = document.createRange(); r.selectNodeContents($('link')); getSelection().removeAllRanges(); getSelection().addRange(r); $('copy').textContent = 'Selected — press Copy'; }
+  setTimeout(() => $('copy').textContent = 'Copy link', 2500);
+};
+$('again').onclick = () => { $('done').classList.add('hide'); $('form').classList.remove('hide'); };
+</script>
+</body>
+</html>
