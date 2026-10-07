@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<meta name="referrer" content="no-referrer">
+<title>Track your UTS ride</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="/assets/uts-track.css">
+<style>.pulse{width:11px;height:11px;border-radius:50%;display:inline-block;margin-right:6px;vertical-align:middle}</style>
+</head>
+<body>
+<div class="top"><div><b>United Transport Services</b><span>Live vehicle location</span></div></div>
+<div class="wrap">
+  <div class="card" id="info"><p style="margin:0">Loading live location…</p></div>
+  <div class="map hide" id="map"></div>
+  <a class="btn green hide" id="gmaps" target="_blank" rel="noopener">Open in Google Maps</a>
+  <p class="muted" style="text-align:center;margin-top:10px">Updates automatically every 20 seconds.</p>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="/assets/uts-track.js"></script>
+<script>
+const $ = id => document.getElementById(id);
+const pass = new URLSearchParams(location.search).get('pass') || '';
+let map = null, marker = null, first = true;
+async function tick(){
+  try{
+    const r = await fetch('/api/share?pass=' + encodeURIComponent(pass));
+    const j = await r.json().catch(() => ({}));
+    if(r.status === 403){ $('info').innerHTML = '<h2>Tracking has ended</h2><p style="margin:0">This tracking link has expired or was not valid. Contact UTS if you still need it.</p>'; $('map').classList.add('hide'); $('gmaps').classList.add('hide'); return; }
+    if(r.status !== 200 || !j.vehicle){ $('info').innerHTML = '<h2>Location unavailable</h2><p style="margin:0">' + UTS.esc(j.error || 'We couldn’t get the location right now — retrying.') + '</p>'; }
+    else {
+      const v = j.vehicle, st = UTS.status(v.status), t = UTS.time(v.time);
+      const label = v.status === 'online' ? 'On the move · ' + v.speed + ' km/h' : v.status === 'engine' ? 'Engine on, standing' : v.status === 'offline' ? 'No signal right now' : 'Parked';
+      $('info').innerHTML = '<h2><span class="pulse" style="background:' + st.color + '"></span>' + UTS.esc(v.plate) + '</h2><div style="font-size:.9rem;line-height:1.7">' + label + '<br>' + UTS.esc(UTS.near(v.lat, v.lng)) + '<br><span class="muted">Updated ' + UTS.clock(t) + ' (' + UTS.ago(t) + ')</span></div>';
+      $('map').classList.remove('hide'); $('gmaps').classList.remove('hide'); $('gmaps').href = UTS.maps(v.lat, v.lng);
+      if(!map){ map = UTS.baseMap('map', [v.lat, v.lng], 15); }
+      if(!marker){ marker = L.circleMarker([v.lat, v.lng], { radius: 11, color: '#fff', weight: 3, fillColor: st.color, fillOpacity: 1 }).addTo(map); }
+      else { marker.setLatLng([v.lat, v.lng]).setStyle({ fillColor: st.color }); }
+      if(first){ map.setView([v.lat, v.lng], 15); first = false; } else map.panTo([v.lat, v.lng]);
+      map.invalidateSize();
+    }
+  }catch(e){ $('info').innerHTML = '<h2>No connection</h2><p style="margin:0">Check your internet — retrying.</p>'; }
+  setTimeout(tick, 20000);
+}
+if(!pass){ $('info').innerHTML = '<h2>Missing tracking link</h2><p style="margin:0">Open the full link UTS sent you.</p>'; } else tick();
+</script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+:root{
+  --navy:#2D1B69; --navy-dark:#1D1145; --blue:#0A94DB; --blue-dark:#07659A; --blue-tint:#E5F5FD;
+  --gold:#E8791A; --gold-tint:#FDEEE0; --green:#16A34A; --red:#DC2626; --grey:#94A3B8;
+  --bg:#F7F8FA; --card:#FFFFFF; --line:#E4E8ED; --ink:#1D1145; --muted:#5B6478;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased}
+.top{background:linear-gradient(135deg,var(--navy),var(--blue-dark) 130%);color:#fff;padding:14px 16px;display:flex;align-items:center;gap:10px}
+.top b{font-size:1rem}.top span{font-size:.75rem;opacity:.8;display:block}
+.wrap{max-width:760px;margin:0 auto;padding:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin-bottom:12px}
+.card h2{font-size:1rem;color:var(--navy-dark);margin-bottom:6px}
+.card p{font-size:.85rem;color:var(--muted);line-height:1.5;margin-bottom:10px}
+label{display:block;font-size:.75rem;font-weight:700;color:var(--navy-dark);margin:10px 0 4px}
+input,select{width:100%;padding:12px;border:1px solid var(--line);border-radius:10px;font-size:1rem;font-family:inherit;background:#fff;color:var(--ink)}
+.btn{display:block;width:100%;text-align:center;text-decoration:none;border:0;border-radius:10px;padding:13px;font-size:.95rem;font-weight:700;font-family:inherit;cursor:pointer;margin-top:12px;min-height:46px}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.green{background:var(--green);color:#fff}
+.btn.ghost{background:var(--gold-tint);color:var(--gold)}
+.err{color:var(--red);font-size:.8rem;margin-top:8px;line-height:1.5;display:none}
+.muted{color:var(--muted);font-size:.78rem;line-height:1.5}
+.dot{display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:5px;vertical-align:middle}
+.s-online{background:var(--green)}.s-engine{background:var(--gold)}.s-ack{background:var(--blue)}.s-offline{background:var(--grey)}
+.map{height:56vh;min-height:320px;border-radius:14px;border:1px solid var(--line);overflow:hidden;background:#EEF4FA}
+.hide{display:none!important}
+.linkbox{word-break:break-all;background:var(--blue-tint);border-radius:10px;padding:10px;font-size:.78rem;color:var(--navy-dark);margin-top:10px}
+.leaflet-container{font-family:inherit}
