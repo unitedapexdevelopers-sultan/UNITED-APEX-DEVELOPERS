@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="robots" content="noindex">
+<title>UTS Live Fleet</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<link rel="stylesheet" href="/assets/uts-track.css">
+<style>
+.stats{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-bottom:10px}
+.stat{border:1.5px solid var(--line);background:#fff;border-radius:10px;padding:8px 2px;text-align:center;cursor:pointer;font-family:inherit}
+.stat b{display:block;font-size:1.05rem;color:var(--navy-dark)}
+.stat span{font-size:.6rem;font-weight:700;text-transform:uppercase;color:var(--muted)}
+.stat.active{border-color:var(--navy);box-shadow:0 0 0 2px var(--navy)}
+.row{display:flex;align-items:center;gap:8px;padding:10px 4px;border-bottom:1px solid var(--line);cursor:pointer;font-size:.85rem}
+.row .p{font-weight:700;min-width:96px}.row .m{flex:1;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.tools{display:flex;gap:8px;margin:12px 0 4px}
+</style>
+</head>
+<body>
+<div class="top"><div><b>UTS Live Fleet</b><span>Managers only · updates every 30 seconds</span></div></div>
+<div class="wrap">
+  <div class="card" id="login">
+    <h2>Manager sign-in</h2>
+    <p>Enter the manager tracking password (set on the UTS tracking server). It's kept only until you close this tab.</p>
+    <input type="password" id="pw" placeholder="Manager password" autocomplete="current-password">
+    <div class="err" id="err"></div>
+    <button class="btn primary" id="go">Show live fleet</button>
+  </div>
+  <div id="main" class="hide">
+    <div class="stats" id="stats"></div>
+    <div class="map" id="map"></div>
+    <div class="card" id="detail" style="margin-top:12px"><p style="margin:0">Tap a vehicle on the map or in the list.</p></div>
+    <div class="tools"><input type="search" id="q" placeholder="Search plate e.g. RIS-3590"></div>
+    <div class="card" style="padding:4px 12px"><div id="list"></div></div>
+    <p class="muted" id="upd" style="text-align:center"></p>
+    <button class="btn ghost" id="lock">Lock live fleet</button>
+  </div>
+</div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script src="/assets/uts-track.js"></script>
+<script>
+let data = [], filter = 'all', sel = null, timer = null, showAll = false, map = null, layer = null;
+const $ = id => document.getElementById(id);
+function err(msg){ $('err').textContent = msg || ''; $('err').style.display = msg ? 'block' : 'none'; }
+async function load(pw){
+  clearTimeout(timer);
+  pw = pw || UTS.ss.get('uts:mgr');
+  if(!pw){ return; }
+  try{
+    const { status, body } = await UTS.post('/api/fleet', { password: pw });
+    if(status === 401){ UTS.ss.del('uts:mgr'); show(false); err('Wrong password.'); return; }
+    if(status === 200 && body.role !== 'manager'){ show(false); err('That’s the admin password — the live map needs the manager password.'); return; }
+    if(status !== 200){ err(body.error || 'Tracker unavailable — retrying.'); }
+    else { UTS.ss.set('uts:mgr', pw); data = body.vehicles || []; show(true); render(); }
+  }catch(e){ err('No connection — retrying.'); }
+  timer = setTimeout(() => load(), 30000);
+}
+function show(on){
+  $('login').classList.toggle('hide', on); $('main').classList.toggle('hide', !on);
+  if(on && !map){ map = UTS.baseMap('map', [30.4, 69.4], 5); layer = L.layerGroup().addTo(map); }
+  if(on) setTimeout(() => map.invalidateSize(), 50);
+}
+function visible(){
+  const q = $('q').value.toUpperCase().replace(/[^A-Z0-9]/g, '');
+  return data.filter(v => (filter === 'all' || v.status === filter) && (!q || v.plate.toUpperCase().replace(/[^A-Z0-9]/g, '').includes(q)));
+}
+function render(){
+  const c = { all: data.length, online: 0, engine: 0, ack: 0, offline: 0 };
+  data.forEach(v => { if(c[v.status] !== undefined) c[v.status]++; });
+  $('stats').innerHTML = [['all','All',''],['online','Moving','s-online'],['engine','Engine on','s-engine'],['ack','Parked','s-ack'],['offline','Offline','s-offline']]
+    .map(([k,l,cls]) => `<button class="stat${filter===k?' active':''}" data-f="${k}"><b>${c[k]}</b><span>${cls?`<i class="dot ${cls}"></i>`:''}${l}</span></button>`).join('');
+  const vis = visible();
+  layer.clearLayers();
+  vis.slice().sort((a,b) => UTS.status(b.status).order - UTS.status(a.status).order).forEach(v => {
+    const st = UTS.status(v.status);
+    L.circleMarker([v.lat, v.lng], { radius: v.plate === sel ? 10 : 6, color: v.plate === sel ? '#1D1145' : '#fff', weight: 2, fillColor: st.color, fillOpacity: 1 })
+      .on('click', () => select(v.plate, false)).bindTooltip(v.plate).addTo(layer);
+  });
+  detail();
+  const list = vis.slice().sort((a,b) => UTS.status(a.status).order - UTS.status(b.status).order || a.plate.localeCompare(b.plate));
+  const shown = (showAll || $('q').value.trim()) ? list : list.slice(0, 25);
+  $('list').innerHTML = (list.length ? shown.map(v => {
+    const st = UTS.status(v.status);
+    return `<div class="row" data-p="${UTS.esc(v.plate)}"><span class="p"><i class="dot ${st.cls}"></i>${UTS.esc(v.plate)}</span><span class="m">${st.label}${v.status==='online'?' · '+v.speed+' km/h':''} · ${UTS.esc(UTS.near(v.lat, v.lng))}</span><span class="m" style="flex:0 0 auto">${UTS.ago(UTS.time(v.time))}</span></div>`;
+  }).join('') : '<p class="muted" style="padding:10px 0">No vehicles match.</p>') +
+    (shown.length < list.length ? `<button class="btn ghost" id="all">Show all ${list.length} vehicles</button>` : '');
+  $('upd').textContent = `Showing ${vis.length} of ${data.length} vehicles · refreshed ${new Date().toLocaleTimeString([], { hour: 'numeric', minute: '2-digit', second: '2-digit' })}`;
+}
+function detail(){
+  const v = sel && data.find(x => x.plate === sel);
+  if(!v){ $('detail').innerHTML = '<p style="margin:0">Tap a vehicle on the map or in the list.</p>'; return; }
+  const st = UTS.status(v.status), t = UTS.time(v.time);
+  $('detail').innerHTML = `<h2>${UTS.esc(v.plate)}</h2><div style="font-size:.88rem;line-height:1.7"><i class="dot ${st.cls}"></i><b>${st.label}</b>${v.status==='online'?' · '+v.speed+' km/h':''}<br>${UTS.esc(UTS.near(v.lat, v.lng))}<br><span class="muted">Last signal ${UTS.clock(t)} (${UTS.ago(t)})</span></div><a class="btn green" target="_blank" rel="noopener" href="${UTS.maps(v.lat, v.lng)}">Open in Google Maps</a>`;
+}
+function select(plate, fly){
+  sel = plate; const v = data.find(x => x.plate === plate);
+  if(fly && v){ map.setView([v.lat, v.lng], 14); $('map').scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+  render();
+}
+$('go').onclick = () => { const pw = $('pw').value; if(!pw){ err('Enter the manager password.'); return; } err(''); load(pw); };
+$('pw').addEventListener('keydown', e => { if(e.key === 'Enter') $('go').click(); });
+$('stats').onclick = e => { const b = e.target.closest('[data-f]'); if(b){ filter = b.dataset.f; showAll = false; render(); } };
+$('list').onclick = e => { if(e.target.id === 'all'){ showAll = true; render(); return; } const r = e.target.closest('[data-p]'); if(r) select(r.dataset.p, true); };
+$('q').addEventListener('input', render);
+$('lock').onclick = () => { UTS.ss.del('uts:mgr'); clearTimeout(timer); data = []; $('pw').value = ''; show(false); };
+if(UTS.ss.get('uts:mgr')) load();
+</script>
+</body>
+</html>
