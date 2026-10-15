@@ -24,5 +24,7 @@
 - Home: https://unitedapexdevelopers.com/
 - AI Receptionist & AI Agents: https://unitedapexdevelopers.com/ai-agents.html
 - App Development: https://unitedapexdevelopers.com/app-development.html
+- Case Studies: https://unitedapexdevelopers.com/case-studies.html
+- UTS Karlo case study: https://unitedapexdevelopers.com/case-study-uts-karlo.html
 - About: https://unitedapexdevelopers.com/about.html
 - FAQ: https://unitedapexdevelopers.com/faq.html

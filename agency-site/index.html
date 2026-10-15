@@ -129,6 +129,19 @@ h1 em{font-style:italic;color:var(--blue)}
 @media(max-width:900px){.sec-title{grid-column:1/13}.sec-sub{grid-column:1/13;margin-top:1rem}}
 
 /* ===== SERVICES — editorial numbered list ===== */
+.work{padding:5.5rem 0;background:var(--bg-2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.work-card{display:grid;grid-template-columns:1.2fr .8fr;gap:2.5rem;align-items:center;border:1px solid var(--line);background:var(--bg);padding:2.2rem;transition:border-color .2s}
+.work-card:hover{border-color:var(--ink)}
+.work-card .wk-tag{font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);font-weight:600;margin-bottom:.8rem}
+.work-card h3{font-family:var(--serif);font-size:1.6rem;font-weight:600;line-height:1.2;margin-bottom:.8rem}
+.work-card p{font-size:.86rem;color:var(--muted);line-height:1.75;margin-bottom:1.2rem}
+.wk-kpis{display:flex;gap:2rem;flex-wrap:wrap;margin-bottom:1.3rem}
+.wk-kpis b{display:block;font-family:var(--serif);font-size:1.5rem;color:var(--blue)}
+.wk-kpis span{font-size:.7rem;color:var(--muted)}
+.wk-link{font-size:.84rem;font-weight:600;color:var(--blue)}
+.wk-phones{display:flex;gap:1rem;justify-content:center}
+.wk-phones img{width:160px;border-radius:20px;border:5px solid var(--ink);box-shadow:0 14px 34px rgba(15,23,42,.16)}
+@media(max-width:900px){.work-card{grid-template-columns:1fr;padding:1.5rem}.wk-phones img{width:130px}}
 .services{padding:5.5rem 0}
 .svc-row{display:grid;grid-template-columns:70px 3fr 4fr 110px;gap:1.8rem;align-items:center;padding:1.7rem 0;border-top:1px solid var(--line);transition:background .25s}
 .svc-row:last-child{border-bottom:1px solid var(--line)}
@@ -225,6 +238,7 @@ footer{padding:2.8rem 0;border-top:1px solid var(--line);display:flex;justify-co
       <li><a href="index.html" class="active">Home</a></li>
       <li><a href="ai-agents.html">AI Receptionist</a></li>
       <li><a href="app-development.html">App Development</a></li>
+      <li><a href="case-studies.html">Case Studies</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="faq.html">FAQ</a></li>
     </ul>
@@ -238,6 +252,7 @@ footer{padding:2.8rem 0;border-top:1px solid var(--line);display:flex;justify-co
   <a href="index.html">Home</a>
   <a href="ai-agents.html">AI Receptionist</a>
   <a href="app-development.html">App Development</a>
+  <a href="case-studies.html">Case Studies</a>
   <a href="about.html">About</a>
   <a href="faq.html">FAQ</a>
   <a href="#contact">Get Started</a>
@@ -301,6 +316,27 @@ footer{padding:2.8rem 0;border-top:1px solid var(--line);display:flex;justify-co
     <div class="svc-row"><div class="svc-num">07</div><div class="svc-name">App Maintenance &amp; Support</div><div class="svc-desc">Ongoing updates, bug fixes, new features, and performance monitoring to keep your app running through every OS update.</div><div class="svc-tag">Ongoing</div></div>
     <div class="svc-row"><div class="svc-num">08</div><div class="svc-name">Website + AI Bundle</div><div class="svc-desc">A high-converting website paired with a custom AI receptionist. Best for clinics, law firms, real estate, and service businesses.</div><div class="svc-tag">Bundle</div></div>
     <div class="svc-row"><div class="svc-num">09</div><div class="svc-name">Full-Stack Bundle</div><div class="svc-desc">Website, custom app, and AI receptionist, built and deployed together — the fastest way to launch a fully automated business.</div><div class="svc-tag">Best Value</div></div>
+  </div>
+</section>
+
+<!-- SELECTED WORK -->
+<section class="work" id="work">
+  <div class="wrap">
+    <div class="sec-head">
+      <div class="sec-tag">Selected Work</div>
+      <h2 class="sec-title">Built for a transport company running since 1970.</h2>
+      <p class="sec-sub">See how we turned phone-and-message bookings into one branded app — with a staff portal and secure live fleet tracking. <a href="case-studies.html" style="color:var(--blue)">All case studies →</a></p>
+    </div>
+    <a class="work-card" href="case-study-uts-karlo.html">
+      <div>
+        <div class="wk-tag">Case Study · Transport &amp; Mobility</div>
+        <h3>UTS Karlo — one app to rent, ride, track and run</h3>
+        <p>Customers rent a car with a driver or book pick &amp; drop in a few taps; staff and managers run bookings and the fleet from a protected portal; live vehicle tracking stays secure on our own server.</p>
+        <div class="wk-kpis"><div><b>3</b><span>Portals</span></div><div><b>262</b><span>Tracked vehicles</span></div><div><b>6</b><span>Cities</span></div><div><b>0</b><span>Tracker keys in the app</span></div></div>
+        <div class="wk-link">Read the case study →</div>
+      </div>
+      <div class="wk-phones"><img src="assets/case-studies/uts-karlo/home.jpg" alt="UTS Karlo home screen" loading="lazy"><img src="assets/case-studies/uts-karlo/book-list.jpg" alt="UTS Karlo rent a car" loading="lazy"></div>
+    </a>
   </div>
 </section>
 
@@ -402,6 +438,7 @@ footer{padding:2.8rem 0;border-top:1px solid var(--line);display:flex;justify-co
       <li><a href="index.html">Home</a></li>
       <li><a href="ai-agents.html">AI Receptionist</a></li>
       <li><a href="app-development.html">App Development</a></li>
+      <li><a href="case-studies.html">Case Studies</a></li>
       <li><a href="about.html">About</a></li>
       <li><a href="faq.html">FAQ</a></li>
       <li><a href="privacy-policy.html">Privacy Policy</a></li>
