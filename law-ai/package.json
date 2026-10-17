@@ -6,11 +6,14 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
-    "dev": "node --watch server.js"
+    "start": "node --disable-warning=ExperimentalWarning server.js",
+    "dev": "node --disable-warning=ExperimentalWarning --watch server.js",
+    "ingest:pk": "python3 ingest/pakistan.py",
+    "ingest:uk": "python3 ingest/uk.py",
+    "ingest:us": "python3 ingest/us.py && python3 ingest/us_constitution.py"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=22.13"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.135.0",

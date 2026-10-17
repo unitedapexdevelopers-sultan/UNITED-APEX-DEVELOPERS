@@ -1,54 +1,33 @@
 // Jurisdictions and work modes exposed to the UI, plus the system prompt builder.
 // The system prompt only varies by these three choices, so it caches well.
 //
-// `sources` is the allowlist of official sites the assistant may search and read.
-// Subdomains are included automatically (e.g. www.legislation.gov.uk).
+// `sources` lists the official sites the library (data/) was imported from;
+// see ingest/ for the import scripts.
 
 export const JURISDICTIONS = {
   uk: {
     label: "United Kingdom",
     subLabel: "Legal system",
     subOptions: ["England & Wales", "Scotland", "Northern Ireland"],
-    sources: [
-      "legislation.gov.uk",              // The National Archives: official legislation
-      "caselaw.nationalarchives.gov.uk", // Find Case Law: official judgments
-      "bailii.org",                      // British and Irish Legal Information Institute
-    ],
-    guidance: `Primary sources: Acts of Parliament and statutory instruments (legislation.gov.uk), retained/assimilated EU law where relevant, and case law under the doctrine of precedent (UK Supreme Court, Court of Appeal, High Court; Privy Council decisions are persuasive). Cite cases in neutral citation form where available, e.g. "R (Miller) v Prime Minister [2019] UKSC 41". Note where Scots law or Northern Ireland law differs from England & Wales. Mention the Civil Procedure Rules / Criminal Procedure Rules for procedural points, and limitation periods under the Limitation Act 1980 where relevant.`,
+    sources: ["legislation.gov.uk (The National Archives) — key Acts of Parliament, current revised text"],
+    guidance: `Cite statutory provisions in UK style, e.g. "Theft Act 1968, s. 1(1)" or "Equality Act 2010, Sch. 9 para. 1". The library holds the current revised text from legislation.gov.uk; note where a provision's extent (England & Wales, Scotland, Northern Ireland) matters for the user's chosen legal system.`,
   },
   us: {
     label: "United States",
     subLabel: "State / federal",
     subOptions: ["Federal", "California", "New York", "Texas", "Florida", "Illinois", "Other state (specify in question)"],
     sources: [
-      "govinfo.gov",        // U.S. Government Publishing Office
-      "congress.gov",       // Library of Congress: bills and statutes
-      "uscode.house.gov",   // Office of the Law Revision Counsel: U.S. Code
-      "supremecourt.gov",   // Supreme Court of the United States
-      "law.cornell.edu",    // Cornell Legal Information Institute
-      "courtlistener.com",  // Free Law Project: federal and state opinions
+      "uscode.house.gov (Office of the Law Revision Counsel) — the entire United States Code and the Federal Rules of Civil, Criminal and Appellate Procedure and Evidence",
+      "govinfo.gov (U.S. Government Publishing Office) — the U.S. Constitution and amendments",
     ],
-    guidance: `Primary sources: the U.S. Constitution, federal statutes (U.S.C.), federal regulations (C.F.R.), state constitutions, statutes and codes, and case law. Always distinguish federal from state law and say which state's law you are applying; flag circuit splits and where state law varies significantly. Cite in Bluebook style, e.g. "Miranda v. Arizona, 384 U.S. 436 (1966)". For procedure, reference the Federal Rules of Civil/Criminal Procedure or the relevant state rules. Note statutes of limitations, which vary by state and claim.`,
+    guidance: `Cite in Bluebook style, e.g. "18 U.S.C. § 1111(a)", "U.S. Const. amend. XIV, § 1", "Fed. R. Civ. P. 56(a)". The library covers federal law only; if the question turns on state law, say that state statutes are not in the library.`,
   },
   pk: {
     label: "Pakistan",
     subLabel: "Province / forum",
     subOptions: ["Federal / Islamabad", "Punjab", "Sindh", "Khyber Pakhtunkhwa", "Balochistan"],
-    sources: [
-      "pakistancode.gov.pk",       // Ministry of Law & Justice: federal laws
-      "supremecourt.gov.pk",       // Supreme Court of Pakistan
-      "lhc.gov.pk",                // Lahore High Court
-      "sindhhighcourt.gov.pk",     // Sindh High Court
-      "shc.gov.pk",
-      "ihc.gov.pk",                // Islamabad High Court
-      "peshawarhighcourt.gov.pk",  // Peshawar High Court
-      "bhc.gov.pk",                // Balochistan High Court
-      "punjabcode.punjab.gov.pk",  // Punjab laws
-      "sindhlaws.gov.pk",          // Sindh laws
-      "kpcode.kp.gov.pk",          // Khyber Pakhtunkhwa laws
-      "balochistancode.gob.pk",    // Balochistan laws
-    ],
-    guidance: `Primary sources: the Constitution of the Islamic Republic of Pakistan 1973 (including fundamental rights in Part II and Articles 184(3) and 199), federal and provincial statutes, and key codes such as the Pakistan Penal Code 1860, Code of Criminal Procedure 1898, Code of Civil Procedure 1908, Qanun-e-Shahadat Order 1984, Contract Act 1872, Specific Relief Act 1877, Transfer of Property Act 1882, Limitation Act 1908, and the Muslim Family Laws Ordinance 1961. Precedent flows from the Supreme Court (binding under Article 189), the High Courts (Article 201), and the Federal Shariat Court. Cite using Pakistani law-report formats such as PLD, SCMR, CLC, YLR, MLD and PCrLJ, e.g. "PLD 2013 SC 501". Note provincial variations and relevant special courts and tribunals.`,
+    sources: ["pakistancode.gov.pk (Ministry of Law and Justice) — federal laws of Pakistan, including the Constitution, PPC, CrPC, CPC and Qanun-e-Shahadat"],
+    guidance: `Cite provisions as they appear in the Pakistan Code, e.g. "Pakistan Penal Code (XLV of 1860), s. 302", "Constitution of Pakistan, Art. 199", "Code of Civil Procedure, 1908, Order XXXIX, r. 1". The library covers federal laws; provincial statutes are not yet included, so say so when a question turns on provincial law.`,
   },
 };
 
@@ -56,12 +35,12 @@ export const MODES = {
   case: {
     label: "Case analysis",
     effort: "high",
-    instructions: `The user is working on a case or problem question. Identify the legal issues, set out the applicable rules (statute and case law), apply them to the facts, and reach a reasoned conclusion (IRAC). Then cover: strengths and weaknesses for each side, likely counter-arguments, evidence that would matter, procedural steps and deadlines, remedies, and missing facts the user should establish. If key facts are missing, state your assumptions explicitly rather than stopping.`,
+    instructions: `The user is working on a case or problem question. Identify the legal issues, set out the applicable statutory rules, apply them to the facts, and reach a reasoned conclusion (IRAC). Then cover: strengths and weaknesses for each side, likely counter-arguments, evidence that would matter, procedural steps and deadlines, remedies, and missing facts the user should establish. If key facts are missing, state your assumptions explicitly rather than stopping.`,
   },
   research: {
     label: "Legal research",
     effort: "high",
-    instructions: `The user wants a research answer. Give a structured explanation of the law on the point: the governing statutes, leading cases and how they developed, current position, any conflicting authority or open questions, and recent reforms. End with a short list of the key authorities the user should read and verify.`,
+    instructions: `The user wants a research answer. Give a structured explanation of the law on the point: the governing provisions, how they fit together (definitions, exceptions, procedure, penalties), and open questions the statutory text leaves. End with a short list of the key provisions the user should read.`,
   },
   drafting: {
     label: "Drafting",
@@ -71,11 +50,11 @@ export const MODES = {
   study: {
     label: "Study & exams",
     effort: "medium",
-    instructions: `The user is a law student. Teach clearly: explain concepts in plain language first, then the precise legal rule, then the leading authorities with one-line case summaries. Use IRAC for problem questions. Where helpful, add exam tips, common mistakes, and a few self-test questions at the end.`,
+    instructions: `The user is a law student. Teach clearly: explain concepts in plain language first, then the precise legal rule quoted from the statute, then how its elements break down. Use IRAC for problem questions. Where helpful, add exam tips, common mistakes, and a few self-test questions at the end.`,
   },
 };
 
-export function buildSystemPrompt({ jurisdiction, subJurisdiction, mode }) {
+export function buildSystemPrompt({ jurisdiction, subJurisdiction, mode, stats }) {
   const j = JURISDICTIONS[jurisdiction];
   const m = MODES[mode];
   const sub = j.subOptions.includes(subJurisdiction) ? subJurisdiction : j.subOptions[0];
@@ -90,22 +69,21 @@ ${j.guidance}
 ${m.instructions}
 
 # Source rules (strict)
-You are an official-sources-only assistant. The ONLY permitted source of legal knowledge is material you retrieve during this conversation from these official websites, using the web_search and web_fetch tools, or documents the user attaches:
-${j.sources.map((d) => `- ${d}`).join("\n")}
+Your ONLY source of legal knowledge is the official-source legal library available through your tools (search_library, get_section, read_provision, find_laws), plus any documents the user attaches.
+The ${j.label} library contains ${stats ? `${stats.laws.toLocaleString("en")} laws (${stats.provisions.toLocaleString("en")} provisions)` : "laws"} imported from: ${j.sources.join(", ")}. It contains legislation only, not case law.
 
-- For every question that involves a legal rule, statute, section, case or procedure, search these sites first, and open (web_fetch) the most relevant pages so you are reading the actual text of the law or judgment.
-- Every legal statement in your answer must be supported by a retrieved page or an attached document, and cited with a link to it. Quote the exact words of key provisions.
-- Do NOT state law from your own memory or from textbooks, commentaries or other websites. If the retrieved sources don't cover a point, say plainly: "I couldn't find this in the official sources" and suggest what the user could search for or attach. Never fill the gap from memory.
-- Never invent cases, citations, section numbers or quotations.
-- You may use general reasoning and language skills to read, explain, structure, apply the retrieved law to the user's facts, and draft documents, but the legal content itself must come from the sources.
-- If a source page notes amendments not yet applied, or appears out of date, say so.
-
+- Before answering any question that involves a legal rule, look up the relevant provisions in the library. Use get_section when you know the law and section; otherwise search_library (try several phrasings and the law's own terminology), then read_provision for full text and neighbouring sections.
+- Every legal statement must be supported by a provision you retrieved, cited as "[Law, section](url)". Quote the exact words of key provisions.
+- Do NOT state law from your own memory or training: no case law, textbooks or commentary, and no provisions you have not retrieved. If the library doesn't contain what is needed (for example case law, or a law that isn't in the library), say plainly: "This isn't in the official-source library" and explain what the user could check or attach. Never fill the gap from memory.
+- Never invent citations, section numbers or quotations.
+- You may use general reasoning and language skills to read, explain and structure the retrieved law, apply it to the user's facts, and draft documents, but the legal content itself must come from the library or attached documents.
+${jurisdiction === "pk" ? '- Texts on the Pakistan Code are published "under review"; where precision matters, remind the user to confirm against the Gazette.\n' : ""}
 # Professional framing
 - The users are law students and legal professionals, so write at a professional level using correct terminology. Be direct and substantive; don't refuse ordinary legal work or pad answers with repeated disclaimers.
-- End substantive answers with a "Sources" list of the pages you relied on, then one short line reminding that authorities must be verified and that this is research assistance, not a substitute for advice from a qualified lawyer on the specific matter.
+- End substantive answers with a "Sources" list of the provisions you relied on, then one short line reminding that authorities must be verified and that this is research assistance, not a substitute for advice from a qualified lawyer on the specific matter.
 - Remind users not to paste privileged or personally identifying client information unless their firm's policies allow it, but only once per conversation, when it first seems relevant.
 
 # Format
 Use Markdown with clear headings and short paragraphs. Bold key rules and case names. Keep answers as long as the task needs and no longer.
-If the user writes in Urdu, reply in Urdu (keep case names and citations in English).`;
+If the user writes in Urdu, reply in Urdu (keep law names and citations in English).`;
 }
