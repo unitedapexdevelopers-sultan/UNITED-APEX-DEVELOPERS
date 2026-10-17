@@ -7,7 +7,7 @@ import { buildSystemPrompt, JURISDICTIONS, MODES } from "./prompts.js";
 const here = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT) || 3000;
 const MODEL = "claude-opus-5-5";
-const MAX_CONTINUATIONS = 4; // server tools (web search) can return pause_turn
+const MAX_CONTINUATIONS = 4; // server tools (web search/fetch) can return pause_turn
 
 const client = new Anthropic();
 const app = express();
@@ -58,7 +58,7 @@ function sanitizeMessages(raw) {
 }
 
 app.post("/api/chat", async (req, res) => {
-  const { jurisdiction, subJurisdiction, mode, webSearch } = req.body ?? {};
+  const { jurisdiction, subJurisdiction, mode } = req.body ?? {};
   if (!JURISDICTIONS[jurisdiction] || !MODES[mode]) {
     return res.status(400).json({ error: "Unknown jurisdiction or mode." });
   }
@@ -79,9 +79,12 @@ app.post("/api/chat", async (req, res) => {
     stream?.abort();
   });
 
-  const tools = webSearch
-    ? [{ type: "web_search_20260209", name: "web_search", max_uses: 5 }]
-    : undefined;
+  // Search and reading are locked to the jurisdiction's official sites.
+  const allowed_domains = JURISDICTIONS[jurisdiction].sources;
+  const tools = [
+    { type: "web_search_20260209", name: "web_search", max_uses: 5, allowed_domains },
+    { type: "web_fetch_20260209", name: "web_fetch", max_uses: 6, allowed_domains, max_content_tokens: 25000 },
+  ];
 
   try {
     for (let turn = 0; turn <= MAX_CONTINUATIONS && !aborted; turn++) {
@@ -94,14 +97,19 @@ app.post("/api/chat", async (req, res) => {
         output_config: { effort: MODES[mode].effort },
         system: buildSystemPrompt({ jurisdiction, subJurisdiction, mode }),
         messages,
-        ...(tools && { tools }),
+        tools,
       });
 
       for await (const event of stream) {
         if (event.type === "content_block_start") {
           const block = event.content_block;
           if (block.type === "server_tool_use" && block.name === "web_search") {
-            send({ type: "status", text: "Searching the web for authorities..." });
+            send({ type: "status", text: "Searching official sources..." });
+          } else if (block.type === "server_tool_use" && block.name === "web_fetch") {
+            send({ type: "status", text: "Reading the official text..." });
+          } else if (block.type === "web_fetch_tool_result" && block.content?.type === "web_fetch_result") {
+            const doc = block.content;
+            send({ type: "sources", sources: [{ title: doc.content?.title || doc.url, url: doc.url }] });
           } else if (block.type === "web_search_tool_result" && Array.isArray(block.content)) {
             send({
               type: "sources",

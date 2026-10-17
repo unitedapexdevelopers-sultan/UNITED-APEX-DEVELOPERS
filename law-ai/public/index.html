@@ -199,9 +199,7 @@
       <span>Mode</span>
       <div class="seg modes" id="modes" role="group" aria-label="Mode"></div>
     </div>
-    <label class="toggle">Web research (latest law)
-      <input type="checkbox" id="webSearch" checked>
-    </label>
+    <p class="hint" id="sourcesHint"></p>
 
     <div class="field">
       <span>Voice</span>
@@ -257,7 +255,7 @@
           </button>
         </div>
       </form>
-      <p class="disclaimer">Research assistance for law students and legal professionals. Always verify authorities — not a substitute for advice on a specific matter.</p>
+      <p class="disclaimer">Answers come only from official legal sources, with links. Always verify authorities — not a substitute for advice on a specific matter.</p>
     </div>
   </main>
 </div>
@@ -334,6 +332,7 @@
       b.onclick = () => { state.mode = key; store.set("mode", key); renderSettings(); };
       mWrap.append(b);
     }
+    $("sourcesHint").innerHTML = "<b>Answers only from official sources:</b><br>" + j.sources.join(", ");
     $("contextChip").textContent = `${short[state.jurisdiction]} · ${modes[state.mode].label}`;
   }
   $("sub").onchange = (e) => { state.sub = e.target.value; store.set("sub", state.sub); };
@@ -348,7 +347,7 @@
     thread.innerHTML = `
       <div class="welcome">
         <h2>Your AI legal associate</h2>
-        <p>Case analysis, research, drafting and exam prep across UK, US and Pakistani law. Type, attach a judgment, or just speak.</p>
+        <p>Answers drawn only from official government and court sources for UK, US and Pakistani law. Type, attach a judgment, or just speak.</p>
         <div class="examples"></div>
       </div>`;
     const ex = thread.querySelector(".examples");
@@ -439,7 +438,6 @@
           jurisdiction: state.jurisdiction,
           subJurisdiction: state.sub,
           mode: state.mode,
-          webSearch: $("webSearch").checked,
           messages: state.history,
         }),
       });
@@ -689,8 +687,6 @@
       if (id === "handsFree" && !el.checked) stt.stop();
     };
   }
-  $("webSearch").checked = store.get("webSearch", true);
-  $("webSearch").onchange = (e) => store.set("webSearch", e.target.checked);
 
   $("newChat").onclick = () => {
     state.controller?.abort(); stt.stop(); tts.stop();

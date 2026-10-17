@@ -12,8 +12,11 @@ It covers **UK, US and Pakistani law** and runs on Claude (`claude-opus-5-5`).
   - 🔊 Have answers read aloud, or tap *Listen* on any answer.
   - Hands-free conversation: speak, hear the answer, and it listens again.
 - **PDF upload:** attach judgments, contracts or pleadings for review.
-- **Web research:** optionally searches the web for current law and lists its sources.
-- **Streaming:** answers appear as they're written. The model has to say when it isn't sure of a citation, and it must not invent authorities.
+- **Official sources only:** every answer is researched live from an allowlist of official government and court websites for the chosen jurisdiction (see `sources` in `prompts.js`). Search and page reading are technically restricted to those domains. The assistant must cite a link for each legal point, and if the sources don't cover something it says *"I couldn't find this in the official sources"* instead of answering from memory.
+  - **Pakistan:** pakistancode.gov.pk, Supreme Court, the High Courts, and provincial law codes
+  - **UK:** legislation.gov.uk, Find Case Law, BAILII
+  - **US:** govinfo.gov, congress.gov, uscode.house.gov, supremecourt.gov, Cornell LII, CourtListener
+- **Streaming:** answers appear as they're written.
 
 Voice uses the browser's built-in speech features, so it costs nothing extra. It works best in **Chrome or Edge**. Safari supports it partly; Firefox has no speech input.
 The page must be opened on `localhost` or over HTTPS for microphone access.
