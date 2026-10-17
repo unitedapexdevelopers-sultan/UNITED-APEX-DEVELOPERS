@@ -1,0 +1,713 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apex Counsel AI</title>
+<meta name="description" content="Voice-enabled legal AI assistant for law students and lawyers — UK, US and Pakistani law. By United Apex Developers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+<style>
+  :root {
+    --bg: #0b1220;
+    --panel: #111a2e;
+    --panel-2: #16213a;
+    --border: #24314f;
+    --text: #e7ecf5;
+    --muted: #93a0ba;
+    --gold: #d4af37;
+    --gold-soft: rgba(212, 175, 55, .14);
+    --user: #1d2b4a;
+    --danger: #ef6b6b;
+    --live: #e5484d;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font: 15px/1.6 Inter, system-ui, sans-serif;
+  }
+  button, select, textarea, input { font: inherit; color: inherit; }
+  button { cursor: pointer; }
+  :focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+
+  .app { display: grid; grid-template-columns: 300px 1fr; height: 100vh; height: 100dvh; }
+
+  /* Sidebar */
+  aside {
+    background: var(--panel);
+    border-right: 1px solid var(--border);
+    padding: 22px 20px;
+    overflow-y: auto;
+    display: flex; flex-direction: column; gap: 20px;
+  }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .brand-mark {
+    width: 42px; height: 42px; border-radius: 10px;
+    background: var(--gold-soft); border: 1px solid var(--gold);
+    display: grid; place-items: center; color: var(--gold);
+  }
+  .brand h1 { font: 700 24px/1.1 "Cormorant Garamond", serif; margin: 0; letter-spacing: .3px; }
+  .brand small { color: var(--muted); font-size: 12px; }
+  .field { display: flex; flex-direction: column; gap: 6px; }
+  .field > span { font-size: 12px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); font-weight: 600; }
+  .seg { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .seg button {
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px;
+    padding: 9px 4px; font-size: 13px; font-weight: 500;
+  }
+  .seg button[aria-pressed="true"] { border-color: var(--gold); background: var(--gold-soft); color: var(--gold); }
+  .modes { grid-template-columns: 1fr 1fr; }
+  select {
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px; padding: 9px 10px; width: 100%;
+  }
+  .toggle { display: flex; align-items: center; justify-content: space-between; gap: 10px; font-size: 14px; }
+  .toggle input { width: 38px; height: 22px; accent-color: var(--gold); }
+  .hint { color: var(--muted); font-size: 12px; margin: -2px 0 0; }
+  .new-chat {
+    margin-top: auto; background: transparent; border: 1px solid var(--border); border-radius: 10px; padding: 10px;
+  }
+  .new-chat:hover { border-color: var(--gold); }
+
+  /* Main */
+  main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+  .topbar {
+    display: none; align-items: center; justify-content: space-between; gap: 10px;
+    padding: 12px 16px; border-bottom: 1px solid var(--border); background: var(--panel);
+  }
+  .topbar strong { font: 700 20px "Cormorant Garamond", serif; }
+  .icon-btn {
+    background: var(--panel-2); border: 1px solid var(--border); border-radius: 10px;
+    width: 40px; height: 40px; display: grid; place-items: center; flex: none;
+  }
+  .context-chip { font-size: 12px; color: var(--gold); background: var(--gold-soft); padding: 4px 10px; border-radius: 99px; }
+
+  #messages { flex: 1; overflow-y: auto; padding: 28px 16px 12px; }
+  .thread { max-width: 820px; margin: 0 auto; display: flex; flex-direction: column; gap: 18px; }
+
+  .welcome { text-align: center; padding: 6vh 8px 0; }
+  .welcome h2 { font: 700 40px/1.1 "Cormorant Garamond", serif; margin: 0 0 8px; }
+  .welcome p { color: var(--muted); margin: 0 auto 24px; max-width: 520px; }
+  .examples { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; text-align: left; }
+  .examples button {
+    background: var(--panel); border: 1px solid var(--border); border-radius: var(--radius);
+    padding: 14px; font-size: 14px; color: var(--text); text-align: left;
+  }
+  .examples button:hover { border-color: var(--gold); }
+  .examples b { display: block; color: var(--gold); font-size: 12px; margin-bottom: 4px; font-weight: 600; }
+
+  .msg { display: flex; flex-direction: column; gap: 6px; }
+  .msg.user { align-items: flex-end; }
+  .bubble { border-radius: var(--radius); padding: 12px 16px; max-width: 100%; overflow-wrap: anywhere; }
+  .msg.user .bubble { background: var(--user); max-width: 85%; white-space: pre-wrap; }
+  .msg.assistant .bubble { background: var(--panel); border: 1px solid var(--border); }
+  .bubble :is(h1, h2, h3) { font-family: "Cormorant Garamond", serif; color: var(--gold); line-height: 1.2; margin: 14px 0 6px; }
+  .bubble h1 { font-size: 26px; } .bubble h2 { font-size: 22px; } .bubble h3 { font-size: 19px; }
+  .bubble p { margin: 8px 0; }
+  .bubble ul, .bubble ol { padding-left: 22px; }
+  .bubble a { color: var(--gold); }
+  .bubble code { background: var(--panel-2); padding: 1px 5px; border-radius: 5px; }
+  .bubble pre { background: var(--panel-2); padding: 12px; border-radius: 10px; overflow-x: auto; }
+  .bubble blockquote { border-left: 3px solid var(--gold); margin: 8px 0; padding-left: 12px; color: var(--muted); }
+  .bubble table { border-collapse: collapse; display: block; overflow-x: auto; }
+  .bubble td, .bubble th { border: 1px solid var(--border); padding: 6px 10px; }
+  .attach-tag { font-size: 12px; color: var(--gold); }
+  .status { color: var(--muted); font-size: 13px; font-style: italic; }
+  .error { color: var(--danger); }
+  .sources { font-size: 12px; color: var(--muted); }
+  .sources a { color: var(--muted); }
+  .msg-actions { display: flex; gap: 8px; }
+  .msg-actions button {
+    background: transparent; border: 1px solid var(--border); border-radius: 8px;
+    padding: 4px 10px; font-size: 12px; color: var(--muted); display: inline-flex; gap: 6px; align-items: center;
+  }
+  .msg-actions button:hover { color: var(--text); border-color: var(--gold); }
+  .cursor::after { content: "▍"; color: var(--gold); animation: blink 1s steps(2) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* Composer */
+  .composer-wrap { padding: 10px 16px 16px; }
+  .voice-banner {
+    max-width: 820px; margin: 0 auto 8px; display: none; align-items: center; gap: 10px;
+    background: rgba(229, 72, 77, .12); border: 1px solid rgba(229, 72, 77, .4); color: #ffb4b6;
+    border-radius: 10px; padding: 8px 12px; font-size: 13px;
+  }
+  .voice-banner.show { display: flex; }
+  .voice-banner .dot { width: 9px; height: 9px; border-radius: 50%; background: var(--live); animation: pulse 1.2s infinite; }
+  @keyframes pulse { 50% { transform: scale(1.5); opacity: .5; } }
+  .composer {
+    max-width: 820px; margin: 0 auto; background: var(--panel); border: 1px solid var(--border);
+    border-radius: var(--radius); padding: 8px; display: flex; flex-direction: column; gap: 6px;
+  }
+  .composer:focus-within { border-color: var(--gold); }
+  .files { display: flex; flex-wrap: wrap; gap: 6px; }
+  .file-chip { background: var(--panel-2); border-radius: 8px; padding: 3px 8px; font-size: 12px; display: flex; gap: 6px; align-items: center; }
+  .file-chip button { background: none; border: 0; color: var(--muted); padding: 0; }
+  .composer-row { display: flex; align-items: flex-end; gap: 6px; }
+  textarea {
+    flex: 1; resize: none; border: 0; background: transparent; padding: 9px 6px; min-height: 42px; max-height: 200px;
+  }
+  textarea:focus { outline: none; }
+  .mic.listening { background: var(--live); border-color: var(--live); color: #fff; animation: pulse-ring 1.4s infinite; }
+  @keyframes pulse-ring { 0% { box-shadow: 0 0 0 0 rgba(229,72,77,.55); } 100% { box-shadow: 0 0 0 12px rgba(229,72,77,0); } }
+  .send { background: var(--gold); border-color: var(--gold); color: #1a1405; }
+  .send:disabled { opacity: .45; cursor: not-allowed; }
+  .disclaimer { max-width: 820px; margin: 8px auto 0; text-align: center; color: var(--muted); font-size: 11.5px; }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+
+  @media (max-width: 860px) {
+    .app { grid-template-columns: 1fr; }
+    aside {
+      position: fixed; inset: 0 auto 0 0; width: min(320px, 88vw); z-index: 20;
+      transform: translateX(-100%); transition: transform .2s ease;
+    }
+    aside.open { transform: none; box-shadow: 0 0 0 100vmax rgba(0,0,0,.5); }
+    .topbar { display: flex; }
+    .welcome h2 { font-size: 32px; }
+  }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside id="sidebar" aria-label="Settings">
+    <div class="brand">
+      <div class="brand-mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 21h14M3 7h18M6 7l-3 7a3 3 0 0 0 6 0L6 7zM18 7l-3 7a3 3 0 0 0 6 0l-3-7z"/></svg>
+      </div>
+      <div>
+        <h1>Apex Counsel AI</h1>
+        <small>by United Apex Developers</small>
+      </div>
+    </div>
+
+    <div class="field">
+      <span>Jurisdiction</span>
+      <div class="seg" id="jurisdictions" role="group" aria-label="Jurisdiction"></div>
+    </div>
+    <label class="field">
+      <span id="subLabel">Legal system</span>
+      <select id="sub"></select>
+    </label>
+    <div class="field">
+      <span>Mode</span>
+      <div class="seg modes" id="modes" role="group" aria-label="Mode"></div>
+    </div>
+    <label class="toggle">Web research (latest law)
+      <input type="checkbox" id="webSearch" checked>
+    </label>
+
+    <div class="field">
+      <span>Voice</span>
+      <select id="voiceLang" aria-label="Voice language">
+        <option value="en-GB">English (UK)</option>
+        <option value="en-US">English (US)</option>
+        <option value="en-PK">English (Pakistan)</option>
+        <option value="ur-PK">اردو Urdu (Pakistan)</option>
+      </select>
+    </div>
+    <label class="toggle">Read answers aloud
+      <input type="checkbox" id="autoSpeak">
+    </label>
+    <label class="toggle">Hands-free conversation
+      <input type="checkbox" id="handsFree">
+    </label>
+    <p class="hint" id="voiceHint">Hands-free: speak, it answers out loud, then listens again.</p>
+
+    <button class="new-chat" id="newChat">+ New conversation</button>
+  </aside>
+
+  <main>
+    <div class="topbar">
+      <button class="icon-btn" id="menuBtn" aria-label="Open settings">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <strong>Apex Counsel</strong>
+      <span class="context-chip" id="contextChip"></span>
+    </div>
+
+    <div id="messages" aria-live="polite">
+      <div class="thread" id="thread"></div>
+    </div>
+
+    <div class="composer-wrap">
+      <div class="voice-banner" id="voiceBanner" role="status">
+        <span class="dot" aria-hidden="true"></span><span id="voiceBannerText">Listening…</span>
+      </div>
+      <form class="composer" id="composer">
+        <div class="files" id="files"></div>
+        <div class="composer-row">
+          <label class="icon-btn" title="Attach PDF (judgment, contract, pleadings)">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21 11-8.6 8.6a5 5 0 0 1-7-7l8.5-8.6a3.3 3.3 0 0 1 4.7 4.7l-8.6 8.6a1.7 1.7 0 0 1-2.3-2.3L16 7"/></svg>
+            <span class="sr-only">Attach PDF</span>
+            <input type="file" id="fileInput" accept="application/pdf" multiple hidden>
+          </label>
+          <textarea id="input" rows="1" placeholder="Describe your case, ask a legal question, or tap the mic…" aria-label="Message"></textarea>
+          <button type="button" class="icon-btn mic" id="micBtn" aria-label="Speak your question" aria-pressed="false" title="Speak">
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 10a7 7 0 0 0 14 0M12 17v4M8 21h8"/></svg>
+          </button>
+          <button type="submit" class="icon-btn send" id="sendBtn" aria-label="Send" disabled>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </button>
+        </div>
+      </form>
+      <p class="disclaimer">Research assistance for law students and legal professionals. Always verify authorities — not a substitute for advice on a specific matter.</p>
+    </div>
+  </main>
+</div>
+
+<script>
+(() => {
+  const $ = (id) => document.getElementById(id);
+  const store = {
+    get(k, d) { try { const v = localStorage.getItem("apex:" + k); return v === null ? d : JSON.parse(v); } catch { return d; } },
+    set(k, v) { try { localStorage.setItem("apex:" + k, JSON.stringify(v)); } catch {} },
+  };
+
+  const state = {
+    config: null,
+    jurisdiction: store.get("jurisdiction", "uk"),
+    sub: store.get("sub", null),
+    mode: store.get("mode", "case"),
+    history: [],        // Anthropic-format messages sent to the server
+    pendingFiles: [],   // { name, data }
+    busy: false,
+    controller: null,
+  };
+
+  const EXAMPLES = {
+    uk: [
+      ["Case analysis", "My client slipped on an unmarked wet floor in a supermarket in Leeds and broke her wrist. Analyse liability under the Occupiers' Liability Act 1957."],
+      ["Study & exams", "Explain the postal rule in contract law with leading cases and exam tips."],
+      ["Drafting", "Draft a letter before action for an unpaid invoice of £8,500 under the Pre-Action Protocol for Debt Claims."],
+    ],
+    us: [
+      ["Case analysis", "Client was terminated two weeks after filing a workplace safety complaint in California. Assess a wrongful termination / retaliation claim."],
+      ["Legal research", "What is the current test for personal jurisdiction over out-of-state corporations after Mallory v. Norfolk Southern?"],
+      ["Study & exams", "Explain the Erie doctrine with a simple example and practice questions."],
+    ],
+    pk: [
+      ["Case analysis", "Accused arrested under Section 9(c) CNSA in Lahore with 1.2 kg charas. What are the grounds for post-arrest bail?"],
+      ["Drafting", "Draft a legal notice for recovery of Rs. 2,500,000 under a dishonoured cheque (Section 489-F PPC)."],
+      ["Study & exams", "Explain the scope of Article 199 writ jurisdiction of the High Courts with leading judgments."],
+    ],
+  };
+
+  // ---------- Settings UI ----------
+  function renderSettings() {
+    const { jurisdictions, modes } = state.config;
+    const jWrap = $("jurisdictions");
+    jWrap.innerHTML = "";
+    const short = { uk: "UK", us: "US", pk: "Pakistan" };
+    for (const [key, j] of Object.entries(jurisdictions)) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = short[key] || j.label;
+      b.title = j.label;
+      b.setAttribute("aria-pressed", String(key === state.jurisdiction));
+      b.onclick = () => {
+        state.jurisdiction = key; state.sub = null;
+        store.set("jurisdiction", key); store.set("sub", null);
+        renderSettings(); if (!state.history.length) renderWelcome();
+      };
+      jWrap.append(b);
+    }
+    const j = jurisdictions[state.jurisdiction];
+    $("subLabel").textContent = j.subLabel;
+    const sel = $("sub");
+    sel.innerHTML = j.subOptions.map((o) => `<option>${o}</option>`).join("");
+    if (j.subOptions.includes(state.sub)) sel.value = state.sub; else state.sub = j.subOptions[0];
+
+    const mWrap = $("modes");
+    mWrap.innerHTML = "";
+    for (const [key, m] of Object.entries(modes)) {
+      const b = document.createElement("button");
+      b.type = "button";
+      b.textContent = m.label;
+      b.setAttribute("aria-pressed", String(key === state.mode));
+      b.onclick = () => { state.mode = key; store.set("mode", key); renderSettings(); };
+      mWrap.append(b);
+    }
+    $("contextChip").textContent = `${short[state.jurisdiction]} · ${modes[state.mode].label}`;
+  }
+  $("sub").onchange = (e) => { state.sub = e.target.value; store.set("sub", state.sub); };
+
+  // ---------- Messages ----------
+  const thread = $("thread");
+  const scroller = $("messages");
+  const scrollDown = () => { scroller.scrollTop = scroller.scrollHeight; };
+  const renderMd = (md) => DOMPurify.sanitize(marked.parse(md, { breaks: false }));
+
+  function renderWelcome() {
+    thread.innerHTML = `
+      <div class="welcome">
+        <h2>Your AI legal associate</h2>
+        <p>Case analysis, research, drafting and exam prep across UK, US and Pakistani law. Type, attach a judgment, or just speak.</p>
+        <div class="examples"></div>
+      </div>`;
+    const ex = thread.querySelector(".examples");
+    for (const [tag, text] of EXAMPLES[state.jurisdiction]) {
+      const b = document.createElement("button");
+      b.innerHTML = `<b>${tag}</b>`;
+      b.append(text);
+      b.onclick = () => { $("input").value = text; updateSend(); $("input").focus(); };
+      ex.append(b);
+    }
+  }
+
+  function addUserMessage(text, files) {
+    thread.querySelector(".welcome")?.remove();
+    const el = document.createElement("div");
+    el.className = "msg user";
+    const bubble = document.createElement("div");
+    bubble.className = "bubble";
+    bubble.textContent = text;
+    el.append(bubble);
+    if (files.length) {
+      const tag = document.createElement("div");
+      tag.className = "attach-tag";
+      tag.textContent = "📎 " + files.map((f) => f.name).join(", ");
+      el.append(tag);
+    }
+    thread.append(el);
+    scrollDown();
+  }
+
+  function addAssistantMessage() {
+    const el = document.createElement("div");
+    el.className = "msg assistant";
+    el.innerHTML = `<div class="bubble cursor"><span class="status">Thinking…</span></div>`;
+    thread.append(el);
+    scrollDown();
+    return el;
+  }
+
+  function addActions(el, text) {
+    const actions = document.createElement("div");
+    actions.className = "msg-actions";
+    const listen = document.createElement("button");
+    listen.innerHTML = "🔊 Listen";
+    listen.onclick = () => { if (tts.speaking === el) tts.stop(); else tts.speak(text, el, listen); };
+    const copy = document.createElement("button");
+    copy.textContent = "Copy";
+    copy.onclick = async () => {
+      try { await navigator.clipboard.writeText(text); copy.textContent = "Copied"; } catch { copy.textContent = "Copy failed"; }
+      setTimeout(() => (copy.textContent = "Copy"), 1500);
+    };
+    actions.append(listen, copy);
+    el.append(actions);
+    return listen;
+  }
+
+  // ---------- Sending ----------
+  async function send(text) {
+    text = text.trim();
+    if ((!text && !state.pendingFiles.length) || state.busy) return;
+    stt.stop(); tts.stop();
+    const files = state.pendingFiles.splice(0);
+    renderFiles();
+    $("input").value = ""; autoGrow(); updateSend();
+
+    const prompt = text || "Please review the attached document(s) and summarise the key legal issues.";
+    addUserMessage(prompt, files);
+    const content = [
+      ...files.map((f) => ({ type: "document", title: f.name, source: { type: "base64", media_type: "application/pdf", data: f.data } })),
+      { type: "text", text: prompt },
+    ];
+    state.history.push({ role: "user", content });
+
+    const el = addAssistantMessage();
+    const bubble = el.querySelector(".bubble");
+    let answer = "";
+    let sources = [];
+    let failed = false;
+    setBusy(true);
+    state.controller = new AbortController();
+
+    try {
+      const res = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: state.controller.signal,
+        body: JSON.stringify({
+          jurisdiction: state.jurisdiction,
+          subJurisdiction: state.sub,
+          mode: state.mode,
+          webSearch: $("webSearch").checked,
+          messages: state.history,
+        }),
+      });
+      if (!res.ok || !res.body) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || `Server error (${res.status})`);
+      }
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+      let buf = "";
+      let raf = 0;
+      const paint = () => { raf = 0; bubble.innerHTML = renderMd(answer); scrollDown(); };
+      while (true) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        buf += decoder.decode(value, { stream: true });
+        let idx;
+        while ((idx = buf.indexOf("\n\n")) >= 0) {
+          const line = buf.slice(0, idx); buf = buf.slice(idx + 2);
+          if (!line.startsWith("data: ")) continue;
+          const ev = JSON.parse(line.slice(6));
+          if (ev.type === "text") {
+            answer += ev.text;
+            if (!raf) raf = requestAnimationFrame(paint);
+          } else if (ev.type === "status" && !answer) {
+            bubble.innerHTML = `<span class="status">${DOMPurify.sanitize(ev.text)}</span>`;
+          } else if (ev.type === "status") {
+            answer += `\n\n*${ev.text}*`;
+          } else if (ev.type === "sources") {
+            sources.push(...ev.sources);
+          } else if (ev.type === "error") {
+            failed = !answer;
+            answer += (answer ? "\n\n" : "") + `**⚠ ${ev.text}**`;
+          }
+        }
+      }
+      if (raf) cancelAnimationFrame(raf);
+      paint();
+    } catch (e) {
+      failed = true;
+      if (e.name === "AbortError") answer += answer ? "\n\n*Stopped.*" : "*Stopped.*";
+      else answer += `\n\n**⚠ ${e.message}**`;
+      bubble.innerHTML = renderMd(answer);
+    } finally {
+      bubble.classList.remove("cursor");
+      setBusy(false);
+    }
+
+    if (failed || !answer.trim()) {
+      state.history.pop(); // keep history valid for the next attempt
+      if (failed) bubble.classList.add("error");
+      return;
+    }
+    state.history.push({ role: "assistant", content: answer });
+
+    if (sources.length) {
+      const seen = new Set();
+      const list = sources.filter((s) => !seen.has(s.url) && seen.add(s.url)).slice(0, 8);
+      const div = document.createElement("div");
+      div.className = "sources";
+      div.innerHTML = "Sources: " + list.map((s) =>
+        `<a href="${encodeURI(s.url)}" target="_blank" rel="noopener">${DOMPurify.sanitize(s.title || s.url)}</a>`).join(" · ");
+      el.append(div);
+    }
+    const listenBtn = addActions(el, answer);
+    if ($("autoSpeak").checked || $("handsFree").checked) {
+      tts.speak(answer, el, listenBtn, () => { if ($("handsFree").checked) stt.start(true); });
+    }
+  }
+
+  function setBusy(b) {
+    state.busy = b;
+    const btn = $("sendBtn");
+    btn.disabled = !b && !canSend();
+    btn.setAttribute("aria-label", b ? "Stop" : "Send");
+    btn.innerHTML = b
+      ? `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2"/></svg>`
+      : `<svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>`;
+  }
+  const canSend = () => $("input").value.trim() || state.pendingFiles.length;
+  const updateSend = () => { if (!state.busy) $("sendBtn").disabled = !canSend(); };
+  function autoGrow() { const t = $("input"); t.style.height = "auto"; t.style.height = Math.min(t.scrollHeight, 200) + "px"; }
+
+  $("composer").onsubmit = (e) => {
+    e.preventDefault();
+    if (state.busy) state.controller?.abort(); else send($("input").value);
+  };
+  $("input").addEventListener("input", () => { autoGrow(); updateSend(); });
+  $("input").addEventListener("keydown", (e) => {
+    if (e.key === "Enter" && !e.shiftKey && !e.isComposing) { e.preventDefault(); $("composer").requestSubmit(); }
+  });
+
+  // ---------- PDF attachments ----------
+  $("fileInput").onchange = async (e) => {
+    for (const file of e.target.files) {
+      if (file.type !== "application/pdf") { alert(`${file.name} is not a PDF.`); continue; }
+      if (file.size > 15 * 1024 * 1024) { alert(`${file.name} is larger than 15 MB.`); continue; }
+      const data = await new Promise((resolve, reject) => {
+        const r = new FileReader();
+        r.onload = () => resolve(String(r.result).split(",")[1]);
+        r.onerror = reject;
+        r.readAsDataURL(file);
+      });
+      state.pendingFiles.push({ name: file.name, data });
+    }
+    e.target.value = "";
+    renderFiles(); updateSend();
+  };
+  function renderFiles() {
+    const wrap = $("files");
+    wrap.innerHTML = "";
+    state.pendingFiles.forEach((f, i) => {
+      const chip = document.createElement("span");
+      chip.className = "file-chip";
+      chip.textContent = "📄 " + f.name;
+      const x = document.createElement("button");
+      x.type = "button"; x.textContent = "✕"; x.setAttribute("aria-label", "Remove " + f.name);
+      x.onclick = () => { state.pendingFiles.splice(i, 1); renderFiles(); updateSend(); };
+      chip.append(x);
+      wrap.append(chip);
+    });
+  }
+
+  // ---------- Voice: speech-to-text ----------
+  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const banner = $("voiceBanner"), bannerText = $("voiceBannerText"), micBtn = $("micBtn");
+  const stt = {
+    rec: null, active: false, autoSend: false, base: "",
+    start(autoSend = false) {
+      if (!Recognition) { alert("Voice input needs Chrome, Edge or Safari."); return; }
+      if (this.active || state.busy) return;
+      tts.stop();
+      this.autoSend = autoSend || $("handsFree").checked;
+      this.base = $("input").value ? $("input").value.trim() + " " : "";
+      const rec = new Recognition();
+      rec.lang = $("voiceLang").value;
+      rec.interimResults = true;
+      rec.continuous = !this.autoSend; // hands-free stops at the first pause
+      rec.onresult = (e) => {
+        let finalText = "", interim = "";
+        for (let i = 0; i < e.results.length; i++) {
+          const r = e.results[i];
+          if (r.isFinal) finalText += r[0].transcript; else interim += r[0].transcript;
+        }
+        $("input").value = this.base + finalText + interim;
+        autoGrow(); updateSend();
+      };
+      rec.onerror = (e) => {
+        if (e.error === "not-allowed" || e.error === "service-not-allowed") {
+          alert("Microphone access was blocked. Allow the microphone for this site and try again.");
+          $("handsFree").checked = false;
+        }
+      };
+      rec.onend = () => {
+        this.active = false; this.rec = null; setMicUI(false);
+        if (this.autoSend && $("input").value.trim()) send($("input").value);
+      };
+      this.rec = rec; this.active = true; setMicUI(true);
+      rec.start();
+    },
+    stop(submit = false) {
+      if (!this.rec) return;
+      this.autoSend = submit;
+      this.rec.stop();
+    },
+  };
+  function setMicUI(on) {
+    micBtn.classList.toggle("listening", on);
+    micBtn.setAttribute("aria-pressed", String(on));
+    banner.classList.toggle("show", on);
+    bannerText.textContent = stt.autoSend ? "Listening… pause when you're done and it will send." : "Listening… tap the mic again to stop.";
+  }
+  micBtn.onclick = () => (stt.active ? stt.stop($("handsFree").checked) : stt.start());
+
+  // ---------- Voice: text-to-speech ----------
+  const synth = window.speechSynthesis;
+  const tts = {
+    speaking: null, button: null, onDone: null, gen: 0,
+    plain(md) {
+      return md
+        .replace(/```[\s\S]*?```/g, " ")
+        .replace(/!\[[^\]]*\]\([^)]*\)/g, "")
+        .replace(/\[([^\]]+)\]\([^)]*\)/g, "$1")
+        .replace(/^\s{0,3}#{1,6}\s*/gm, "")
+        .replace(/^\s*[-*+]\s+/gm, "")
+        .replace(/^\s*>\s?/gm, "")
+        .replace(/\|/g, " ")
+        .replace(/[*_`~]+/g, "")
+        .replace(/^-{3,}$/gm, "")
+        .replace(/\bs\.\s?(\d)/g, "section $1")
+        .replace(/\bv\.?\s/g, " versus ")
+        .replace(/\s+\n/g, "\n");
+    },
+    voice() {
+      const lang = $("voiceLang").value;
+      const voices = synth.getVoices();
+      return voices.find((v) => v.lang === lang)
+        || voices.find((v) => v.lang.replace("_", "-").startsWith(lang.slice(0, 2)))
+        || null;
+    },
+    speak(md, el, button, onDone) {
+      if (!synth) { alert("Spoken answers aren't supported in this browser."); return; }
+      this.stop();
+      // Chrome cuts off long utterances, so speak sentence-sized chunks.
+      const chunks = this.plain(md).match(/[^.!?۔\n]+[.!?۔]*|\n+/g)?.map((s) => s.trim()).filter(Boolean) || [];
+      if (!chunks.length) { onDone?.(); return; }
+      const gen = ++this.gen; // ignore late "end" events from cancelled speech
+      this.speaking = el; this.button = button; this.onDone = onDone || null;
+      if (button) button.innerHTML = "⏹ Stop";
+      const voice = this.voice();
+      chunks.forEach((text, i) => {
+        const u = new SpeechSynthesisUtterance(text);
+        u.lang = $("voiceLang").value;
+        if (voice) u.voice = voice;
+        u.rate = 1.02;
+        if (i === chunks.length - 1) u.onend = () => { if (gen === this.gen) this.finish(true); };
+        synth.speak(u);
+      });
+    },
+    finish(completed) {
+      if (this.button) this.button.innerHTML = "🔊 Listen";
+      const cb = this.onDone;
+      this.speaking = null; this.button = null; this.onDone = null;
+      if (completed) cb?.();
+    },
+    stop() {
+      if (!synth) return;
+      this.gen++;
+      if (this.speaking) this.finish(false);
+      synth.cancel();
+    },
+  };
+  synth?.getVoices(); // warm up the voice list
+  if (!Recognition) {
+    micBtn.title = "Voice input needs Chrome, Edge or Safari";
+    $("voiceHint").textContent = "Voice input isn't supported in this browser — try Chrome or Edge.";
+  }
+
+  // ---------- Misc ----------
+  for (const id of ["voiceLang", "autoSpeak", "handsFree"]) {
+    const el = $(id);
+    const saved = store.get(id, null);
+    if (saved !== null) { if (el.type === "checkbox") el.checked = saved; else el.value = saved; }
+    el.onchange = () => {
+      store.set(id, el.type === "checkbox" ? el.checked : el.value);
+      if (id === "handsFree" && el.checked && !state.busy) stt.start(true);
+      if (id === "handsFree" && !el.checked) stt.stop();
+    };
+  }
+  $("webSearch").checked = store.get("webSearch", true);
+  $("webSearch").onchange = (e) => store.set("webSearch", e.target.checked);
+
+  $("newChat").onclick = () => {
+    state.controller?.abort(); stt.stop(); tts.stop();
+    state.history = []; state.pendingFiles = []; renderFiles();
+    renderWelcome(); $("sidebar").classList.remove("open");
+  };
+  $("menuBtn").onclick = (e) => { e.stopPropagation(); $("sidebar").classList.toggle("open"); };
+  document.addEventListener("click", (e) => {
+    const sb = $("sidebar");
+    if (sb.classList.contains("open") && !sb.contains(e.target)) sb.classList.remove("open");
+  });
+
+  fetch("/api/config")
+    .then((r) => r.json())
+    .then((cfg) => { state.config = cfg; renderSettings(); renderWelcome(); })
+    .catch(() => { thread.innerHTML = `<p class="error">Couldn't reach the server. Start it with <code>npm start</code>.</p>`; });
+})();
+</script>
+</body>
+</html>
